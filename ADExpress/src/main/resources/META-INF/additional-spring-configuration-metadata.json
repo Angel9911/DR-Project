@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Description for jwt.secret."
+    },
+    {
+      "name": "adexpress.app.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Description for adexpress.app.jwtSecret."
+    },
+    {
+      "name": "adexpress.app.jwtExpirationMs",
+      "type": "java.lang.String",
+      "description": "Description for adexpress.app.jwtExpirationMs."
+    }
+  ] }

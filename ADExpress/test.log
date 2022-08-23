@@ -1,0 +1,329 @@
+2022-08-22 00:43:30.725  INFO 1912 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:43:30.828  INFO 1912 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:43:30.837  INFO 1912 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:43:30.842  INFO 1912 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:43:30.846  INFO 1912 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:44:05.286 ERROR 1912 --- [http-nio-8082-exec-5] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Bad credentials
+2022-08-22 00:44:10.583  INFO 1912 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:10.669  INFO 1912 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:10.674  INFO 1912 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:10.686  INFO 1912 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:10.690  INFO 1912 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:10.703  WARN 1912 --- [http-nio-8082-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42703
+2022-08-22 00:44:10.703 ERROR 1912 --- [http-nio-8082-exec-2] o.h.engine.jdbc.spi.SqlExceptionHelper   : The column name package_price was not found in this ResultSet.
+2022-08-22 00:44:23.454  INFO 1912 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:23.459  INFO 1912 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:23.464  WARN 1912 --- [http-nio-8082-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42703
+2022-08-22 00:44:23.464 ERROR 1912 --- [http-nio-8082-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : The column name package_price was not found in this ResultSet.
+2022-08-22 00:44:26.333  INFO 1912 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:26.337  INFO 1912 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-courier2
+2022-08-22 00:44:35.060  INFO 1912 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:35.158  INFO 1912 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:35.161  INFO 1912 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:35.187  INFO 1912 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:35.189  INFO 1912 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:35.192  WARN 1912 --- [http-nio-8082-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42703
+2022-08-22 00:44:35.193 ERROR 1912 --- [http-nio-8082-exec-4] o.h.engine.jdbc.spi.SqlExceptionHelper   : The column name package_price was not found in this ResultSet.
+2022-08-22 00:44:40.291  INFO 1912 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:40.294  INFO 1912 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:40.297  WARN 1912 --- [http-nio-8082-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 42703
+2022-08-22 00:44:40.297 ERROR 1912 --- [http-nio-8082-exec-8] o.h.engine.jdbc.spi.SqlExceptionHelper   : The column name package_price was not found in this ResultSet.
+2022-08-22 00:44:40.787  INFO 1912 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:40.791  INFO 1912 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : ipetrov
+2022-08-22 00:44:55.865  INFO 1912 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:44:55.955  INFO 1912 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:44:55.959  INFO 1912 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:44:55.968  INFO 1912 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 00:44:55.972  INFO 1912 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:43:59.070  INFO 16276 --- [main] com.example.demo.AdExpressApplication    : Starting AdExpressApplication using Java 16.0.2 on DESKTOP-O1SSE52 with PID 16276 (E:\Programs\SpringAngularProject\angular7-springboot-crud-tutorial-master\ADExpress\target\classes started by Angel in E:\Programs\SpringAngularProject\angular7-springboot-crud-tutorial-master\ADExpress)
+2022-08-22 10:43:59.073  INFO 16276 --- [main] com.example.demo.AdExpressApplication    : No active profile set, falling back to 1 default profile: "default"
+2022-08-22 10:43:59.756  INFO 16276 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-22 10:43:59.833  INFO 16276 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 69 ms. Found 10 JPA repository interfaces.
+2022-08-22 10:44:00.689  INFO 16276 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+2022-08-22 10:44:00.701  INFO 16276 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-22 10:44:00.701  INFO 16276 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-08-22 10:44:00.846  INFO 16276 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-22 10:44:00.846  INFO 16276 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1717 ms
+2022-08-22 10:44:01.046  INFO 16276 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-22 10:44:01.134  INFO 16276 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-08-22 10:44:01.366  INFO 16276 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-22 10:44:01.515  INFO 16276 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-22 10:44:01.645  INFO 16276 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-22 10:44:01.664  INFO 16276 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-08-22 10:44:02.626  INFO 16276 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-22 10:44:02.636  INFO 16276 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-22 10:44:03.097  WARN 16276 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-22 10:44:03.412  WARN 16276 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/account/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-22 10:44:03.413  INFO 16276 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/account/**'] with []
+2022-08-22 10:44:03.413  WARN 16276 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/customer/email/{email}']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-22 10:44:03.413  INFO 16276 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/customer/email/{email}'] with []
+2022-08-22 10:44:03.414  WARN 16276 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/customer/city/{name}']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-22 10:44:03.414  INFO 16276 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/customer/city/{name}'] with []
+2022-08-22 10:44:03.507  INFO 16276 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2022-08-22 10:44:03.606  INFO 16276 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-08-22 10:44:03.829  INFO 16276 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http) with context path ''
+2022-08-22 10:44:03.839  INFO 16276 --- [main] com.example.demo.AdExpressApplication    : Started AdExpressApplication in 5.207 seconds (JVM running for 6.143)
+2022-08-22 10:46:16.387  INFO 16276 --- [http-nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-22 10:46:16.388  INFO 16276 --- [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-22 10:46:16.390  INFO 16276 --- [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-08-22 10:46:16.787  INFO 16276 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:46:17.058  INFO 16276 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:46:17.067  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:46:17.076  INFO 16276 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:46:17.085  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:47:39.219  INFO 16276 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:47:39.232  INFO 16276 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:49:44.605 ERROR 16276 --- [http-nio-8082-exec-6] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:49:16Z. Current time: 2022-08-22T10:49:44Z, a difference of 28602 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:49:44.608 ERROR 16276 --- [http-nio-8082-exec-5] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:49:16Z. Current time: 2022-08-22T10:49:44Z, a difference of 28608 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:49:44.609 ERROR 16276 --- [http-nio-8082-exec-6] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:49:16Z. Current time: 2022-08-22T10:49:44Z, a difference of 28608 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:49:44.612 ERROR 16276 --- [http-nio-8082-exec-5] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:49:16Z. Current time: 2022-08-22T10:49:44Z, a difference of 28611 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:49:44.624  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:49:44.805  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:49:44.817  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:49:44.818  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:49:44.836  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:55:08.966 ERROR 16276 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:52:44Z. Current time: 2022-08-22T10:55:08Z, a difference of 144965 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:55:08.968 ERROR 16276 --- [http-nio-8082-exec-3] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:52:44Z. Current time: 2022-08-22T10:55:08Z, a difference of 144967 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:55:08.968 ERROR 16276 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:52:44Z. Current time: 2022-08-22T10:55:08Z, a difference of 144967 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:55:08.971 ERROR 16276 --- [http-nio-8082-exec-3] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:52:44Z. Current time: 2022-08-22T10:55:08Z, a difference of 144971 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:55:08.984  INFO 16276 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:55:09.198  INFO 16276 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:55:09.201  INFO 16276 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:55:09.208  INFO 16276 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:55:09.214  INFO 16276 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:11.291  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:11.298  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:15.491  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:15.496  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:22.517  INFO 16276 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:22.523  INFO 16276 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:26.668  INFO 16276 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:56:26.675  INFO 16276 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 10:58:50.062 ERROR 16276 --- [http-nio-8082-exec-3] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:58:09Z. Current time: 2022-08-22T10:58:50Z, a difference of 41061 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 10:58:50.064 ERROR 16276 --- [http-nio-8082-exec-3] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 11:03:46.826 ERROR 16276 --- [http-nio-8082-exec-5] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T10:58:09Z. Current time: 2022-08-22T11:03:46Z, a difference of 337826 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 11:03:46.827 ERROR 16276 --- [http-nio-8082-exec-5] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 11:03:51.954  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:03:52.096  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:03:52.105  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:03:52.184  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:03:52.192  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:05:19.769  INFO 16276 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:05:19.776  INFO 16276 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:06:08.269  INFO 16276 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:06:08.275  INFO 16276 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:07:44.651  INFO 16276 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:07:44.825  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:07:44.825  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:07:44.833  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:07:44.833  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:11:59.231 ERROR 16276 --- [http-nio-8082-exec-2] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T11:10:44Z. Current time: 2022-08-22T11:11:59Z, a difference of 75230 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 11:11:59.231 ERROR 16276 --- [http-nio-8082-exec-2] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 11:16:12.970  INFO 16276 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:16:13.118  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:16:13.131  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:16:13.218  INFO 16276 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:16:13.228  INFO 16276 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:18:44.989  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:18:44.996  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:19:13.983 ERROR 16276 --- [http-nio-8082-exec-2] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T11:19:13Z. Current time: 2022-08-22T11:19:13Z, a difference of 983 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 11:19:13.984 ERROR 16276 --- [http-nio-8082-exec-2] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 11:19:40.725 ERROR 16276 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T11:19:13Z. Current time: 2022-08-22T11:19:40Z, a difference of 27725 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 11:19:40.725 ERROR 16276 --- [http-nio-8082-exec-1] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 11:19:48.417  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:19:48.625  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:19:48.631  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:19:48.637  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:19:48.645  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:20:08.957  INFO 16276 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:20:08.961  INFO 16276 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:20:27.037  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:20:27.043  INFO 16276 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:20:35.671  INFO 16276 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:20:35.676  INFO 16276 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:23:30.029 ERROR 16276 --- [http-nio-8082-exec-4] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T11:22:48Z. Current time: 2022-08-22T11:23:30Z, a difference of 42028 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 11:23:30.030 ERROR 16276 --- [http-nio-8082-exec-4] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 11:23:39.448  INFO 16276 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:23:39.661  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:23:39.664  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:23:39.668  INFO 16276 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:23:39.672  INFO 16276 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:23:56.601  INFO 16276 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 11:23:56.606  INFO 16276 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:34:45.761  INFO 18712 --- [main] com.example.demo.AdExpressApplication    : Starting AdExpressApplication using Java 16.0.2 on DESKTOP-O1SSE52 with PID 18712 (E:\Programs\SpringAngularProject\angular7-springboot-crud-tutorial-master\ADExpress\target\classes started by Angel in E:\Programs\SpringAngularProject\angular7-springboot-crud-tutorial-master\ADExpress)
+2022-08-22 15:34:45.764  INFO 18712 --- [main] com.example.demo.AdExpressApplication    : No active profile set, falling back to 1 default profile: "default"
+2022-08-22 15:34:46.295  INFO 18712 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-22 15:34:46.359  INFO 18712 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 10 JPA repository interfaces.
+2022-08-22 15:34:46.984  INFO 18712 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+2022-08-22 15:34:46.990  INFO 18712 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-22 15:34:46.991  INFO 18712 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.58]
+2022-08-22 15:34:47.081  INFO 18712 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-22 15:34:47.082  INFO 18712 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1265 ms
+2022-08-22 15:34:47.222  INFO 18712 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-22 15:34:47.257  INFO 18712 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.5.Final
+2022-08-22 15:34:47.354  INFO 18712 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-22 15:34:47.425  INFO 18712 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-08-22 15:34:47.505  INFO 18712 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-08-22 15:34:47.518  INFO 18712 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-08-22 15:34:48.203  INFO 18712 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-22 15:34:48.210  INFO 18712 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-22 15:34:48.590  WARN 18712 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-22 15:34:48.900  WARN 18712 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/account/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-22 15:34:48.901  INFO 18712 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/account/**'] with []
+2022-08-22 15:34:48.902  WARN 18712 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/customer/email/{email}']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-22 15:34:48.902  INFO 18712 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/customer/email/{email}'] with []
+2022-08-22 15:34:48.902  WARN 18712 --- [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/customer/city/{name}']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2022-08-22 15:34:48.902  INFO 18712 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/customer/city/{name}'] with []
+2022-08-22 15:34:48.992  INFO 18712 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2022-08-22 15:34:49.090  INFO 18712 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-08-22 15:34:49.337  INFO 18712 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http) with context path ''
+2022-08-22 15:34:49.347  INFO 18712 --- [main] com.example.demo.AdExpressApplication    : Started AdExpressApplication in 3.933 seconds (JVM running for 4.658)
+2022-08-22 15:37:07.301  INFO 18712 --- [http-nio-8082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-22 15:37:07.301  INFO 18712 --- [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-22 15:37:07.302  INFO 18712 --- [http-nio-8082-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2022-08-22 15:37:07.554  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:37:07.704  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:37:07.709  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:37:07.712  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:37:07.719  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:38:16.808  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:38:16.816  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:41:07.503 ERROR 18712 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:40:07Z. Current time: 2022-08-22T15:41:07Z, a difference of 60500 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:41:07.505 ERROR 18712 --- [http-nio-8082-exec-1] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:41:27.422  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:41:27.528  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:41:27.541  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:41:27.566  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:41:27.575  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:43:44.827  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:43:44.832  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:44:19.741  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:44:19.746  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:45:56.896 ERROR 18712 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:44:27Z. Current time: 2022-08-22T15:45:56Z, a difference of 89896 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:45:56.897 ERROR 18712 --- [http-nio-8082-exec-1] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:47:05.146 ERROR 18712 --- [http-nio-8082-exec-4] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:44:27Z. Current time: 2022-08-22T15:47:05Z, a difference of 158146 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:47:05.147 ERROR 18712 --- [http-nio-8082-exec-4] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:47:10.086  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:47:10.174  INFO 18712 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:47:10.181  INFO 18712 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:47:10.190  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:47:10.200  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:49:45.875  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:49:45.880  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:49:52.110  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:49:52.198  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:49:52.205  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:49:52.216  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:49:52.223  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:51:18.123  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:51:18.128  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 15:54:19.158 ERROR 18712 --- [http-nio-8082-exec-10] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T15:54:19Z, a difference of 87157 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:54:19.158 ERROR 18712 --- [http-nio-8082-exec-10] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:54:37.017 ERROR 18712 --- [http-nio-8082-exec-2] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T15:54:37Z, a difference of 105017 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:54:37.018 ERROR 18712 --- [http-nio-8082-exec-2] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:55:56.111 ERROR 18712 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T15:55:56Z, a difference of 184111 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:55:56.112 ERROR 18712 --- [http-nio-8082-exec-1] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:56:08.539 ERROR 18712 --- [http-nio-8082-exec-4] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T15:56:08Z, a difference of 196539 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:56:08.540 ERROR 18712 --- [http-nio-8082-exec-4] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:56:30.843 ERROR 18712 --- [http-nio-8082-exec-5] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T15:56:30Z, a difference of 218843 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:56:30.843 ERROR 18712 --- [http-nio-8082-exec-5] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:57:08.032 ERROR 18712 --- [http-nio-8082-exec-8] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T15:57:08Z, a difference of 256032 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:57:08.033 ERROR 18712 --- [http-nio-8082-exec-8] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:57:39.928 ERROR 18712 --- [http-nio-8082-exec-6] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 15:58:11.449 ERROR 18712 --- [http-nio-8082-exec-10] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T15:58:11Z, a difference of 319449 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 15:58:11.449 ERROR 18712 --- [http-nio-8082-exec-10] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:11:50.149 ERROR 18712 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T16:11:50Z, a difference of 1138149 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:11:50.150 ERROR 18712 --- [http-nio-8082-exec-1] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:14:27.012 ERROR 18712 --- [http-nio-8082-exec-5] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T16:14:27Z, a difference of 1295011 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:14:27.013 ERROR 18712 --- [http-nio-8082-exec-5] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:15:27.171 ERROR 18712 --- [http-nio-8082-exec-6] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T15:52:52Z. Current time: 2022-08-22T16:15:27Z, a difference of 1355170 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:15:27.172 ERROR 18712 --- [http-nio-8082-exec-6] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:15:32.704  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:15:32.813  INFO 18712 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:15:32.824  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:15:32.825  INFO 18712 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:15:32.834  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:21:15.832 ERROR 18712 --- [http-nio-8082-exec-8] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:18:32Z. Current time: 2022-08-22T16:21:15Z, a difference of 163832 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:21:15.833 ERROR 18712 --- [http-nio-8082-exec-8] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:22:07.771 ERROR 18712 --- [http-nio-8082-exec-6] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:18:32Z. Current time: 2022-08-22T16:22:07Z, a difference of 215771 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:22:07.772 ERROR 18712 --- [http-nio-8082-exec-6] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:22:49.366 ERROR 18712 --- [http-nio-8082-exec-9] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:18:32Z. Current time: 2022-08-22T16:22:49Z, a difference of 257366 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:22:49.367 ERROR 18712 --- [http-nio-8082-exec-9] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:23:28.393 ERROR 18712 --- [http-nio-8082-exec-7] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:18:32Z. Current time: 2022-08-22T16:23:28Z, a difference of 296392 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:23:28.393 ERROR 18712 --- [http-nio-8082-exec-7] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:23:36.977 ERROR 18712 --- [http-nio-8082-exec-10] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:18:32Z. Current time: 2022-08-22T16:23:36Z, a difference of 304977 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:23:36.978 ERROR 18712 --- [http-nio-8082-exec-10] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:25:51.191 ERROR 18712 --- [http-nio-8082-exec-3] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:18:32Z. Current time: 2022-08-22T16:25:51Z, a difference of 439191 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:25:51.192 ERROR 18712 --- [http-nio-8082-exec-3] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:26:12.175 ERROR 18712 --- [http-nio-8082-exec-1] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:18:32Z. Current time: 2022-08-22T16:26:12Z, a difference of 460175 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:26:12.175 ERROR 18712 --- [http-nio-8082-exec-1] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:26:18.049  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:26:18.135  INFO 18712 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:26:18.142  INFO 18712 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:26:18.152  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:26:18.160  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:29:13.651  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:29:13.658  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:24.468 ERROR 18712 --- [http-nio-8082-exec-3] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:29:18Z. Current time: 2022-08-22T16:30:24Z, a difference of 66467 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:30:24.468 ERROR 18712 --- [http-nio-8082-exec-3] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:30:31.000  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:31.085  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:31.091  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:31.101  INFO 18712 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:31.107  INFO 18712 --- [http-nio-8082-exec-8] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:52.927  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:53.017  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:53.021  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:53.033  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:30:53.037  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:31:13.207  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:31:13.212  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:31:58.186  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:31:58.192  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:33.051  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:33.056  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:37.554  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:37.647  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:37.651  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:37.666  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:37.670  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:45.079  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:45.084  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:49.432  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:49.435  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:56.481  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:32:56.484  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.850  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.850  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.855  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.855  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.860  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.945  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.952  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.957  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:29.962  INFO 18712 --- [http-nio-8082-exec-9] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:44.733  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:44.739  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:55.235  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:34:55.240  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:35:01.459  INFO 18712 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:35:01.463  INFO 18712 --- [http-nio-8082-exec-3] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:35:10.814  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:35:10.818  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:35:24.697  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:35:24.700  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:41:26.516 ERROR 18712 --- [http-nio-8082-exec-4] com.example.demo.config.JwtTokenUtil     : JWT token is expired: JWT expired at 2022-08-22T16:37:29Z. Current time: 2022-08-22T16:41:26Z, a difference of 237516 milliseconds.  Allowed clock skew: 0 milliseconds.
+2022-08-22 16:41:26.517 ERROR 18712 --- [http-nio-8082-exec-4] c.example.demo.config.JwtAuthEntryPoint  : Unauthorized access error : Full authentication is required to access this resource
+2022-08-22 16:41:33.910  INFO 18712 --- [http-nio-8082-exec-7] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:41:33.994  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:41:33.999  INFO 18712 --- [http-nio-8082-exec-10] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:41:34.007  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:41:34.011  INFO 18712 --- [http-nio-8082-exec-2] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:41:58.071  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:41:58.075  INFO 18712 --- [http-nio-8082-exec-5] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:42:24.507  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:42:24.510  INFO 18712 --- [http-nio-8082-exec-1] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:42:45.709  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:42:45.713  INFO 18712 --- [http-nio-8082-exec-6] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:43:33.558  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
+2022-08-22 16:43:33.562  INFO 18712 --- [http-nio-8082-exec-4] c.e.d.s.Impl.UserAccountServiceImp       : test-customer
