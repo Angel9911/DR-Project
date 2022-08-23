@@ -1,0 +1,100 @@
+<app-header-layout-user></app-header-layout-user>
+<div class="container">
+  <div class="row gutters">
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="account-settings">
+            <div class="user-profile">
+              <div class="user-avatar">
+                <img [src]="ProfileSrc" class="img-fluid" style="width: 160px; height: 160px" alt="Maxwell Admin">
+              </div>
+              <h5 class="user-name">{{FirstName}} {{LastName}}</h5>
+              <h6 class="user-email">{{Email}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+      <div class="card h-100">
+        <div class="card-body">
+          <form [formGroup]="userAccountForm"  #customer (ngSubmit)="updateCustomer(customer)" novalidate>
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h6 class="mb-2 text-primary">Лични данни</h6>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="firstname">Име</label>
+                <input type="text" class="form-control" formControlName="firstname" name="firstname" id="firstname" placeholder="Въведете име" >
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="email">Имейл</label>
+                <input type="email" class="form-control" formControlName="email" name="email" id="email"  placeholder="Въведете имейл">
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="lastname">Фамилия</label>
+                <input type="text" class="form-control" formControlName="lastname" name="lastname" id="lastname" placeholder="Въведете фамилия">
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="phone">Телефон</label>
+                <input type="url" class="form-control" formControlName="phone" name="phone" id="phone"  placeholder="Въведете телефон">
+              </div>
+            </div>
+          </div>
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h6 class="mt-3 mb-2 text-primary">Адрес</h6>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="address">Улица</label>
+                <input type="text" class="form-control" formControlName="address" name="address" id="address" placeholder="Въведете вашият адрес">
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="city">Град</label>
+                <select class="form-control" formControlName="city" name="city" id="city">
+                  <option *ngFor="let city of cityList" [selected]="city.name === ngSelect" [value]="city">{{city}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h6 class="mt-3 mb-2 text-primary">Потребителски данни</h6>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="oldPassword">Въведи текуща парола</label>
+                <input type="password" class="form-control" formControlName="oldPassword" name="oldPassword" id="oldPassword" placeholder="Въведете текуща парола">
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div class="form-group">
+                <label for="newPassword">Въведи нова парола</label>
+                <input type="password" class="form-control" formControlName="newPassword" name="newPassword" id="newPassword" placeholder="Въведете нова парола">
+              </div>
+            </div>
+              <div class="text-right">
+                <button type="button" id="submit1" name="submit" class="btn btn-secondary">Откажи</button>
+                <button [disabled]="loading" class="btn btn-primary">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                  Поднови
+                </button>
+              </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

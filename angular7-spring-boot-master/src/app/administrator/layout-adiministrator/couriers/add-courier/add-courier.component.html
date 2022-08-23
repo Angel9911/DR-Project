@@ -1,0 +1,26 @@
+<app-header-layout-adiministrator></app-header-layout-adiministrator>
+<div class="col-md-6 user-container">
+  <h2 class="text-center">Добави куриер</h2>
+  <form [formGroup]="addForm" #courier (ngSubmit)="createCourier(courier)" novalidate>
+    <div class="form-group">
+      <label for="courier_first_name">Име</label>
+      <input type="text" [(ngModel)]="courierCreate.courier_first_name" formControlName="courier_first_name" placeholder="Име" name="courier_first_name" class="form-control" id="courier_first_name">
+    </div>
+
+    <div class="form-group">
+      <label for="courier_last_name">Фамилия</label>
+      <input type="text" [(ngModel)]="courierCreate.courier_last_name" formControlName="courier_last_name" placeholder="Фамилия" name="courier_last_name" class="form-control" id="courier_last_name">
+    </div>
+
+    <div class="form-group">
+      <label for="city_name">Град:</label>
+      <input type="text" [(ngModel)]="courierCreate.courier_city_name" formControlName="city_name" placeholder="Град" name="city_name" class="form-control" id="city_name">
+    </div>
+    <div class="form-group">
+      <label for="courier_phone">Телефон:</label>
+      <input type="text" [(ngModel)]="courierCreate.courier_phone" formControlName="courier_phone" placeholder="Телефон" name="courier_phone" class="form-control" id="courier_phone">
+    </div>
+
+    <button class="btn btn-success">Добави</button>
+  </form>
+</div>

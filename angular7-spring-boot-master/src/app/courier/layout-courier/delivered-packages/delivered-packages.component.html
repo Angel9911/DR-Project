@@ -1,0 +1,25 @@
+<app-header-courier></app-header-courier>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Код на пратка</th>
+    <th scope="col">Име на пратка</th>
+    <th scope="col">Тип на пратка</th>
+    <th scope="col">Име на клиент</th>
+    <th scope="col">Телефонен номер на клиент</th>
+    <th scope="col">Адрес за доставка</th>
+    <th scope="col">Статус на пратка</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let packages of deliveredPackages$ | async; index as i">
+    <td>{{packages.package_id}}</td>
+    <td>{{packages.name_package}}</td>
+    <td>{{packages.typePackage.type_name}}</td>
+    <td>{{packages.customer.name + ' ' + packages.customer.last_name}}</td>
+    <td>{{packages.customer.phone}}</td>
+    <td>{{null}}</td>
+    <td>{{packages.statusPackage.status_type}}</td>
+  </tr>
+  </tbody>
+</table>

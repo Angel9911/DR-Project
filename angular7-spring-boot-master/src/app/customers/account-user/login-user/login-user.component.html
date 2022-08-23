@@ -1,0 +1,81 @@
+<app-header-login-user></app-header-login-user>
+<!--<div class="card">
+<h1 class="card-header">Вход</h1>
+<div class="card-body">
+<form [formGroup]="loginform" #user (ngSubmit)="LoginUser(user)" novalidate>
+  <div class="form-group">
+    <label for="username">Username:</label>
+    <input type="text" [(ngModel)]="customer.username" placeholder="Input your username"  formControlName="username" name="username" class="form-control" id="username"
+    [ngClass]="{'is-invalid': submitted && loginform.controls['username'].errors }">
+    <div *ngIf="submitted && loginform.controls['username'].errors" class="invalid-feedback">
+      <div *ngIf="loginform.controls['username'].errors.required">Изисква се въвеждане на потребителско име</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" [(ngModel)]="customer.password" placeholder="Input your password" formControlName="password" name="password" class="form-control" id="password"
+    [ngClass]="{'is-invalid': submitted && loginform.controls['password'].errors }">
+    <div *ngIf="submitted && loginform.controls['password'].errors" class="invalid-feedback">
+      <div *ngIf="loginform.controls['password'].errors.required">Изисква се въвеждане на парола</div>
+      <div *ngIf="loginform.controls['password'].errors.minlength">Паролата трябва да бъде поне 8 символа</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <button [disabled]="loading"  class="btn primary">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Sign in
+    </button>
+  </div>
+  <p>Ако нямате регистрация</p><a routerLink="/account-user/register-user" class="nav-link"> Регистрация</a>
+</form>
+</div>
+</div>-->
+<div class="card text-center">
+  <div class="card-header">
+    Вход
+  </div>
+  <div class="card-body">
+    <form [formGroup]="loginform" #user (ngSubmit)="LoginUser(user)" novalidate>
+      <div class="row justify-content-center">
+        <div class="col-4 ">
+          <div class="card border-0"> <!--border-0 withour border-->
+            <div class="card-body align-items-center d-flex justify-content-center ">
+              <div class="form-group md-2 col-xs-5 col-lg-6">
+                <label for="username">Потребителско име:</label>
+                <input type="text" [(ngModel)]="user_acc.username" placeholder="Въведете потребителско име"  formControlName="username" name="username" class="form-control" id="username"
+                       [ngClass]="{'is-invalid': submitted && loginform.controls['username'].errors }">
+                <div *ngIf="submitted && loginform.controls['username'].errors" class="invalid-feedback">
+                  <div *ngIf="loginform.controls['username'].errors.required">Изисква се въвеждане на потребителско име</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-4">
+          <div class="card border-0"> <!--border-0 withour border-->
+            <div class="card-body align-items-center d-flex justify-content-center">
+              <div class="form-group md-2 col-xs-5 col-lg-6">
+                <label for="password">Парола:</label>
+                <input type="password" [(ngModel)]="user_acc.password" placeholder="Въведете парола" formControlName="password" name="password" class="form-control" id="password"
+                       [ngClass]="{'is-invalid': submitted && loginform.controls['password'].errors }">
+                <div *ngIf="submitted && loginform.controls['password'].errors" class="invalid-feedback">
+                  <div *ngIf="loginform.controls['password'].errors.required">Изисква се въвеждане на парола</div>
+                  <div *ngIf="loginform.controls['password'].errors.minlength">Паролата трябва да бъде поне 8 символа</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading"  class="btn primary" >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Влез в профила си
+        </button>
+      </div>
+      <p>Ако нямате регистрация</p><a routerLink="/customers/register" class="nav-link registrationLink"> Регистрация</a>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,244 @@
+<app-header-login-user></app-header-login-user>
+<!--<div class="card">
+  <h1 class="card-header">Регистрация</h1>
+  <div class="card-body">
+    <form [formGroup]="registerform" #user (ngSubmit)="RegisterUser(user)" novalidate>
+      div class="form-group md-2 col-xs-5 col-lg-2">
+        <label for="username">Username:</label>
+        <input type="text" [(ngModel)]="customerRegister.username" placeholder="Въедете потребителско име"  formControlName="username" name="username" class="form-control" id="username"
+               [ngClass]="{'is-invalid': submitted && registerform.controls['username'].errors }">
+        <div *ngIf="submitted && registerform.controls['username'].errors" class="invalid-feedback">
+          <div *ngIf="registerform.controls['username'].errors.required">Изисква се въвеждане на потребителско име</div>
+        </div>
+      </div>
+      <div class="form-group col-xs-5 col-lg-2">
+        <label for="password">Password:</label>
+        <input type="password" [(ngModel)]="customerRegister.password" placeholder="Въедете парола" formControlName="password" name="password" class="form-control" id="password"
+               [ngClass]="{'is-invalid': submitted && registerform.controls['password'].errors }">
+        <div *ngIf="submitted && registerform.controls['password'].errors" class="invalid-feedback">
+          <div *ngIf="registerform.controls['password'].errors.required">Изисква се въвеждане на парола</div>
+          <div *ngIf="registerform.controls['password'].errors.minlength">Паролата трябва да бъде поне 8 символа</div>
+        </div>
+      </div>
+      <div class="form-group col-xs-5 col-lg-2">
+        <label for="username">Fist Name:</label>
+        <input type="text" [(ngModel)]="customerRegister.first_name" placeholder="Input your username"  formControlName="firstname" name="firstname" class="form-control" id="firstname"
+               [ngClass]="{'is-invalid': submitted && registerform.controls['firstname'].errors }">
+        <div *ngIf="submitted && registerform.controls['firstname'].errors" class="invalid-feedback">
+          <div *ngIf="registerform.controls['firstname'].errors.required">Изисква се въвеждане на име</div>
+        </div>
+      </div>
+      <div class="form-group col-xs-5 col-lg-2">
+        <label for="username">Last Name:</label>
+        <input type="text" [(ngModel)]="customerRegister.last_name" placeholder="Input your username"  formControlName="lastname" name="lastname" class="form-control" id="lastname"
+               [ngClass]="{'is-invalid': submitted && registerform.controls['lastname'].errors }">
+        <div *ngIf="submitted && registerform.controls['lastname'].errors" class="invalid-feedback">
+          <div *ngIf="registerform.controls['lastname'].errors.required">Изисква се въвеждане на фамилия</div>
+        </div>
+      </div>
+      <div class="form-group col-xs-5 col-lg-2 ">
+        <label for="username">City:</label>
+        <input type="text" [(ngModel)]="customerRegister.city" placeholder="Input your username"  formControlName="city" name="city" class="form-control" id="city"
+               [ngClass]="{'is-invalid': submitted && registerform.controls['city'].errors }">
+        <div *ngIf="submitted && registerform.controls['city'].errors" class="invalid-feedback">
+          <div *ngIf="registerform.controls['city'].errors.required">Изисква се въвеждане на град</div>
+        </div>
+      </div>
+      <div class="form-group col-xs-5 col-lg-2">
+        <label for="username">Email Address:</label>
+        <input type="text" [(ngModel)]="customerRegister.email" placeholder="email@example.com"  formControlName="email" name="email" class="form-control" id="email"
+               [ngClass]="{'is-invalid': submitted && registerform.controls['email'].errors }">
+        <div *ngIf="submitted && registerform.controls['email'].errors" class="invalid-feedback">
+          <div *ngIf="registerform.controls['email'].errors.required">Изисква се въвеждане на имейл адрес</div>
+          <div *ngIf="registerform.controls['email'].errors.pattern">Имейлът е невалиден</div>
+        </div>
+      </div>
+      <div class="form-group col-xs-5 col-lg-2">
+        <label for="username">Phone:</label>
+        <input type="phone" [(ngModel)]="customerRegister.phone" placeholder="Input your username"  formControlName="phone" name="phone" class="form-control" id="phone"
+               [ngClass]="{'is-invalid': submitted && registerform.controls['phone'].errors }">
+        <div *ngIf="submitted && registerform.controls['phone'].errors" class="invalid-feedback">
+          <div *ngIf="registerform.controls['phone'].errors.required">Изисква се въвеждане на телефон</div>
+          <div *ngIf="registerform.controls['phone'].errors.pattern">Телефонът е невалиден</div>
+          <div *ngIf="registerform.controls['phone'].errors.maxlength">Телефонът може да съдържа максимум 10 цифри</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="form-group col-xs-5 col-lg-2">
+          dadada
+        </div>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading"  class="btn primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Sign in
+        </button>
+      </div>
+      <p>Ако вече имате регистрация</p><a routerLink="../../login-user" class="registrationBtn nav-link"> Регистрация</a>
+    </form>
+  </div>
+</div>-->
+<div class="card text-center">
+  <div class="card-header">
+    Регистрация
+  </div>
+  <div class="card-body">
+    <form [formGroup]="registerform" #user (ngSubmit)="RegisterUser(user)" novalidate>
+    <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="card border-0"> <!--border-0 withour border-->
+        <div class="card-body align-items-center d-flex justify-content-center">
+          <div class="form-group md-2 col-xs-5 col-lg-6">
+          <label for="username">Потребителско име:</label>
+          <input type="text" [(ngModel)]="sendRequest.username" placeholder="Въедете потребителско име"  formControlName="username" name="username" class="form-control" id="username"
+                 [ngClass]="{'is-invalid': submitted && registerform.controls['username'].errors }">
+          <div *ngIf="submitted && registerform.controls['username'].errors" class="invalid-feedback">
+            <div *ngIf="registerform.controls['username'].errors.required">Изисква се въвеждане на потребителско име</div>
+            <div *ngIf="registerform.controls['username'].errors?.usernameExists"> Потребителското име вече съществува!</div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+      <div class="col-4">
+        <div class="card border-0">
+          <div class="card-body align-items-center d-flex justify-content-center">
+            <div class="form-group col-xs-5 col-lg-6">
+              <label for="email">Имейл адрес:</label>
+              <input type="text" [(ngModel)]="customerRegister.email" placeholder="email@example.com"  formControlName="email" name="email" class="form-control" id="email"
+                     [ngClass]="{'is-invalid': submitted && registerform.controls['email'].errors }">
+              <div *ngIf="submitted && registerform.controls['email'].errors" class="invalid-feedback">
+                <div *ngIf="registerform.controls['email'].errors.required">Изисква се въвеждане на имейл адрес</div>
+                <div *ngIf="registerform.controls['email'].errors.pattern">Имейлът е невалиден</div>
+               <div *ngIf="registerform.controls['email'].errors?.emailExists">Вече сеществува потребител с този имейл!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+    <div class="row justify-content-center">
+    <div class="col-4">
+      <div class="card border-0">
+        <div class="card-body align-items-center d-flex justify-content-center">
+          <div class="form-group col-xs-5 col-lg-6">
+            <label for="password">Парола:</label>
+            <input type="password" [(ngModel)]="sendRequest.password" placeholder="Въедете парола" formControlName="password" name="password" class="form-control" id="password"
+                   [ngClass]="{'is-invalid': submitted && registerform.controls['password'].errors }">
+            <div *ngIf="submitted && registerform.controls['password'].errors" class="invalid-feedback">
+              <div *ngIf="registerform.controls['password'].errors.required">Изисква се въвеждане на парола</div>
+              <div *ngIf="registerform.controls['password'].errors.minlength">Паролата трябва да бъде поне 8 символа</div>
+              <div *ngIf="registerform.controls['password'].errors.pattern">Паролата е навалидна
+              Трябва да съдържа поне една малка буква, една голяма буква, едно число, един специален символ и без празно разстояние между символите.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="col-4">
+        <div class="card border-0">
+          <div class="card-body align-items-center d-flex justify-content-center">
+            <div class="form-group col-xs-5 col-lg-6">
+              <label for="confirm_password">Повтори въведата парола:</label>
+              <input type="password" placeholder="Въедете парола" formControlName="confirm_password" name="confirm_password" class="form-control" id="confirm_password"
+                     [ngClass]="{'is-invalid': submitted && registerform.controls['confirm_password'].errors }">
+              <div *ngIf="submitted && registerform.controls['confirm_password'].errors" class="invalid-feedback">
+                <div *ngIf="registerform.controls['confirm_password'].errors.required">Изисква се въвеждане на парола</div>
+                <div *ngIf="registerform.controls['confirm_password'].errors.minlength">Паролата трябва да бъде поне 8 символа</div>
+                <div *ngIf="registerform.controls['confirm_password'].errors.CheckMatch">Паролите трябва да се съвпадат</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-3 mb-3">
+      <div class="card border-0">
+        <!--  <div class="card-body align-items-center d-flex justify-content-center"> -->
+          <div class="form-group">
+            <label for="address">Вашият адрес:</label>
+            <input type="text" [(ngModel)]="customerRegister.address" placeholder="Въведете вашият адрес"  formControlName="address" name="address" class="form-control" id="address"
+                   [ngClass]="{'is-invalid': submitted && registerform.controls['city'].errors }">
+            <div *ngIf="submitted && registerform.controls['address'].errors" class="invalid-feedback">
+              <div *ngIf="registerform.controls['address'].errors.required">Изисква се въвеждане на адрес</div>
+            </div>
+          </div>
+         <!--   </div> -->
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="card border-0">
+            <!--<div class="card-body align-items-center d-flex justify-content-center"> col-xs-5 col-lg-6-->
+              <div class="form-group ">
+                <label for="firstname">Вашето име:</label>
+                <input type="text" [(ngModel)]="customerRegister.name" placeholder="Въведете вашето име"  formControlName="firstname" name="firstname" class="form-control" id="firstname"
+                       [ngClass]="{'is-invalid': submitted && registerform.controls['firstname'].errors }">
+                <div *ngIf="submitted && registerform.controls['firstname'].errors" class="invalid-feedback">
+                  <div *ngIf="registerform.controls['firstname'].errors.required">Изисква се въвеждане на име</div>
+                </div>
+              </div>
+           <!-- </div> -->
+          </div>
+        </div>
+        <div class="col-2">
+          <div class="card border-0">
+           <!-- <div class="card-body align-items-center d-flex justify-content-center"> -->
+              <div class="form-group">
+                <label for="lastname">Фамилия:</label>
+                <input type="text" [(ngModel)]="customerRegister.last_name" placeholder="Въведете вашата фамилия"  formControlName="lastname" name="lastname" class="form-control" id="lastname"
+                       [ngClass]="{'is-invalid': submitted && registerform.controls['lastname'].errors }">
+                <div *ngIf="submitted && registerform.controls['lastname'].errors" class="invalid-feedback">
+                  <div *ngIf="registerform.controls['lastname'].errors.required">Изисква се въвеждане на фамилия</div>
+                </div>
+              </div>
+           <!-- </div> -->
+          </div>
+        </div>
+      </div>
+          <div class="row justify-content-center">
+            <div class="col-4">
+              <div class="card border-0">
+                <div class="card-body align-items-center d-flex justify-content-center">
+                  <div class="form-group col-xs-5 col-lg-6">
+                    <label for="city">Град:</label>
+                    <select class="form-control" formControlName="city" name="city" id="city">
+                      <option *ngFor="let city of cityList">{{city}}</option>
+                    </select>
+                    <!-- <input type="text" [(ngModel)]="customerRegister.city" placeholder="Input your username"  formControlName="city" name="city" class="form-control" id="city"
+                            [ngClass]="{'is-invalid': submitted && registerform.controls['city'].errors }">
+                    <div *ngIf="submitted && registerform.controls['city'].errors" class="invalid-feedback">
+                       <div *ngIf="registerform.controls['city'].errors.required">Изисква се въвеждане на град</div>
+                     </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card border-0">
+            <div class="card-body align-items-center d-flex justify-content-center">
+              <div class="form-group col-xs-5 col-lg-6">
+                <label for="phone">Телефон:</label>
+                <input type="text" [(ngModel)]="customerRegister.phone" placeholder="Въведете вашият телефон"  formControlName="phone" name="phone" class="form-control" id="phone"
+                       [ngClass]="{'is-invalid': submitted && registerform.controls['phone'].errors }">
+                <div *ngIf="submitted && registerform.controls['phone'].errors" class="invalid-feedback">
+                  <div *ngIf="registerform.controls['phone'].errors.required">Изисква се въвеждане на телефон</div>
+                  <div *ngIf="registerform.controls['phone'].errors.pattern">Телефонът е невалиден</div>
+                  <div *ngIf="registerform.controls['phone'].errors.maxlength">Телефонът може да съдържа максимум 10 цифри</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button [disabled]="loading"  class="btn primary">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Регистрация
+        </button>
+      </div>
+      <p>Ако вече имате регистрация</p><a routerLink="../../customers/login" class="loginLink registrationBtn nav-link">Влезте от тук</a>
+    </form>
+</div>
+</div>

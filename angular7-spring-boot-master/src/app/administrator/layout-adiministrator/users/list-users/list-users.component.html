@@ -1,0 +1,52 @@
+<app-header-layout-adiministrator></app-header-layout-adiministrator>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+    <br>
+    <form class="search">
+      <div class="mb-3 row">
+        <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Търсене на клиент(по телефонен номер):</label>
+        <div class="col-xs-3 col-sm-auto">
+          <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
+        </div>
+      </div>
+    </form>
+
+    <div class="col-md-7 user-container">
+      <h2 style="margin: auto">Информация за потребителите</h2>
+      <br>
+      <button class="btn btn-info" (click)="addUser()">Добави потребител</button>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="hidden">#</th>
+          <th>Име</th>
+          <th>Фамилия</th>
+          <th>Телефон</th>
+          <th>Град</th>
+          <th>Адрес</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of result$ | async; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td><ngb-highlight [result]="user.name" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="user.last_name" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="user.phone" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="user.city" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="user.address" [term]="filter.value"></ngb-highlight></td>
+          <td></td>
+          <!-- <td>{{user.name}}</td>
+           <td>{{user.last_name}}</td>
+           <td>{{user.email}}</td>
+           <td>{{user.phone}}</td>
+           <td></td>
+           <td></td> -->
+          <td><button class="btn btn-danger" (click)="deleteUser(user)">Изтрий</button>
+            <button class="btn btn-success" (click)="editUser(user)" style="margin-left: 20px;">Редактирай</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

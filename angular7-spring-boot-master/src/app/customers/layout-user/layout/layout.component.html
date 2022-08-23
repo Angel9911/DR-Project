@@ -1,0 +1,57 @@
+<app-header-layout-user></app-header-layout-user>
+<mat-sidenav-container class="example-container">
+  <!--<mat-sidenav #drawer mode="side" opened role="navigation">
+    <mat-nav-list>
+      <p class="topic">Основни услуги</p>
+      <hr class="hrStyle">
+      <a style="margin-top: 10px"mat-list-item routerLink='/first'>Подготви пратка</a>
+      <a mat-list-item routerLink='/second'>Заявка с куриер</a>
+      <p class="topic">Проследи пратка</p>
+      <hr class="hrStyle">
+      <a mat-list-item routerLink='/first'>Моите пратки</a>
+      <a mat-list-item routerLink='/second'>Пратки за мен</a>
+      <a mat-list-item routerLink='/second'>Пратки от мен</a>
+      <hr class="hrStyle">
+    </mat-nav-list>
+  </mat-sidenav> -->
+  <mat-sidenav-content>
+     <form class="search">
+        <div class="mb-3 row">
+          <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Търси по име на пратка:</label>
+          <div class="col-xs-3 col-sm-auto">
+            <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
+          </div>
+        </div>
+      </form>
+      <table class="table table-striped" matSort (matSortChange)="sortData($event)">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th  mat-sort-header="name">Име на пратка</th>
+          <th scope="col" >Тип на пратка</th>
+          <th scope="col" >Адрес на доставка</th>
+          <th  mat-sort-header="price">Цена на пратка</th>
+          <th  mat-sort-header="total_price">Цена на пратка(с включена доставка)</th>
+          <th scope="col">Статус на пратка</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let package of sortedData | async; index as i">
+          <td><ngb-highlight [result]="i" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="package.name_package" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="package.typePackage.type_name" [term]="filter.value"></ngb-highlight></td>
+          <td><div *ngIf="package.office; else elseBlock">До офис({{package.office.office_location}})</div>
+            <ng-template #elseBlock>До адрес({{package.customer.address}})</ng-template></td>
+          <td><ngb-highlight [result]="package.package_price" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="package.total_cost" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="package.statusPackage.status_type" [term]="filter.value"></ngb-highlight></td>
+        </tr>
+        <tr>
+          <th colspan="4" style="text-align:right">Обща сума(без такса транспорт)</th>
+          <th>{{getTotalPackagePrice()}}</th>
+          <th>{{getTotalCost()}}(с такса транспорт)</th>
+        </tr>
+        </tbody>
+      </table>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,42 @@
+<app-header-courier></app-header-courier>
+<mat-sidenav-container class="example-container">
+<mat-sidenav-content>
+  <form class="search">
+    <div class="mb-3 row">
+      <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Търси пратка(по име или по телефон на клиент):</label>
+      <div class="col-xs-3 col-sm-auto">
+        <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
+      </div>
+    </div>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Код на пратка</th>
+      <th scope="col">Име на пратка</th>
+      <th scope="col">Тип на пратка</th>
+      <th scope="col">Име на клиент</th>
+      <th scope="col">Телефонен номер на клиент</th>
+      <th scope="col">Адрес за доставка</th>
+      <th scope="col">Статус на пратка</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let package of packages$ | async; index as i">
+      <td><ngb-highlight [result]="package.package_id" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.name_package" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.typePackage.type_name" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.customer.name + ' ' + package.customer.last_name" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.customer.phone" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.customer.address" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.statusPackage.status_type" [term]="filter.value"></ngb-highlight></td>
+      <td>
+        <button class="btn btn-danger" (click)="updateProblemPackage(package)">Проблем с пратката</button>
+        <button class="btn btn-success" (click)="updatePackage(package)" style="margin-left: 20px;">Доставена</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</mat-sidenav-content>
+</mat-sidenav-container>

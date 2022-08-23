@@ -1,0 +1,9 @@
+.registrationBtn{
+  position: relative;
+  font-size: 20px;
+}
+.containerRegister{
+  justify-content: center;
+  align-items: center;
+  margin-left: 470px
+}

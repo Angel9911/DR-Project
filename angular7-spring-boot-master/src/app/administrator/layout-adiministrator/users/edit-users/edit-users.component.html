@@ -1,0 +1,32 @@
+<app-header-layout-adiministrator></app-header-layout-adiministrator>
+<div class="col-md-6 user-container">
+  <h2 class="text-center">Редактирай потребител</h2>
+  <form [formGroup]="editForm" (ngSubmit)="updateCustomer()">
+    <div class="form-group">
+      <label for="name">Име:</label>
+      <input type="text" formControlName="name" placeholder="name" name="name" class="form-control" id="name" readonly="true">
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Фамилия:</label>
+      <input formControlName="last_name" placeholder="last_name" name="last_name" class="form-control" id="last_name">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Телефонен номер:</label>
+      <input formControlName="phone" placeholder="phone" name="phone" class="form-control" id="phone">
+    </div>
+
+    <div class="form-group">
+      <label for="city">Град:</label>
+      <input type="text" formControlName="city" placeholder="city" name="city" class="form-control" id="city">
+    </div>
+
+    <div class="form-group">
+      <label for="address">Адрес:</label>
+      <input type="text" formControlName="address" placeholder="address" name="address" class="form-control" id="address">
+    </div>
+
+    <button class="btn btn-success">Update</button>
+  </form>
+</div>

@@ -1,0 +1,67 @@
+.error{
+  color:red;
+}
+.drop-position{
+  margin-right: 20px;
+}
+.inputField{
+  margin-top: -10px;
+  margin-bottom: -10px;
+  margin-left: -257px;
+  width: 1050px;
+}
+.nav-link{
+  margin-right: 17px;
+}
+.navbar{
+  min-height: 50px
+;
+}
+.myPanelClass{
+  margin-left: 60px;
+}
+::ng-deep .mat-autocomplete-panel {
+  position: relative;
+  margin-top: -20px;
+  width: 270%;
+  left: 321%;
+  border: 1px #6f7d8c ;
+  background-color: palegreen;
+}
+::ng-deep .cdk-overlay-pane {
+  /* Do you changes here */
+  min-width:390px;
+}
+.nav-color{
+  color: white;
+}
+/*
+.example-full-width{
+  margin-left: 200px;
+}
+.example-form {
+  width: 100%;
+}
+.example-full-width {
+  width: 30%;
+}
+.navbar-nav li:hover>.dropdown-menu {
+  display: block;
+}
+*/
+/* Hover dropdown
+ */
+.hover_drop_down.input-group-btn ul.dropdown-menu{margin-top: 0px;}
+.hover_drop_down.btn-group ul.dropdown-menu{margin-top:2px;}
+.hover_drop_down:hover ul.dropdown-menu{
+  display: block;
+  padding-top: 100px;
+}
+.dropdown:hover>.dropdown-menu {
+  display: block;
+  margin-left: -160px;
+}
+.dropdown > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}

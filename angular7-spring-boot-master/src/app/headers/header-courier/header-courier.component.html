@@ -1,0 +1,33 @@
+<header>
+  <!-- Logo Image -->
+  <img [src]="imageSrc" [alt]="imageAlt" width="100%" height="90" class="d-inline-block align-middle mr-2">
+  <nav class ="navbar navbar-expand-md py-4 navbar-dark bg-dark">
+    <a routerLink="../home" class="navbar-brand">
+      <!-- Logo Text -->
+      <span class="text-uppercase font-weight-bold">ADExpress</span>
+    </a>
+    <!-- <div class="dropdown">
+       <button class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         Dropdown button
+       </button>
+       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+         <a class="dropdown-item" href="#">Action</a>
+         <a class="dropdown-item" href="#">Another action</a>
+         <a class="dropdown-item" href="#">Something else here</a>
+       </div>
+     </div>
+     <li><a  routerLink="/employee" class="nav-link">Услуги</a></li> -->
+    <!-- <li><a  routerLink="/test-insert" class="nav-link">Офиси</a></li> -->
+    <ul class="navbar-nav navbar-collapse justify-content-end">
+      <a routerLink="../packages-problem" class="nav-link">Проблем с пратка</a>
+      <a routerLink="../packages-delivered" class="nav-link">Доставени пратки</a>
+      <a routerLink="../home" class="nav-link">Моите пратки</a>
+      <!-- <li><a routerLink="customers/register" class="nav-link"></a></li> -->
+      <!-- <li><a routerLink="customers/login" class="nav-link">Моят профил <img [src]="profileSrc" [alt]="profileAlt" height="20" width="20"></a></li>
+      <li class="nav-item dropdown" aria-expanded="true"  aria-haspopup="false">
+        <a routerLink="../list-user" class="nav-link">Потребители</a>
+      </li> -->
+      <li><a (click)="onLogOut()" class="nav-link">Изход</a></li>
+    </ul>
+  </nav>
+</header>

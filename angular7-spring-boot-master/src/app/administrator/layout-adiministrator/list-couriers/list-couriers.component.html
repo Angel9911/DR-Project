@@ -1,0 +1,37 @@
+<app-header-layout-adiministrator></app-header-layout-adiministrator>
+<div class="col-md-6 user-container">
+  <br>
+  <form class="search">
+    <div class="mb-3 row">
+      <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Търсене на клиент(по телефонен номер):</label>
+      <div class="col-xs-3 col-sm-auto">
+        <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
+      </div>
+    </div>
+  </form>
+  <h2 style="margin: auto">Информация за куриери</h2>
+  <br>
+  <button class="btn btn-info" (click)="addCourier()">Добави куриер</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">#</th>
+      <th>Име на куриер</th>
+      <th>Фамилия на куриер</th>
+      <th>Регион</th>
+      <th>Телефон</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let courier of result$ | async; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td><ngb-highlight [result]="courier.courier_first_name" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="courier.courier_last_name" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="courier.courier_city_name" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="courier.courier_phone" [term]="filter.value"></ngb-highlight></td>
+      <td><button class="btn btn-danger" (click)="deleteCourier(courier)">Изтрий</button>
+        <button class="btn btn-success" (click)="editCourier(courier)" style="margin-left: 20px;">Редактирай</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,89 @@
+<header>
+  <!-- Logo Image -->
+  <img [src]="imageSrc" [alt]="imageAlt" width="100%" height="90" class="d-inline-block align-middle mr-2">
+  <nav class ="navbar navbar-expand-md py-4 navbar-dark bg-dark">
+    <a href="http://localhost:4200/" class="navbar-brand">
+      <!-- Logo Text -->
+      <span class="text-uppercase font-weight-bold">ADExpress</span>
+    </a>
+   <!-- <div class="dropdown">
+      <button class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </div>
+    <li><a  routerLink="/employee" class="nav-link">Услуги</a></li>-->
+    <!-- <li><a  routerLink="/test-insert" class="nav-link">Офиси</a></li>-->
+  <ul class="navbar-nav navbar-expand-lg navbar-light">
+    <li class="nav-item dropdown" aria-expanded="true"  aria-haspopup="false">
+      <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">
+        Услуги
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="#">Проследяване на пратка</a>
+        <a class="dropdown-item" href="#">Указания за вашата пратка</a>
+        <a class="dropdown-item" href="#">Връщане на пратка</a>
+        <a class="dropdown-item" href="#">Наложен платеж</a>
+      </div>
+    </li>
+
+    <li><a  routerLink="/test-insert" class="nav-link">Клиентски център</a></li>
+    <li class="nav-item dropdown">
+      <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Офиси
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="#">Намери най-близкия офис</a>
+        <a class="dropdown-item" href="#">Списък с офиси</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Контакти
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <a class="dropdown-item" href="#">Често задавани въпроси</a>
+        <a class="dropdown-item" href="#">За връзка с нас</a>
+      </div>
+    </li>
+  </ul>
+
+  <ul class="navbar-nav navbar-collapse justify-content-end">
+    <div class=" text-white" *ngIf="!isShow">
+      <form class="example-form">
+        <mat-form-field  class="example-full-width" appearance="fill" *ngIf="!isShow" >
+          <input class="inputField form-control" type="text"
+                 placeholder="Search..."
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto"/>
+          <hr style="margin-left: -257px; margin-bottom: -10px; width: 390px">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" panelWidth="250px">
+            <mat-option style="background-color: dimgrey;color:red;" *ngFor="let option of filteredOptions | async" [value]="option" >
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
+    </div>
+    <button *ngIf="isShow" (click)="onEdit()" class="bg-dark btn default">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 14 14">
+      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+    </svg>
+    </button>
+    <button *ngIf="!isShow" (click)="onEdit()" class="bg-dark btn default">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 14 14">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+      </svg>
+    </button>
+    <li><a routerLink="customers/register" class="nav-link">Регистрация</a></li>
+    <li><a routerLink="customers/login" class="nav-link">Вход</a></li>
+    </ul>
+    </nav>
+
+  </header>
