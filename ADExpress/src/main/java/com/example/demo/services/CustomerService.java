@@ -10,8 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.ValidationException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class CustomerService {
@@ -116,8 +122,19 @@ public class CustomerService {
                     don't need these values
                      */
                     getPackage.setPackage_price(packages.getPackage_price());
+                    getPackage.setSize_width(0);
+                    getPackage.setSize_height(0);
+                    getPackage.setReview_package(false);
                     getPackage.setTotal_cost(packages.getTotal_cost());
-                    resultPackages.add(packages);
+                    if(packages.getDate_register_package()!=null){
+                        Date registerDate = this.getDate(packages.getDate_register_package());
+                        getPackage.setDate_register_package(registerDate);
+                    }
+                    if(packages.getDate_delivery_package()!=null){
+                        Date deliveryPackage = this.getDate(packages.getDate_delivery_package());
+                        getPackage.setDate_delivery_package(deliveryPackage);
+                   }
+                    resultPackages.add(getPackage);
                 }
                 return resultPackages;
             }
@@ -125,16 +142,6 @@ public class CustomerService {
             throw new Exception("error");
         }
     }
-
-    /*  @Transactional
-      public int updateAddressByUsername(String address,int user_id){
-          return customerRepository.updateAddresss(address,user_id);
-      }
-      @Transactional
-      public int updatePhoneByUserID(String phone,int user_id){
-          return customerRepository.updatePhone(phone,user_id);
-      }
-      */
     @Transactional
     public List<City> getAllCities() {
         return cityRepository.findAll();
@@ -149,19 +156,12 @@ public class CustomerService {
     public City getCityIdByName(String name) {
         return cityRepository.findCityNameById(name);
     }
-    /* @Transactional
-    public Optional findByToken(String token) {
-      /*  Optional customer= customerRepository.findByToken(token);
-        if(customer.isPresent()){
-            Customer customer1 = (Customer) customer.get();
-            User user= new User(customer1.getUser_account().getUsername(), customer1.getUser_account().getPassword(), true, true, true, true,
-                    AuthorityUtils.createAuthorityList("user"));
-            return Optional.of(user);
-        }
-        return  Optional.empty();
-    } */
-  /*  @Transactional
-    public Customer getCustomer(Integer user_id){
-       return customerRepository.findAllByUser_Id(user_id);
-    }*/
+    private Date getDate(Date datePackage){
+        DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String packageDate = outputFormatter.format(datePackage); // Output : 01/20/2012
+        System.out.println(packageDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate localdate = LocalDate.parse(packageDate, formatter);
+        return java.sql.Date.valueOf(localdate);
+    }
 }

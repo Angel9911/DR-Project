@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.xml.bind.ValidationException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -124,7 +128,35 @@ public class AdministratorService {
 
     @Transactional
     public List<Packages> getAllPackages() {
-        return new ArrayList<>(packageRepository.findAll());
+        List<Packages> packagesList = packageRepository.findAll();
+        List<Packages> newListPackages = new ArrayList<>();
+        for (Packages packages:packagesList) {
+            Packages getPackage = new Packages();
+            getPackage.setName_package(packages.getName_package());
+            StatusPackage statusPackage = new StatusPackage();
+            statusPackage.setStatus_type(packages.getStatusPackage().getStatus_type());
+            TypePackage typePackage = new TypePackage();
+            typePackage.setType_name(packages.getTypePackage().getType_name());
+            getPackage.setStatusPackage(statusPackage);
+            getPackage.setTypePackage(typePackage);
+            getPackage.setPackage_price(packages.getPackage_price());
+            getPackage.setTotal_cost(packages.getTotal_cost());
+            Customer customer = new Customer();
+            customer.setName(packages.getCustomer().getName());
+            customer.setLast_name(packages.getCustomer().getLast_name());
+            customer.setPhone(packages.getCustomer().getPhone());
+            customer.setAddress(packages.getCustomer().getAddress());
+            getPackage.setCustomer(customer); //  moje bi trqbva da se promeni na receiver
+            Date registerDate = this.getDate(packages.getDate_register_package());
+            Date deliveryDate = this.getDate(packages.getDate_delivery_package());
+            getPackage.setDate_register_package(registerDate);
+            getPackage.setDate_delivery_package(deliveryDate);
+            getPackage.setSize_height(0);
+            getPackage.setSize_width(0);
+            getPackage.setReview_package(false);
+            newListPackages.add(getPackage);
+        }
+        return newListPackages;
     }
 
     @Transactional
@@ -134,17 +166,12 @@ public class AdministratorService {
         if (!ObjectUtils.isEmpty(packages)) {
             // String getDeliveryCity = packages.getCustomer().getCity();
             if (this.IfCourierHasEqualCountPackages("Бургас")) {
-                System.out.println("nqma duploicati");
+                System.out.println("there are not duplicated records");
                 getCourier = this.getCourierByCity("Бургас");
             } else {
-                System.out.println("ima duploicati");
+                System.out.println("there are duplicated records");
                 getCourier = this.getRandomCourier("Бургас");
             }
-            // Map<String,Integer> mapCouriers = new HashMap<>();
-            /*
-            da obmislq dali ne trqbva da ima sender i receiver v tablica packages
-            ako ima dvama kurieri s ednakuv broi da namerq koi sa i random da izbera koi da assigne pratkata
-             */
             System.out.println(packages.getName_package());
             result.setName_package(packages.getName_package());
             StatusPackage statusPackage = new StatusPackage();
@@ -152,14 +179,21 @@ public class AdministratorService {
             result.setStatusPackage(statusPackage);
             System.out.println(result.getStatusPackage().getStatus_id());
             TypePackage typePackage = new TypePackage();
-            System.out.println(typePackageRepository.findTypeIdByName(packages.getTypePackage().getType_name()));
+           // System.out.println(typePackageRepository.findTypeIdByName(packages.getTypePackage().getType_name()));
             typePackage.setType_id(typePackageRepository.findTypeIdByName(packages.getTypePackage().getType_name()));
             Customer customer = new Customer();
-            System.out.println(customerRepository.findUserIdByUserInfo(packages.getCustomer().getName(),packages.getCustomer().getLast_name(),packages.getCustomer().getAddress(),packages.getCustomer().getPhone()));
-            customer.setUser_id(customerRepository.findUserIdByUserInfo(packages.getCustomer().getName(), packages.getCustomer().getLast_name(), packages.getCustomer().getAddress(), packages.getCustomer().getPhone()));
+            System.out.println(customerRepository.findUserIdByUserInfo(packages.getCustomer().getName(),packages.getCustomer().getLast_name(),/*packages.getCustomer().getAddress()*/packages.getCustomer().getPhone()));
+            customer.setUser_id(customerRepository.findUserIdByUserInfo(packages.getCustomer().getName(), packages.getCustomer().getLast_name(),/*packages.getCustomer().getAddress(), */packages.getCustomer().getPhone()));
+            Customer receiver = new Customer();
+            receiver.setUser_id(customerRepository.findUserIdByUserInfo(packages.getReceiver().getName(), packages.getReceiver().getLast_name(), /*packages.getReceiver().getAddress(), */packages.getReceiver().getPhone()));
             result.setCustomer(customer);
+            result.setReceiver(receiver);
             result.setTypePackage(typePackage);
-            System.out.println(getCourier.getCourier_id());
+            LocalDate getCurrentDate = java.time.LocalDate.now();
+            java.sql.Date getDate = java.sql.Date.valueOf(getCurrentDate);
+            result.setDate_register_package(getDate);
+            result.setPackage_price(packages.getPackage_price());
+          //  System.out.println(getCourier.getCourier_id());
             result.setCourier(getCourier);
         }
         return packageRepository.save(result);
@@ -236,5 +270,13 @@ public class AdministratorService {
         user_account.setUserRoles(roles);
         userRepository.save(user_account);
         return user_account;
+    }
+    private Date getDate(Date datePackage){
+        DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String packageDate = outputFormatter.format(datePackage); // Output : 01/20/2012
+        System.out.println(packageDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate localdate = LocalDate.parse(packageDate, formatter);
+        return java.sql.Date.valueOf(localdate);
     }
 }

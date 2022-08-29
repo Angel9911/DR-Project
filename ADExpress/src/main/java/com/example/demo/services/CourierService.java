@@ -6,12 +6,17 @@ import com.example.demo.repository.PackageProblemRepository;
 import com.example.demo.repository.PackageRepository;
 import com.example.demo.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.Ssl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.bind.ValidationException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class CourierService {
@@ -47,7 +52,9 @@ public class CourierService {
         int statusId = statusRepository.findStatusIdByStatusType(status);
         if (packageId != 0 && statusId != 0) {
             System.out.println(packageId + "" + statusId);
-            packageRepository.updateStatusPackage(statusId, packageId);
+            LocalDate getCurrentDate = java.time.LocalDate.now();
+            java.sql.Date getDate = java.sql.Date.valueOf(getCurrentDate);
+            packageRepository.updateStatusPackage(statusId, packageId, getDate);
         } else {
             throw new ValidationException("error");
         }
@@ -58,8 +65,9 @@ public class CourierService {
         int statusId = statusRepository.findStatusIdByStatusType(status);
         if (packageId != 0 && statusId != 0) {
             System.out.println(packageId + "" + statusId);
-            packageRepository.updateStatusPackage(statusId, packageId);
+            packageRepository.updateStatusPackageProblem(statusId, packageId);
             PackageProblem packageProblem = new PackageProblem();
+            System.out.println(packageRepository.getPackageByPackageId(packageId));
             packageProblem.setPackages_problem(packageRepository.getPackageByPackageId(packageId));
             packageProblem.setMessage(message_problem);
             packageProblemRepository.save(packageProblem);
@@ -100,6 +108,11 @@ public class CourierService {
                     packages.setSize_height(0);
                     packages.setSize_width(0);
                     packages.setReview_package(false);
+                    packages.setPackage_price(packageProblem.getPackages_problem().getPackage_price());
+                    System.out.println(packageProblem.getPackages_problem().getTotal_cost());
+                    packages.setTotal_cost(packageProblem.getPackages_problem().getTotal_cost());
+                    Date registerDate = this.getDate(packageProblem.getPackages_problem().getDate_register_package());
+                    packages.setDate_register_package(registerDate);
                     getPackageProblem.setPackages_problem(packages);
                     getPackageProblem.setMessage(packageProblem.getMessage());
 
@@ -151,6 +164,17 @@ public class CourierService {
                 packages.setReview_package(false);
                 getPackage.setSize_height(packages.getSize_height());
                 getPackage.setSize_width(packages.getSize_width());
+                getPackage.setPackage_price(packages.getPackage_price());
+                System.out.println(packages.getTotal_cost());
+                getPackage.setTotal_cost(packages.getTotal_cost());
+                if(packages.getDate_register_package()!=null){
+                    Date registerDate = this.getDate(packages.getDate_register_package());
+                    getPackage.setDate_register_package(registerDate);
+                }
+                if(packages.getDate_delivery_package()!=null){
+                    Date deliveryPackage = this.getDate(packages.getDate_delivery_package());
+                    getPackage.setDate_delivery_package(deliveryPackage);
+                }
                 packages.setReview_package(packages.isReview_package());
                 /*
                 don't need these values
@@ -159,5 +183,13 @@ public class CourierService {
             }
             return resultPackages;
         }
+    }
+    private Date getDate(Date datePackage){
+        DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String packageDate = outputFormatter.format(datePackage); // Output : 01/20/2012
+        System.out.println(packageDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+        LocalDate localdate = LocalDate.parse(packageDate, formatter);
+        return java.sql.Date.valueOf(localdate);
     }
 }

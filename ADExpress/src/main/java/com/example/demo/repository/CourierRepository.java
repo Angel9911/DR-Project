@@ -31,7 +31,7 @@ public interface CourierRepository extends CrudRepository<Courier, Integer> {
             "order by packagesCount asc;", nativeQuery = true)
     Map<Courier, Integer> findPackagesByCityName(@Param("cityName") String cityName);
 
-    @Query(value = "SELECT c.courier_id,c.courier_first_name,c.courier_last_name,c.courier_phone,c.courier_acc_id, COUNT(p.package_id) as packagesCount " +
+    @Query(value = "SELECT c.courier_id,c.courier_first_name,c.courier_last_name,c.courier_phone,c.courier_acc_id,c.courier_city_name, COUNT(p.package_id) as packagesCount " +
             "FROM couriers c " +
             "INNER JOIN packages p on p.courier_id = c.courier_id " +
             "INNER JOIN offices o on p.office_id = o.office_id " +

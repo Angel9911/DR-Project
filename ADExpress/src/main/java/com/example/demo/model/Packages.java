@@ -1,9 +1,12 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name="packages")
@@ -36,8 +39,13 @@ public class Packages {
     private Integer size_width;
     @Column(name = "package_price",nullable = true)
     private Double package_price;
-    @Column(name = "total_cost",nullable = true)
+    @Generated( value = GenerationTime.ALWAYS )
+    @Column(name = "total_cost", insertable = false, nullable = true)
     private Double total_cost;
+    @Column(name = "date_register_package",nullable = true)
+    private Date date_register_package;
+    @Column(name = "date_delivery_package",nullable = true)
+    private Date date_delivery_package;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> courier (many to one)
     @JoinColumn(name="receiver_id",referencedColumnName="user_id", insertable=true, updatable=true)
     private Customer receiver;
@@ -182,6 +190,23 @@ public class Packages {
     public void setTotal_cost(Double total_cost) {
         this.total_cost = total_cost;
     }
+
+    public Date getDate_register_package() {
+        return date_register_package;
+    }
+
+    public void setDate_register_package(Date date_register_package) {
+        this.date_register_package = date_register_package;
+    }
+
+    public Date getDate_delivery_package() {
+        return date_delivery_package;
+    }
+
+    public void setDate_delivery_package(Date date_delivery_package) {
+        this.date_delivery_package = date_delivery_package;
+    }
+
 
 
 }

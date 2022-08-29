@@ -25,8 +25,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 
     @Query(value = "SELECT uf.user_id " +
             "FROM users_info uf " +
-            "WHERE uf.name=:name AND uf.last_name=:lastName AND uf.address=:address AND uf.phone=:phone", nativeQuery = true)
-    long findUserIdByUserInfo(@Param("name") String name, @Param("lastName") String lastName, @Param("address") String address, @Param("phone") String phone);
+            "WHERE uf.name=:name AND uf.last_name=:lastName AND uf.phone=:phone", nativeQuery = true)
+    long findUserIdByUserInfo(@Param("name") String name, @Param("lastName") String lastName, @Param("phone") String phone);
 
     @Query(value = "SELECT c.phone FROM users_info c WHERE c.phone = :phone", nativeQuery = true)
     String IsThereExistingUser(@Param("phone") String phone);
