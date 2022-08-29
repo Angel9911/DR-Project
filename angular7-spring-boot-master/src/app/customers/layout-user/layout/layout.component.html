@@ -32,6 +32,8 @@
           <th scope="col" >Адрес на доставка</th>
           <th  mat-sort-header="price">Цена на пратка</th>
           <th  mat-sort-header="total_price">Цена на пратка(с включена доставка)</th>
+          <th scope="col">Дата на изпращане</th>
+          <th scope="col">Дата на доставка</th>
           <th scope="col">Статус на пратка</th>
         </tr>
         </thead>
@@ -44,6 +46,8 @@
             <ng-template #elseBlock>До адрес({{package.customer.address}})</ng-template></td>
           <td><ngb-highlight [result]="package.package_price" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="package.total_cost" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="package.date_register_package" [term]="filter.value"></ngb-highlight></td>
+          <td><ngb-highlight [result]="package.date_delivery_package" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="package.statusPackage.status_type" [term]="filter.value"></ngb-highlight></td>
         </tr>
         <tr>

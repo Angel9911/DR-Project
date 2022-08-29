@@ -19,6 +19,9 @@
       <th scope="col">Име на клиент</th>
       <th scope="col">Телефонен номер на клиент</th>
       <th scope="col">Адрес за доставка</th>
+      <th scope="col">Цена на пратка</th>
+      <th scope="col">Обща цена(с включена такса)</th>
+      <th scope="col">Дата на изпращане</th>
       <th scope="col">Статус на пратка</th>
     </tr>
     </thead>
@@ -30,10 +33,13 @@
       <td><ngb-highlight [result]="package.customer.name + ' ' + package.customer.last_name" [term]="filter.value"></ngb-highlight></td>
       <td><ngb-highlight [result]="package.customer.phone" [term]="filter.value"></ngb-highlight></td>
       <td><ngb-highlight [result]="package.customer.address" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.package_price" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.total_cost" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="package.date_register_package" [term]="filter.value"></ngb-highlight></td>
       <td><ngb-highlight [result]="package.statusPackage.status_type" [term]="filter.value"></ngb-highlight></td>
       <td>
-        <button class="btn btn-danger" (click)="updateProblemPackage(package)">Проблем с пратката</button>
-        <button class="btn btn-success" (click)="updatePackage(package)" style="margin-left: 20px;">Доставена</button>
+        <button class="btn btn-danger" (click)="updateProblemPackage(package)" style="width: 178px">Проблем с пратката</button>
+        <button class="btn btn-success" (click)="updatePackage(package)" style="width: 178px">Доставена</button>
       </td>
     </tr>
     </tbody>

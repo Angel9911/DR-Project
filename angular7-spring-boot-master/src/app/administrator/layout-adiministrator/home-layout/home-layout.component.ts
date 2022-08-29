@@ -21,6 +21,9 @@ export class HomeLayoutComponent implements OnInit {
   typeList: any = [];
   registerPackageForm: FormGroup;
   customer = new Customer();
+  // tslint:disable-next-line:variable-name
+  receiver_customer = new Customer();
+  SenderNames: AbstractControl;
   ReceiverNames: AbstractControl;
   packages = new Packages();
   typePackage = new TypePackage();
@@ -40,35 +43,52 @@ export class HomeLayoutComponent implements OnInit {
     });
     this.typeList = getTypes;
   }
+  get senderNames() {
+    return this.registerPackageForm.get('senderNames');
+  }
+  get senderPhone() {
+    return this.registerPackageForm.get('senderPhone');
+  }
   get receiverNames() {
     return this.registerPackageForm.get('receiverNames');
   }
-  get phone() {
+  get receiverPhone() {
     return this.registerPackageForm.get('receiverPhone');
+  }
+  get packagePrice() {
+    return this.registerPackageForm.get('packagePrice');
   }
   RegisterPackage(packageCustomer) {
     this.packages.name_package = this.registerPackageForm.get('packageName').value;
+    this.SenderNames = this.senderNames;
     this.ReceiverNames = this.receiverNames;
     // tslint:disable-next-line:prefer-const
-    let splittedNames = this.receiverNames.value.split(' ', 2);
-    this.customer.name = splittedNames[0];
-    this.customer.last_name = splittedNames[1];
+    let splittedSenderNames = this.senderNames.value.split(' ', 2);
+    const splittedReceiverNames = this.receiverNames.value.split(' ', 2);
+    this.customer.name = splittedSenderNames[0];
+    this.customer.last_name = splittedSenderNames[1];
     // tslint:disable-next-line:no-unused-expression
-    this.customer.phone = this.phone.value;
-    this.customer.address = this.registerPackageForm.get('to').value;
+    this.customer.phone = this.senderPhone.value;
+    this.customer.address = this.registerPackageForm.get('from').value;
+
+    this.receiver_customer.name = splittedReceiverNames[0];
+    this.receiver_customer.last_name = splittedReceiverNames[1];
+    this.receiver_customer.phone = this.receiverPhone.value;
+    this.receiver_customer.address = this.registerPackageForm.get('to').value;
 
     this.typePackage.type_name = this.registerPackageForm.get('type').value;
     this.packages.typePackage = this.typePackage;
     this.packages.customer = this.customer;
+    this.packages.receiver = this.receiver_customer;
     this.packages.weight_package = null;
     this.packages.size_height = null;
     this.packages.size_width = null;
     this.packages.review_package = false;
-    console.log(this.packages);
+    this.packages.package_price = this.registerPackageForm.get('packagePrice').value;
+    console.log(packageCustomer.packagePrice);
     this.httpAdministrator.registerPackage(this.packages).subscribe(data => {
       alert('uspeshmp maina da go duhash');
     });
-    console.log('test' + splittedNames[0]);
     console.log('test type' + this.typePackage.type_name);
   }
   CreateHomeForm() {
@@ -85,6 +105,7 @@ export class HomeLayoutComponent implements OnInit {
       weight: new FormControl('', [Validators.required]),
       height: new FormControl('', [Validators.required]),
       width: new FormControl('', [Validators.required]),
+      packagePrice: new FormControl('',[Validators.required]),
     });
   }
 }

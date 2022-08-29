@@ -40,6 +40,7 @@ export class ListPackagesComponent implements OnInit {
     this.httpCourier.getPackages(this.username).subscribe(data => {
       // @ts-ignore
       courierPackages = [...data];
+      // tslint:disable-next-line:only-arrow-functions
       this.packages$ = this.filter.valueChanges.pipe(
         startWith(''),
         map(text => search(text, pipe))

@@ -8,6 +8,7 @@ import {HomeLayoutComponent} from './layout-adiministrator/home-layout/home-layo
 import {ListCouriersComponent} from './layout-adiministrator/list-couriers/list-couriers.component';
 import {AuthGuardService} from '../service/auth/auth-guard.service';
 import {AddCourierComponent} from './layout-adiministrator/couriers/add-courier/add-courier.component';
+import {ListPackagesComponent} from './layout-adiministrator/list-packages/list-packages.component';
 
 const routes: Routes = [
   {
@@ -43,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'list-packages',
-    component: ListCouriersComponent,
+    component: ListPackagesComponent,
     canActivate: [AuthGuardService]
   }
   /* {

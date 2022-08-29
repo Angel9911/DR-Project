@@ -20,6 +20,9 @@
         <th scope="col">Телефонен номер на клиент</th>
         <th scope="col">Проблем с пратката</th>
         <th scope="col">Адрес на доставка</th>
+        <th scope="col">Цена на пратка</th>
+        <th scope="col">Обща цена(с включена такса)</th>
+        <th scope="col">Дата на изпращане</th>
       </tr>
       </thead>
       <tbody>
@@ -31,6 +34,9 @@
         <td><ngb-highlight [result]="packageProblem.packages_problem.customer.phone" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="packageProblem.message" [term]="filter.value"></ngb-highlight></td>
         <td><ngb-highlight [result]="packageProblem.packages_problem.customer.address" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="packageProblem.packages_problem.package_price" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="packageProblem.packages_problem.total_cost" [term]="filter.value"></ngb-highlight></td>
+        <td><ngb-highlight [result]="packageProblem.packages_problem.date_register_package" [term]="filter.value"></ngb-highlight></td>
         <td>
           <button class="btn btn-success" (click)="updatePackage(packageProblem)" style="margin-left: 20px;">Доставена</button>
         </td>

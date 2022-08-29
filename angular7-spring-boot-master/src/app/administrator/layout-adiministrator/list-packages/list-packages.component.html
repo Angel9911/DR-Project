@@ -1,14 +1,44 @@
 <app-header-layout-adiministrator></app-header-layout-adiministrator>
-<mat-sidenav-container class="example-container">
-  <mat-sidenav-content>
-    <h3>Регистриране на пратка</h3>
-    <form class="search">
-      <div class="mb-3 row">
-        <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Търси по име на пратка:</label>
-        <div class="col-xs-3 col-sm-auto">
-          <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
-        </div>
+  <br>
+  <form class="search">
+    <div class="mb-3 row">
+      <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Търсене на пратка(по име на пратка/клиент):</label>
+      <div class="col-xs-3 col-sm-auto">
+        <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
       </div>
-    </form>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    </div>
+  </form>
+  <h2 style="margin: auto">Информация за пратки</h2>
+  <br>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">#</th>
+      <th>Име на пратка</th>
+      <th>Тип на пратка</th>
+      <th>Статус на пратка</th>
+      <th>Цена на пратка</th>
+      <th>Обща цена на пратка</th>
+      <th>Имена на клиент</th>
+      <th>Телефон на клиент</th>
+      <th>Дата на изпращане</th>
+      <th>Дата на доставяне</th>
+      <th>Адрес на доставка</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let packages of result$ | async; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td><ngb-highlight [result]="packages.name_package" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.typePackage.type_name" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.statusPackage.status_type" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.package_price" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.total_cost" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.customer.name + ' ' + packages.customer.last_name" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.customer.phone" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.date_register_package" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.date_delivery_package" [term]="filter.value"></ngb-highlight></td>
+      <td><ngb-highlight [result]="packages.customer.address" [term]="filter.value"></ngb-highlight></td>
+    </tr>
+    </tbody>
+  </table>

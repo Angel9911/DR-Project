@@ -14,6 +14,7 @@ export class Packages {
   couirer: Courier;
   customer: Customer;
   office: Offices;
+  receiver: Customer;
   // tslint:disable-next-line:variable-name
   weight_package: any;
   // tslint:disable-next-line:variable-name
@@ -26,4 +27,8 @@ export class Packages {
   package_price: any;
   // tslint:disable-next-line:variable-name
   total_cost: any;
+  // tslint:disable-next-line:variable-name
+  date_register_package: any;
+  // tslint:disable-next-line:variable-name
+  date_delivery_package: any;
 }
