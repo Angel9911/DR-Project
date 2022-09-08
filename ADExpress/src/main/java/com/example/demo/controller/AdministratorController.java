@@ -4,12 +4,9 @@ import com.example.demo.model.*;
 import com.example.demo.services.AdministratorService;
 import com.example.demo.services.CourierService;
 import com.example.demo.services.CustomerService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -60,7 +57,8 @@ public class AdministratorController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-// DO TUK E KACHENO V DOKUMENTACIQTA
+
+    // DO TUK E KACHENO V DOKUMENTACIQTA
     @RequestMapping(value = "/courier/create", method = RequestMethod.POST, produces = "application/json")
     // bi trqbvalo da bachka
     public ResponseEntity<Courier> insertCourier(@RequestBody @Valid Courier courier) throws ValidationException {
@@ -128,18 +126,21 @@ public class AdministratorController {
             return new ResponseEntity<>(cityList, HttpStatus.OK);
         }
     }
+
     @GetMapping("/package/customer")
-    public ResponseEntity<List<Packages>> findPackagesByCustomerPhone(@RequestParam(value = "phone") String phone){
+    public ResponseEntity<List<Packages>> findPackagesByCustomerPhone(@RequestParam(value = "phone") String phone) {
         ArrayList<Packages> resultPackages = (ArrayList<Packages>) administratorService.findPackagesByCustomerPhone(phone);
         return new ResponseEntity<>(resultPackages, HttpStatus.OK);
     }
+
     @PostMapping(value = "/package/create", produces = "application/json")
-    public ResponseEntity<Packages> registerPackage(@RequestBody Packages packages){
+    public ResponseEntity<Packages> registerPackage(@RequestBody Packages packages) {
         Packages result = administratorService.registerPackage(packages);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
     @GetMapping(value = "/packages")
-    public ResponseEntity <List<Packages>> getAllPackages(){
+    public ResponseEntity<List<Packages>> getAllPackages() {
         List<Packages> packagesList = administratorService.getAllPackages();
         if (packagesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

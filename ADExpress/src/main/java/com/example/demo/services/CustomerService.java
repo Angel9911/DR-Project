@@ -33,20 +33,6 @@ public class CustomerService {
 
     @Transactional
     public void insertCustomer(Customer customer) {
-          /*  this.user_account = new User_account();
-            user_account.setUsername(customer.getUser_account().getUsername());
-            user_account.setPassword(customer.getUser_account().getPassword());
-            //  accountService.insertAccount(user_account);
-            Customer result = new Customer();
-            result.setName(customer.getName());
-            result.setLast_name(customer.getLast_name());
-            result.setCity(customer.getCity());
-       /* City city = new City();
-        city.setCity_id(customer.getCity().getCity_id());
-        result.setCity(city);
-            result.setEmail(customer.getEmail());
-            result.setAddress(customer.getAddress());
-            result.setPhone(customer.getPhone()); */
         customerRepository.save(customer);
     }
 
@@ -106,15 +92,15 @@ public class CustomerService {
                     TypePackage typePackage = new TypePackage();
                     typePackage.setType_name(packages.getTypePackage().getType_name());
                     getPackage.setTypePackage(typePackage);
-                   // if(packages.getOffice().getOffice_id() != null){
-                  //      Office office = new Office();
-                       // office.setOffice_location(packages.getOffice().getOffice_location());
-                      //  getPackage.setOffice(office);
-                  //  } else if(packages.getCustomer().getAddress() != null){
-                        Customer customer = new Customer();
-                        customer.setAddress(packages.getCustomer().getAddress());
-                        getPackage.setCustomer(customer);
-                 //   }
+                    // if(packages.getOffice().getOffice_id() != null){
+                    //      Office office = new Office();
+                    // office.setOffice_location(packages.getOffice().getOffice_location());
+                    //  getPackage.setOffice(office);
+                    //  } else if(packages.getCustomer().getAddress() != null){
+                    Customer customer = new Customer();
+                    customer.setAddress(packages.getCustomer().getAddress());
+                    getPackage.setCustomer(customer);
+                    //   }
                     StatusPackage statusPackage = new StatusPackage();
                     statusPackage.setStatus_type(packages.getStatusPackage().getStatus_type());
                     getPackage.setStatusPackage(statusPackage);
@@ -126,14 +112,14 @@ public class CustomerService {
                     getPackage.setSize_height(0);
                     getPackage.setReview_package(false);
                     getPackage.setTotal_cost(packages.getTotal_cost());
-                    if(packages.getDate_register_package()!=null){
+                    if (packages.getDate_register_package() != null) {
                         Date registerDate = this.getDate(packages.getDate_register_package());
                         getPackage.setDate_register_package(registerDate);
                     }
-                    if(packages.getDate_delivery_package()!=null){
+                    if (packages.getDate_delivery_package() != null) {
                         Date deliveryPackage = this.getDate(packages.getDate_delivery_package());
                         getPackage.setDate_delivery_package(deliveryPackage);
-                   }
+                    }
                     resultPackages.add(getPackage);
                 }
                 return resultPackages;
@@ -142,21 +128,18 @@ public class CustomerService {
             throw new Exception("error");
         }
     }
+
     @Transactional
     public List<City> getAllCities() {
         return cityRepository.findAll();
     }
 
     @Transactional
-    public City getCityById(int id) {
-        return cityRepository.findCityById(id);
-    }
-
-    @Transactional
     public City getCityIdByName(String name) {
         return cityRepository.findCityNameById(name);
     }
-    private Date getDate(Date datePackage){
+
+    private Date getDate(Date datePackage) {
         DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
         String packageDate = outputFormatter.format(datePackage); // Output : 01/20/2012
         System.out.println(packageDate);

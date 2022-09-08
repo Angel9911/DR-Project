@@ -14,6 +14,7 @@ import {NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 import {MatFormFieldModule, MatListModule, MatSidenavModule, MatSortModule, MatTableModule} from '@angular/material';
 import {ContactsComponent} from '../contacts/contacts.component';
 import {BrowserModule} from '@angular/platform-browser';
+import {ForgetPasswordComponent} from './account-user/forget-password/forget-password.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {BrowserModule} from '@angular/platform-browser';
     LayoutComponent,
     UserAccountComponent,
     ContactsComponent,
+    ForgetPasswordComponent,
    // PageNotFoundComponent
   ],
     imports: [

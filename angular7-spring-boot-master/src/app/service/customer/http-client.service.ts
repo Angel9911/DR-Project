@@ -9,7 +9,6 @@ import {Packages} from '../../models/Packages';
 
 const accUrl = 'http://localhost:8082/account/';
 const custUrl = 'http://localhost:8082/customer/';
-const cityUrl = 'http://localhost:8082/customer/city/';
 const reqHeader = new HttpHeaders({
   'Content-Type': 'application/json',
   Authentication: 'Bearer ' + JSON.parse(localStorage.getItem('token'))
@@ -48,11 +47,6 @@ export class HttpClientService {
     return this.httpClient.get<any[]>('https://raw.githubusercontent.com/dbonev91/Bulgaria-Towns-JSON/master/towns.json');
   }
 
-  getCityIdByName(cityName: string) {
-    const url = cityUrl + cityName;
-    return this.httpClient.get<City>(url, {headers: reqHeader});
-  }
-
   findUsername(username: string) {
     // const url = accUrl + username;
     return this.httpClient.get<boolean>(`${accUrl}?username=${username}`);
@@ -73,5 +67,9 @@ export class HttpClientService {
   getPackages(username: string) {
     const url = custUrl + 'packages';
     return this.httpClient.get<Packages>(`${url}?username=${username}`);
+  }
+  forgotPassword(email: string) {
+    const url = custUrl + 'forgot' + '/' + 'password';
+    return this.httpClient.get<Customer>(`${url}?email=${email}`);
   }
 }

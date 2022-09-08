@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     component: AppComponent,
     children: [
       { path: '' , component: HeaderComponent, outlet: 'header'},
+      { path: '', component: FooterComponent, outlet: 'footer'}
     ]
   }
 ];

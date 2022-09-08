@@ -17,8 +17,4 @@ public interface UserAccountRepository extends JpaRepository<User_account,Intege
     @Query(value="select a.user_account_id,a.username,a.password from user_account a where a.username=:username and a.password=:password",nativeQuery = true)
     User_account isPasswordExist(String username, String password);
     Optional<User_account> findByUsername(String Username);
-    /* @Modifying
-    @Query(value="DELETE FROM users_acc u WHERE u.username=:username",nativeQuery = true)
-    Integer deleteByUsername(String username);*/
-   // User_account UpdatePasswordByCustomerEmail(String username);
 }

@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AddCourierComponent } from './administrator/layout-adiministrator/couriers/add-courier/add-courier.component';
 import { EditCourierComponent } from './administrator/layout-adiministrator/couriers/edit-courier/edit-courier.component';
 import {AuthInterceptorService} from './service/auth/auth-interceptor.service';
+import { ForgetPasswordComponent } from './customers/account-user/forget-password/forget-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,22 +20,23 @@ import {AuthInterceptorService} from './service/auth/auth-interceptor.service';
   //  AddCourierComponent,
     EditCourierComponent,
   ],
-  imports: [
-    BrowserModule,
-    // HomeModule,
-    // HomeRoutingModule,
+    imports: [
+        BrowserModule,
+        // HomeModule,
+        // HomeRoutingModule,
 
-    AppRoutingModule,
-    // SharedModuleModule,
-    // HomeModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    // MatFormFieldModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-  ],
+        AppRoutingModule,
+        // SharedModuleModule,
+        // HomeModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        // MatFormFieldModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+    ],
    providers: [{
      provide: HTTP_INTERCEPTORS,
      useClass: AuthInterceptorService,
