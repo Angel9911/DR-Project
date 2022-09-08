@@ -1,6 +1,17 @@
-app-root{
+app-root {
   position: relative;
 }
-router-outlet{
+
+router-outlet {
   position: relative;
+}
+
+.picture {
+  margin-left: -260px;
+  margin-bottom: 20px;
+}
+
+.bodyHome {
+  background-image: url("https://static.vecteezy.com/system/resources/previews/001/963/304/non_2x/express-delivery-concept-checking-delivery-service-app-on-mobile-phone-delivery-scooter-motorcycle-with-cardboard-box-on-mobile-phone-and-city-background-vector.jpg");
+  height: 400px;
 }

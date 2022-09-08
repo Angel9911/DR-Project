@@ -1,5 +1,5 @@
 import {Component, OnInit, PipeTransform} from '@angular/core';
-import {from, Observable, of} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {DecimalPipe} from '@angular/common';
@@ -25,9 +25,9 @@ function search(text: string, pipe: PipeTransform): Packages[] {
 }
 
 @Component({
-     // selector: 'app-header-layout-user',
+  // selector: 'app-header-layout-user',
   templateUrl: './layout.component.html',
- styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
   packages$: Observable<Packages[]>;
@@ -40,7 +40,7 @@ export class LayoutComponent implements OnInit {
   filter = new FormControl('');
 
   constructor(pipe: DecimalPipe, private httpClientService: HttpClientService, private dataService: DataService) {
-   // this.userAcc.username = this.dataService.customer.user_account.username;
+    // this.userAcc.username = this.dataService.customer.user_account.username;
     // this.cust = this.dataService.customer;
     this.username = sessionStorage.getItem('username');
     console.log(this.username);
@@ -53,11 +53,13 @@ export class LayoutComponent implements OnInit {
         startWith(''),
         map(text => search(text, pipe))
       );
-   });
+    });
   }
+
   ngOnInit() {
     // tslint:disable-next-line:only-arrow-functions
   }
+
   sortData(sort: Sort) {
     const data = customerPackages.slice();
     if (!sort.active || sort.direction === '') {
@@ -82,14 +84,17 @@ export class LayoutComponent implements OnInit {
   }
 
 // @ts-ignore
- compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-getTotalPackagePrice() {
-   return customerPackages.map(t => t.package_price).reduce((a, b) => a + b, 0);
-}
-getTotalCost() {
-  return customerPackages.map(t => t.total_cost).reduce((a, b) => a + b, 0);
-}
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  getTotalPackagePrice() {
+    return customerPackages.map(t => t.package_price).reduce((a, b) => a + b, 0);
+  }
+
+  getTotalCost() {
+    return customerPackages.map(t => t.total_cost).reduce((a, b) => a + b, 0);
+  }
+
 // @ts-ignore
 }

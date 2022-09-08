@@ -21,7 +21,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -82,7 +81,7 @@ public class JwtAuthController {
                     encoder.encode(signupRequest.getPassword()));
             insertUserRoles(signupRequest, user);
             userRepository.save(user);
-            authService.isUserExisting(user,signupRequest.getCustomer());
+            authService.isUserExisting(user, signupRequest.getCustomer());
             return new ResponseEntity<String>("User has registered successfully", HttpStatus.OK);
         } else {
             User_account user = new User_account(signupRequest.getUsername(),
@@ -97,13 +96,14 @@ public class JwtAuthController {
             result.setAddress(signupRequest.getCustomer().getAddress());
             result.setPhone(signupRequest.getCustomer().getPhone());
             userRepository.save(user);
-          //  User_account user_account = new User_account();
-           // user_account.setUser_account_id(user.getUser_account_id());
+            //  User_account user_account = new User_account();
+            // user_account.setUser_account_id(user.getUser_account_id());
             result.setUser_account(user);
             customerService.insertCustomer(result);
             return new ResponseEntity<String>("User has registered successfully", HttpStatus.OK);
         }
     }
+
     private void insertUserRoles(@RequestBody SignupRequest signupRequest, User_account user) {
         Set<String> strRoles = signupRequest.getRoles();
         for (String role :

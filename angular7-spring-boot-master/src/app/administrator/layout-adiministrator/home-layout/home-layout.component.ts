@@ -1,14 +1,12 @@
-import {Component, OnInit, PipeTransform} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DecimalPipe} from '@angular/common';
-import {map, startWith} from 'rxjs/operators';
-import {Observable} from 'rxjs';
 import {HttpAdiministratorService} from '../../../service/administrator/http-adiministrator.service';
-import {existingEmailValidator, existingUsernameValidator} from '../../../helpers/UsernameValidator';
 import {Customer} from '../../../models/user';
 import {Packages} from '../../../models/Packages';
 import {TypePackage} from '../../../models/TypePackage';
 import {StatusPackage} from '../../../models/StatusPackage';
+
 const getTypes: any = [];
 
 @Component({
@@ -28,6 +26,7 @@ export class HomeLayoutComponent implements OnInit {
   packages = new Packages();
   typePackage = new TypePackage();
   statusPackage = new StatusPackage();
+
   constructor(pipe: DecimalPipe, private httpAdministrator: HttpAdiministratorService, private formBuilder: FormBuilder) {
     this.CreateHomeForm();
   }
@@ -43,21 +42,27 @@ export class HomeLayoutComponent implements OnInit {
     });
     this.typeList = getTypes;
   }
+
   get senderNames() {
     return this.registerPackageForm.get('senderNames');
   }
+
   get senderPhone() {
     return this.registerPackageForm.get('senderPhone');
   }
+
   get receiverNames() {
     return this.registerPackageForm.get('receiverNames');
   }
+
   get receiverPhone() {
     return this.registerPackageForm.get('receiverPhone');
   }
+
   get packagePrice() {
     return this.registerPackageForm.get('packagePrice');
   }
+
   RegisterPackage(packageCustomer) {
     this.packages.name_package = this.registerPackageForm.get('packageName').value;
     this.SenderNames = this.senderNames;
@@ -91,6 +96,7 @@ export class HomeLayoutComponent implements OnInit {
     });
     console.log('test type' + this.typePackage.type_name);
   }
+
   CreateHomeForm() {
     this.registerPackageForm = this.formBuilder.group({
       packageName: new FormControl('', [Validators.required]),
@@ -105,7 +111,7 @@ export class HomeLayoutComponent implements OnInit {
       weight: new FormControl('', [Validators.required]),
       height: new FormControl('', [Validators.required]),
       width: new FormControl('', [Validators.required]),
-      packagePrice: new FormControl('',[Validators.required]),
+      packagePrice: new FormControl('', [Validators.required]),
     });
   }
 }

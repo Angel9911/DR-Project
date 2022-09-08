@@ -5,8 +5,6 @@ import com.example.demo.model.Customer;
 import com.example.demo.model.Packages;
 import com.example.demo.services.CustomerService;
 import com.example.demo.services.UserAccountService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,21 +80,6 @@ public class CustomerController {
             return new ResponseEntity<>(false, HttpStatus.OK);
         }
     }
-
-   /* @RequestMapping(value = "/email/{email}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Boolean> findEmail2(@PathVariable(value = "email") String email) {
-        if (email != null) {
-            Customer result = customerService.IsEmailExist(email);
-            if (result != null) {
-                return new ResponseEntity<>(true, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(false, HttpStatus.OK);
-            }
-
-        } else {
-            return new ResponseEntity<>(false, HttpStatus.OK);
-        }
-    } */
 
     @RequestMapping(value = "/city", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<String>> getAllExamples() {

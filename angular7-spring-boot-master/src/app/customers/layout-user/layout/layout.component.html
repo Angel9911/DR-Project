@@ -39,7 +39,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let package of sortedData | async; index as i">
-          <td><ngb-highlight [result]="i" [term]="filter.value"></ngb-highlight></td>
+          <td scope="row">{{ i + 1 }}</td>
           <td><ngb-highlight [result]="package.name_package" [term]="filter.value"></ngb-highlight></td>
           <td><ngb-highlight [result]="package.typePackage.type_name" [term]="filter.value"></ngb-highlight></td>
           <td><div *ngIf="package.office; else elseBlock">До офис({{package.office.office_location}})</div>

@@ -147,10 +147,18 @@ public class AdministratorService {
             customer.setPhone(packages.getCustomer().getPhone());
             customer.setAddress(packages.getCustomer().getAddress());
             getPackage.setCustomer(customer); //  moje bi trqbva da se promeni na receiver
-            Date registerDate = this.getDate(packages.getDate_register_package());
-            Date deliveryDate = this.getDate(packages.getDate_delivery_package());
-            getPackage.setDate_register_package(registerDate);
-            getPackage.setDate_delivery_package(deliveryDate);
+            if(packages.getDate_register_package()!=null){
+                Date registerDate = this.getDate(packages.getDate_register_package());
+                getPackage.setDate_register_package(registerDate);
+            }
+            //Date registerDate = this.getDate(packages.getDate_register_package());
+            if(packages.getDate_delivery_package()!=null){
+                Date deliveryDate = this.getDate(packages.getDate_delivery_package());
+                getPackage.setDate_delivery_package(deliveryDate);
+            }
+            //Date deliveryDate = this.getDate(packages.getDate_delivery_package());
+          //  getPackage.setDate_register_package(registerDate);
+         //   getPackage.setDate_delivery_package(deliveryDate);
             getPackage.setSize_height(0);
             getPackage.setSize_width(0);
             getPackage.setReview_package(false);

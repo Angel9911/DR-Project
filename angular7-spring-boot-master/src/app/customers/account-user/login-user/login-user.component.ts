@@ -1,8 +1,7 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Router} from '@angular/router';
 import {HttpClientService} from '../../../service/customer/http-client.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {state} from '@angular/animations';
 import {AlertServiceService} from '../../../service/alert-service.service';
 import {Customer} from '../../../models/user';
 import {AuthenticationService} from '../../../authentication/authentication.service';
@@ -32,15 +31,18 @@ export class LoginUserComponent implements OnInit {
   loginform: FormGroup;
   submitted: boolean;
   loading: boolean;
+
   // tslint:disable-next-line:max-line-length
   constructor(private auth: AuthService, private httpClientService: HttpClientService, private router: Router, private formBuilder: FormBuilder, private alertService: AlertServiceService, private authservice: AuthenticationService, private dataService: DataService) {
-   /* if (this.authservice.loggedIn) {
-      this.router.navigate(['layout']);
-    } */
+    /* if (this.authservice.loggedIn) {
+       this.router.navigate(['layout']);
+     } */
     this.CreateLoginForm();
   }
+
   ngOnInit() {
   }
+
   get username() {
     return this.loginform.get('username');
   }
@@ -48,12 +50,14 @@ export class LoginUserComponent implements OnInit {
   get password() {
     return this.loginform.get('password');
   }
+
   CreateLoginForm() {
     this.loginform = this.formBuilder.group({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
   }
+
   LoginUser(user) {
     this.submitted = true;
     this.alertService.clear();
@@ -64,7 +68,7 @@ export class LoginUserComponent implements OnInit {
     this.user_acc.username = this.username.value;
     this.user_acc.password = this.password.value;
     this.customer.user_account = this.user_acc;
-   // console.log(this.customer.username + this.customer.password);
+    // console.log(this.customer.username + this.customer.password);
     this.httpClientService.findUsername(this.customer.user_account.username).subscribe(data => {
       // tslint:disable-next-line:triple-equals
       if (data != false) {
@@ -93,56 +97,6 @@ export class LoginUserComponent implements OnInit {
         this.isLoginFailed = true;
       }
     );
-
-    /* this.httpClientService.loginCustomer(this.customer.user_account.username, this.customer.user_account.password).subscribe(data => {
-      this.result = data;
-      if (this.result != null) {
-       console.log(data);
-       this.dataService.customer = this.result;
-       console.log('tes send object' + this.dataService.customer.name);
-       this.router.navigate(['/customers/home']);
-      } else {
-        this.loading = false;
-        alert('Wrong username or password');
-      }
-    }); */
     console.log('test-stest: ' + this.result);
-    /* if (this.authservice.login(this.customer.username, this.customer.password)) {
-      this.router.navigate(['/customers/layout']);
-    } else {
-      alert('Wrong username or password');
-  } */
   }
-   sendObject() {
-    this.resultObject.emit(this.result);
-  }
-
-  /*loginCustomer() {
-    this.httpClientService.loginCustomer().subscribe(data => {
-      this.employee = data;
-      alert('Employee createeed successfully.');
-    });
-    this.router.navigate(['/register-user']);
-  }
-  findByname(searchInfo): void {
-    this.httpClientService.findByname(this.name).subscribe(
-      data => {
-        this.employee = data;
-        console.log(data);
-      }
-    );
-  }
-  searchForm(searchInfo) {
-    this.model.name = this.Name.value;
-    console.log('test(login-user.component)' , this.model.name);
-    console.log(JSON.stringify(this.Name.value, null, 4));
-    this.model.kod = this.Kod.value;
-    this.httpClientService.GetAllExamples(this.model.name).subscribe(
-      response => {this.employee = response;
-                   // @ts-ignore
-                   this.router.navigate(['/customer-form'], { state: { employee: this.employee} });
-      }
-    );
-  }
-  */
 }

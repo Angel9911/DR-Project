@@ -37,6 +37,7 @@ export class HttpAdiministratorService {
     // @ts-ignore
     return this.http.get<User_account>(url, {headers: reqHeader});
   }
+
 //  DO TUK V DOKUMENTACIQ
   /* getUserById(id: number) {
       return this.http.get(this.baseUrl + id);

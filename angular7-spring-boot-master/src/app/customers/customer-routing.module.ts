@@ -11,16 +11,12 @@ import {AuthGuard} from '../helpers/AuthGuard';
 import {PageNotFoundComponent} from '../helpers/page-not-found/page-not-found.component';
 import {ContactsComponent} from '../contacts/contacts.component';
 import {AuthGuardService} from '../service/auth/auth-guard.service';
+import {ForgetPasswordComponent} from './account-user/forget-password/forget-password.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginUserComponent,
-    /* children: [
-      {path: '/layout',
-        component: LayoutComponent,
-      }
-    ] */
   },
   {
     path: 'register',
@@ -47,6 +43,10 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     component: ContactsComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'forgot-password',
+    component: ForgetPasswordComponent,
   },
   {
     path: '**',
