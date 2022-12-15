@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserAccountService {
-    @Autowired
+   // @Autowired
     UserAccountRepository userAccountRepository;
-    @Autowired
+  //  @Autowired
     CustomerRepository customerRepository;
-    @Autowired
+  //  @Autowired
     PasswordEncoder encoder;
-    @Autowired
+   // @Autowired
     RolesRepository rolesRepository;
-    @Autowired
+   // @Autowired
     private CustomerService customerService;
 
     @Transactional

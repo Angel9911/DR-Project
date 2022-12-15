@@ -1,11 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Administrator;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-public interface AdministratorRepository extends CrudRepository<Administrator,Long> {
+@Repository
+public interface AdministratorRepository extends JpaRepository<Administrator,Long> {
     @Query(value="SELECT u.user_account_id, a.administrator_id, a.administrator_acc_id, o.office_id, c.city_id, u.username, u.password, c.city_name, o.office_location "+
             "FROM user_account u "+
             "INNER JOIN user_roles ur on ur.user_account_id = u.user_account_id " +

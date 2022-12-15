@@ -2,15 +2,18 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Packages;
 import com.example.demo.model.StatusPackage;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
 
-public interface PackageRepository  extends CrudRepository<Packages,Integer> {
+@Repository
+public interface PackageRepository  extends JpaRepository<Packages,Integer> {
     List<Packages> findAll();
     @Modifying
     @Query(value="UPDATE packages SET status_id = :status_id, date_delivery_package = :delivery_date WHERE package_id = :package_id",nativeQuery = true)

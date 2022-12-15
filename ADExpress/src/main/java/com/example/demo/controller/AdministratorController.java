@@ -21,9 +21,9 @@ import java.util.List;
 public class AdministratorController {
     @Autowired
     private AdministratorService administratorService;
-    @Autowired
+    //@Autowired
     private CustomerService customerService;
-    @Autowired
+   // @Autowired
     private CourierService courierService;
     private Administrator result;
 
@@ -31,7 +31,7 @@ public class AdministratorController {
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")//check
     public ResponseEntity<Administrator> LoginAministrator(@PathVariable(value = "username") String username) throws ValidationException {
         try {
-            this.result = administratorService.LoginAdministrator(username);
+            this.result = administratorService.Login(username);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ValidationException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -62,23 +62,15 @@ public class AdministratorController {
     @RequestMapping(value = "/courier/create", method = RequestMethod.POST, produces = "application/json")
     // bi trqbvalo da bachka
     public ResponseEntity<Courier> insertCourier(@RequestBody @Valid Courier courier) throws ValidationException {
-        try {
-            administratorService.createCourier(courier);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (ValidationException validationException) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        administratorService.Insert(courier);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/customer/create", method = RequestMethod.POST, produces = "application/json")
     // bi trqbvalo da bachka
     public ResponseEntity<Customer> insertCustomer(@RequestBody Customer customer) throws ValidationException {
-        try {
-            administratorService.createCustomer(customer);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (ValidationException validationException) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        administratorService.Insert(customer);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/courier/update", method = RequestMethod.PUT, produces = "application/json")
@@ -140,7 +132,7 @@ public class AdministratorController {
     }
 
     @GetMapping(value = "/packages")
-    public ResponseEntity<List<Packages>> getAllPackages() {
+    public ResponseEntity<List<Packages>> getAllPackages() throws Exception {
         List<Packages> packagesList = administratorService.getAllPackages();
         if (packagesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

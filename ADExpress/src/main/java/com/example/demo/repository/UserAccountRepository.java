@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public interface UserAccountRepository extends JpaRepository<User_account,Integer> {
     User_account findUser_accountByUsernameAndPassword(String username,String password);
     @Query(value="select a.user_account_id,a.username,a.password from user_account a where a.username=:username",nativeQuery = true)

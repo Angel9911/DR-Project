@@ -1,14 +1,17 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Courier;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-public interface CourierRepository extends CrudRepository<Courier, Integer> {
+@Repository
+public interface CourierRepository extends JpaRepository<Courier, Integer> {
     List<Courier> findAll();
 
     @Query(value = "SELECT c.courier_first_name,c.courier_last_name,c.courier_acc_id,c.courier_city_name, c.courier_phone,c.courier_id " +

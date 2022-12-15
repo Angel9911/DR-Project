@@ -1,10 +1,11 @@
 package com.example.demo.services;
 
 import com.example.demo.model.*;
+import com.example.demo.private_lib.PackageHandler;
+import com.example.demo.private_lib.User;
 import com.example.demo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,14 +19,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
-public class AdministratorService {
+public class AdministratorService extends User {
     @Autowired
     AdministratorRepository administratorRepository;
-    @Autowired
+   @Autowired
     CourierRepository courierRepository;
-    @Autowired
+   @Autowired
     CustomerRepository customerRepository;
-    @Autowired
+   @Autowired
     RolesRepository rolesRepository;
     @Autowired
     CityRepository cityRepository;
@@ -45,7 +46,7 @@ public class AdministratorService {
     private String passwordSecret;
     private City getCity;
 
-    @Transactional
+    /*@Transactional
     public Courier createCourier(Courier courier) throws ValidationException {
         if (courier != null) {
             Courier result = new Courier();
@@ -59,17 +60,17 @@ public class AdministratorService {
         } else {
             throw new ValidationException("error");
         }
-    }
+    } */
 
-    @Transactional
+   /* @Transactional
     public Customer createCustomer(Customer customer) throws ValidationException {
         if (customer != null) {
             Customer result = new Customer();
             result.setName(customer.getName());
             result.setLast_name(customer.getLast_name());
             String getCity = customer.getCity();
-        /* City city=new City();
-        city.setCity_id(customerService.getCityIdByName(getCity).getCity_id()); */
+         City city=new City();
+        city.setCity_id(customerService.getCityIdByName(getCity).getCity_id());
             result.setCity(getCity);
             result.setEmail(customer.getEmail());
             result.setAddress(customer.getAddress());
@@ -78,31 +79,11 @@ public class AdministratorService {
         } else {
             throw new ValidationException("error");
         }
-    }
+    } */
 
     @Transactional
     public Courier updateCourier(Courier courier) {
         return courierRepository.save(courier);
-    }
-
-    @Transactional
-    public Administrator LoginAdministrator(String username) throws ValidationException {
-        Administrator administrator = administratorRepository.findAdministratorByUsername(username);
-        Administrator result = new Administrator();
-        if (administrator != null) {
-            User_account user_account = new User_account();
-            user_account.setUsername(administrator.getUser_account_administrator().getUsername());
-            result.setUser_account_administrator(user_account);
-            Office office = new Office();
-            office.setOffice_location(administrator.getOffice_administrator().getOffice_location());
-            City city = new City();
-            city.setCity_name(administrator.getOffice_administrator().getCity().getCity_name());
-            office.setCity(city);
-            result.setOffice_administrator(office);
-        } else {
-            throw new ValidationException("error");
-        }
-        return result;
     }
 
     @Transactional
@@ -127,44 +108,13 @@ public class AdministratorService {
     }
 
     @Transactional
-    public List<Packages> getAllPackages() {
+    public List<Packages> getAllPackages() throws Exception {
         List<Packages> packagesList = packageRepository.findAll();
-        List<Packages> newListPackages = new ArrayList<>();
-        for (Packages packages:packagesList) {
-            Packages getPackage = new Packages();
-            getPackage.setName_package(packages.getName_package());
-            StatusPackage statusPackage = new StatusPackage();
-            statusPackage.setStatus_type(packages.getStatusPackage().getStatus_type());
-            TypePackage typePackage = new TypePackage();
-            typePackage.setType_name(packages.getTypePackage().getType_name());
-            getPackage.setStatusPackage(statusPackage);
-            getPackage.setTypePackage(typePackage);
-            getPackage.setPackage_price(packages.getPackage_price());
-            getPackage.setTotal_cost(packages.getTotal_cost());
-            Customer customer = new Customer();
-            customer.setName(packages.getCustomer().getName());
-            customer.setLast_name(packages.getCustomer().getLast_name());
-            customer.setPhone(packages.getCustomer().getPhone());
-            customer.setAddress(packages.getCustomer().getAddress());
-            getPackage.setCustomer(customer); //  moje bi trqbva da se promeni na receiver
-            if(packages.getDate_register_package()!=null){
-                Date registerDate = this.getDate(packages.getDate_register_package());
-                getPackage.setDate_register_package(registerDate);
-            }
-            //Date registerDate = this.getDate(packages.getDate_register_package());
-            if(packages.getDate_delivery_package()!=null){
-                Date deliveryDate = this.getDate(packages.getDate_delivery_package());
-                getPackage.setDate_delivery_package(deliveryDate);
-            }
-            //Date deliveryDate = this.getDate(packages.getDate_delivery_package());
-          //  getPackage.setDate_register_package(registerDate);
-         //   getPackage.setDate_delivery_package(deliveryDate);
-            getPackage.setSize_height(0);
-            getPackage.setSize_width(0);
-            getPackage.setReview_package(false);
-            newListPackages.add(getPackage);
+        if(!packagesList.isEmpty()){
+            return PackageHandler.getPackageList(packagesList);
+        }else {
+            throw new Exception("error");
         }
-        return newListPackages;
     }
 
     @Transactional
@@ -264,8 +214,6 @@ public class AdministratorService {
             System.out.println(courier.getCourier_phone() + " " + courier.getPackagesList().size());
             couriers.put(courier, courier.getPackagesList().size());
         }
-        //List<Integer> sortedList = new ArrayList<>(couriers.values());
-        //Collections.sort(sortedList);
         return couriers;
     }
     private User_account createCourierAccount(String fName, String lName, String role){
@@ -279,12 +227,52 @@ public class AdministratorService {
         userRepository.save(user_account);
         return user_account;
     }
-    private Date getDate(Date datePackage){
-        DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");
-        String packageDate = outputFormatter.format(datePackage); // Output : 01/20/2012
-        System.out.println(packageDate);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-        LocalDate localdate = LocalDate.parse(packageDate, formatter);
-        return java.sql.Date.valueOf(localdate);
+    @Transactional
+    @Override
+    public Administrator Login(String username) throws ValidationException {
+        Administrator administrator = administratorRepository.findAdministratorByUsername(username);
+        Administrator result = new Administrator();
+        if (administrator != null) {
+            User_account user_account = new User_account();
+            user_account.setUsername(administrator.getUser_account_administrator().getUsername());
+            result.setUser_account_administrator(user_account);
+            Office office = new Office();
+            office.setOffice_location(administrator.getOffice_administrator().getOffice_location());
+            City city = new City();
+            city.setCity_name(administrator.getOffice_administrator().getCity().getCity_name());
+            office.setCity(city);
+            result.setOffice_administrator(office);
+        } else {
+            throw new ValidationException("error");
+        }
+        return result;
     }
+
+    @Override
+    public Object Update(Object object) {
+       /* if(object instanceof Customer){
+
+        } */
+        if(object instanceof Courier){
+            return courierRepository.save((Courier) object);
+        }
+        return object;
+    }
+
+    @Transactional
+    @Override
+    public void Insert(Object object) {
+        if(object instanceof Customer){
+            Customer customer = (Customer)object;
+            customerRepository.save(customer);
+        }
+        if(object instanceof Courier){
+            Courier courier = (Courier)object;
+            User_account getAccount = this.createCourierAccount(courier.getCourier_first_name(),courier.getCourier_last_name(),"courier");
+            courier.setUser_account_courier(getAccount);
+             courierRepository.save(courier);
+        }
+    }
+
+
 }

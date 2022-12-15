@@ -99,7 +99,7 @@ public class JwtAuthController {
             //  User_account user_account = new User_account();
             // user_account.setUser_account_id(user.getUser_account_id());
             result.setUser_account(user);
-            customerService.insertCustomer(result);
+            customerService.Insert(result);
             return new ResponseEntity<String>("User has registered successfully", HttpStatus.OK);
         }
     }

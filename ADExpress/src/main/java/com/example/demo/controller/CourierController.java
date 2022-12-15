@@ -8,6 +8,7 @@ import com.example.demo.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.ValidationException;
@@ -17,9 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/courier")
 public class CourierController {
-    @Autowired
-    private CustomerService customerService;
-    @Autowired
+
+    @Autowired(required = true)
     private CourierService courierService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -30,7 +30,7 @@ public class CourierController {
     @GetMapping(produces = "application/json")
     public ResponseEntity<Courier> LoginCourier(@RequestParam(value = "username") String username) {
         try {
-            Courier result = courierService.LoginCourierByUsernamePassword(username);
+            Courier result = courierService.Login(username);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ValidationException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
