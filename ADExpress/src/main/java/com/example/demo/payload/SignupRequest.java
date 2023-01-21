@@ -1,6 +1,6 @@
 package com.example.demo.payload;
 
-import com.example.demo.model.Customer;
+import com.example.demo.models.Customer;
 
 import java.util.Set;
 

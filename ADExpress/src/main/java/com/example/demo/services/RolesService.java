@@ -1,13 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Customer;
-import com.example.demo.model.Roles;
-import com.example.demo.repository.CustomerRepository;
-import com.example.demo.repository.RolesRepository;
+import com.example.demo.repositories.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 public class RolesService {
     @Autowired
