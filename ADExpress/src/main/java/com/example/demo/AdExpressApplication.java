@@ -3,25 +3,16 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.transaction.PlatformTransactionManager;
-
-import javax.persistence.EntityManagerFactory;
-import java.net.URISyntaxException;
 
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.example.demo.repository",entityManagerFactoryRef = "entityManagerFactory",
+@EnableJpaRepositories(basePackages = "com.example.demo.repositories",entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager")
 @EntityScan(basePackages = { "com.example.demo.model" })
 @ComponentScan(basePackages = "com.example.demo.services.Impl")
-@ComponentScan(basePackages = {"com.example.demo.config", "com.example.demo.services","com.example.demo.controller"})
+@ComponentScan(basePackages = {"com.example.demo.config", "com.example.demo.services", "com.example.demo.controllers"})
 //@ComponentScan(basePackages = "com.example.demo.services")
 //@ComponentScan(basePackages = "com.example.demo.repository")
 public class AdExpressApplication {

@@ -1,9 +1,8 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.model.Customer;
-import com.example.demo.model.User_account;
-import com.example.demo.repository.CustomerRepository;
-import com.example.demo.repository.UserAccountRepository;
+import com.example.demo.models.User_account;
+import com.example.demo.repositories.CustomerRepository;
+import com.example.demo.repositories.UserAccountRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

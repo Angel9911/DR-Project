@@ -1,6 +1,6 @@
 package com.example.demo.private_lib;
 
-import com.example.demo.model.*;
+import com.example.demo.models.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
