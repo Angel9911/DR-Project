@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "zuul.routes.packages.path",
+      "type": "java.lang.String",
+      "description": "Description for zuul.routes.packages.path."
+    },
+    ,
+    {
+      "name": "zuul.routes.package-service-id",
+      "type": "java.lang.String",
+      "description": "Description for zuul.routes.package-service-id."
+    }
+  ] }
