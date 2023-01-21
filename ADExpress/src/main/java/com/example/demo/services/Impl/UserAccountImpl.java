@@ -1,11 +1,10 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.model.User_account;
+import com.example.demo.models.User_account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.List;

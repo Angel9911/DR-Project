@@ -1,4 +1,6 @@
 package com.example.demo.model;
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Administrator {
     private User_account user_account_administrator;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship cities -> users_info (many to one)
     @JoinColumn(name = "office_id", referencedColumnName = "office_id", insertable = false, updatable = false)
+    @CreatedDate
     private Office office_administrator;
 
     public Administrator(Long administrator_id, User_account user_account_administrator) {

@@ -1,12 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.City;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-public interface CityRepository  extends CrudRepository<City,Long> {
+@Repository
+public interface CityRepository  extends JpaRepository<City,Long> {
     List<City> findAll();
     @Query(value="select c.city_id,c.city_name from cities c where c.city_id=:city_id",nativeQuery = true)
     City findCityById(int city_id);

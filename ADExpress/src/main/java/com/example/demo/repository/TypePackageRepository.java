@@ -1,12 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.TypePackage;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-public interface TypePackageRepository extends CrudRepository<TypePackage,Long> {
+@Repository
+public interface TypePackageRepository extends JpaRepository<TypePackage,Long> {
     @Query(value="SELECT t.type_id,t.type_name " +
             "FROM type_package t;",nativeQuery = true)
     List<TypePackage> findAllTypes();

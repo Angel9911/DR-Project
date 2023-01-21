@@ -20,8 +20,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    @Autowired
-    private UserAccountService accountService;
+    //@Autowired
+    //private UserAccountService accountService;
     @Autowired
     private CustomerService customerService;
     @Autowired
@@ -31,7 +31,7 @@ public class CustomerController {
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Customer> insertCustomer(@RequestBody Customer customer) {
         try {
-            customerService.insertCustomer(customer);
+            customerService.Insert(customer);
             return new ResponseEntity<>(customer, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -42,7 +42,7 @@ public class CustomerController {
     // @PreAuthorize("hasRole('user')")
     public ResponseEntity<Customer> LoginCustomer(@PathVariable(value = "username") String username) {
         try {
-            this.result = customerService.LoginCustomerByUsername(username);
+            this.result = customerService.Login(username);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ValidationException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -54,7 +54,7 @@ public class CustomerController {
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
         if (customer.getUser_id() != null) {
             try {
-                Customer result = customerService.updateCustomer(customer);
+                Customer result = customerService.Update(customer);
 
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } catch (EntityNotFoundException e) {

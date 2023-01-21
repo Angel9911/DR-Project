@@ -2,12 +2,15 @@ package com.example.demo.repository;
 
 import com.example.demo.model.PackageProblem;
 import com.example.demo.model.Packages;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface PackageProblemRepository extends CrudRepository<PackageProblem,Integer> {
+@Repository
+public interface PackageProblemRepository extends JpaRepository<PackageProblem,Integer> {
     @Query(value = "select p.name_package, t.type_name, uf.address, s.status_type, pr.message, pr.package_problem_id, p.package_id, p.courier_id, p.user_id, p.office_id, p.review_package, p.size_height, p.size_width, p.weight_package, p.status_id, p.type_package_id, uf.name, uf.last_name, uf.phone "+
             "from packages p " +
             "inner join package_problems pr on pr.package_id = p.package_id " +

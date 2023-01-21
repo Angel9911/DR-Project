@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/account")
 public class UserAccountController {
-    @Autowired
+   // @Autowired
     UserAccountService userAccountService;
-    @Autowired
+   // @Autowired
     UserAccountServiceImp userAccountServiceImp;
 
     @GetMapping(produces = "application/json")
