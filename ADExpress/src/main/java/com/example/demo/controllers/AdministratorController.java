@@ -4,7 +4,10 @@ import com.example.demo.models.*;
 import com.example.demo.services.Impl.AdministratorServiceImpl;
 import com.example.demo.services.Impl.CourierServiceImpl;
 import com.example.demo.services.Impl.CustomerServiceImpl;
+import com.github.benmanes.caffeine.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -21,6 +25,8 @@ import java.util.List;
 public class AdministratorController {
     @Autowired
     private AdministratorServiceImpl administratorService;
+    @Autowired
+    private CacheManager cacheManager;
     //@Autowired
     private CustomerServiceImpl customerServiceImpl;
    // @Autowired
@@ -133,6 +139,13 @@ public class AdministratorController {
 
     @GetMapping(value = "/packages")
     public ResponseEntity<List<Packages>> getAllPackages() throws Exception {
+       /* CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("administrator");
+        Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
+
+        for (Map.Entry<Object, Object> entry : nativeCache.asMap().entrySet()) {
+            System.out.println("Key = " + entry.getKey());
+            System.out.println("Value = " + entry.getValue());
+        } */
         List<Packages> packagesList = administratorService.getAllPackages();
         if (packagesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

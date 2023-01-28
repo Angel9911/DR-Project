@@ -12,7 +12,6 @@ import com.example.demo.repositories.UserAccountRepository;
 import com.example.demo.services.Impl.CustomerServiceImpl;
 import com.example.demo.services.Impl.UserAccountImpl;
 import com.example.demo.services.Impl.JwtAuthServiceImpl;
-import com.example.demo.services.Impl.UserAccountServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +40,8 @@ public class JwtAuthController {
     PasswordEncoder encoder;
     @Autowired
     AuthenticationManager authenticationManager;
-    @Autowired
-    UserAccountServiceImpl userAccountServiceImpl;
+   // @Autowired
+    //UserAccountServiceImpl userAccountServiceImpl;
     @Autowired
     CustomerServiceImpl customerServiceImpl;
     @Autowired

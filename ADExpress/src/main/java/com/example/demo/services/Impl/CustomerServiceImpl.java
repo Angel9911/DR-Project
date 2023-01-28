@@ -1,5 +1,7 @@
 package com.example.demo.services.Impl;
 
+import ch.qos.logback.classic.Logger;
+import com.example.demo.config.JwtAuthEntryPoint;
 import com.example.demo.models.*;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
@@ -8,7 +10,15 @@ import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.PackageRepository;
 import com.example.demo.repositories.UserAccountRepository;
 import com.example.demo.services.CustomerService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.github.benmanes.caffeine.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +27,10 @@ import javax.persistence.criteria.*;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
+//@CacheConfig(cacheNames = {"ccustomer"})
 public class CustomerServiceImpl extends User implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
@@ -28,10 +40,11 @@ public class CustomerServiceImpl extends User implements CustomerService {
     PackageRepository packageRepository;
     @Autowired
     UserAccountRepository userAccountRepository;
-    private User_account user_account;
     @PersistenceContext
     private EntityManager entityManager;
-    protected Package aPackage;
+    @Autowired
+    private CacheManager cacheManager;
+    //private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
     @Transactional
     @Override
@@ -41,7 +54,6 @@ public class CustomerServiceImpl extends User implements CustomerService {
         Customer customer2 = new Customer();
         customer2.setUser_account(user_account2);
         Customer customer =  this.buildWhereClause(customer2);
-        //Customer customer = customerRepository.findUserByUsernameAndPassword(username);
         Customer res = new Customer();
         if (customer != null) {
             res.setUser_id(customer.getUser_id());
@@ -59,6 +71,7 @@ public class CustomerServiceImpl extends User implements CustomerService {
         return res;
     }
 
+    @CachePut("customer")
     @Transactional
     @Override
     public Customer Update(Object object) {
@@ -93,11 +106,16 @@ public class CustomerServiceImpl extends User implements CustomerService {
         }
     }
 
+    @Cacheable("customer")
     @Transactional
     @Override
     public List<Packages> getAllPackages(String username) throws Exception {
+        System.out.println("Getting All the users from DB! | Not Cached");
+
         if (!username.isEmpty()) {
+
             List<Packages> getPackages = packageRepository.findPackagesByUser_accountUsername(username);
+            System.out.println(getPackages);
             if(!getPackages.isEmpty()){
                 return PackageHandler.getPackageList(getPackages);
             }else {
@@ -152,5 +170,15 @@ public class CustomerServiceImpl extends User implements CustomerService {
                 .select(customerRoot)
                 .where(predicates.toArray(new Predicate[] {})));
         return typedQuery.getSingleResult();
+    }
+
+    public void checkCacheIsWorking(){
+        CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("customer");
+        Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
+
+        for (Map.Entry<Object, Object> entry : nativeCache.asMap().entrySet()) {
+            System.out.println("Key = " + entry.getKey());
+            System.out.println("Value = " + entry.getValue());
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.example.demo.models.*;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.PackageRepository;
 import com.example.demo.services.Impl.CustomerServiceImpl;
+import org.assertj.core.api.OptionalIntAssert;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,11 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -33,6 +37,8 @@ public class CustomerServiceImplTest {
     CustomerRepository customerRepository;
     @Mock
     PackageRepository packageRepository;
+    @Autowired
+    CacheManager cacheManager;
 
     private final List<Packages> packagesList = new ArrayList<>();
     private final Customer customer = new Customer();
@@ -121,4 +127,6 @@ public class CustomerServiceImplTest {
         Assert.assertNotNull(customerList.size());
         Assert.assertEquals(5,customerList.size());
     }
+
+
 }

@@ -9,6 +9,7 @@ import com.example.demo.repositories.PackageRepository;
 import com.example.demo.repositories.StatusRepository;
 import com.example.demo.services.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,6 +69,7 @@ public class CourierServiceImpl extends User implements CourierService {
         }
     }
 
+    @Cacheable("courier")
     @Transactional
     @Override
     public List<Packages> getCourierPackages(String username) throws Exception {
