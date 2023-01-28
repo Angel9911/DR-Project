@@ -7,6 +7,7 @@ import com.example.demo.repositories.*;
 import com.example.demo.services.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,9 +74,12 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         return packageRepository.findPackagesByCustomerPhone(phone);
     }
 
+    @Cacheable("administrator")
     @Transactional
     @Override
     public List<Packages> getAllPackages() throws Exception {
+        System.out.println("not cache|extract record from db");
+
         List<Packages> packagesList = packageRepository.findAll();
         if(!packagesList.isEmpty()){
             return PackageHandler.getPackageList(packagesList);

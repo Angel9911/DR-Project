@@ -28,4 +28,8 @@ public class UserAccountServiceImp implements UserDetailsService {
         logger.info(user_account.getUsername());
         return UserAccountImpl.build(user_account);
     }
+    @Transactional
+    public User_account IsUsernameExist(String username) {
+        return userAccountRepository.isUsernameExist(username);
+    }
 }

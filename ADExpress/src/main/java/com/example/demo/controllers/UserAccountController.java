@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.User_account;
 import com.example.demo.services.Impl.UserAccountServiceImp;
-import com.example.demo.services.Impl.UserAccountServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/account")
 public class UserAccountController {
    // @Autowired
-    UserAccountServiceImpl userAccountServiceImpl;
-   // @Autowired
+    //UserAccountServiceImpl userAccountServiceImpl;
+    @Autowired
     UserAccountServiceImp userAccountServiceImp;
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<Boolean> findUsername(@RequestParam(value = "username") String username) {
         if (username != null) {
-            User_account result = userAccountServiceImpl.IsUsernameExist(username);
+            User_account result = userAccountServiceImp.IsUsernameExist(username);
             if (result != null) {
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
