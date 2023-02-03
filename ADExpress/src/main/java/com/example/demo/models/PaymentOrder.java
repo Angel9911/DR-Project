@@ -7,18 +7,25 @@ import org.springframework.context.annotation.Bean;
 @Data
 @ToString
 public class PaymentOrder {
+    private String customer_username;
     private String package_name;
     private Long package_id;
-    private String shipping;
-    private double total_price;
-    private double tax_price;
+    private String package_type;
+    private float total_price;
+    private float package_price;
+    private float shipping;
+    private float tax_price;
 
-    public PaymentOrder(String package_name, Long package_id, String shipping, double total_price, double tax_price) {
+    /*public PaymentOrder(String package_name, Long package_id, String shipping, String total_price, String tax_price) {
         this.package_name = package_name;
         this.package_id = package_id;
         this.shipping = shipping;
         this.total_price = total_price;
         this.tax_price = tax_price;
+    }*/
+
+    public String getCustomer_username() {
+        return customer_username;
     }
 
     public String getPackage_name() {
@@ -37,27 +44,46 @@ public class PaymentOrder {
         this.package_id = package_id;
     }
 
-    public String getShipping() {
+    public float getShipping() {
         return shipping;
     }
 
-    public void setShipping(String shipping) {
+    public void setShipping(float shipping) {
         this.shipping = shipping;
     }
 
-    public double getTotal_price() {
+    public float getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(double total_price) {
+    public void setTotal_price(float total_price) {
         this.total_price = total_price;
     }
 
-    public double getTax_price() {
+    public float getTax_price() {
         return tax_price;
     }
 
-    public void setTax_price(double tax_price) {
+    public void setTax_price(float tax_price) {
         this.tax_price = tax_price;
     }
+
+    public String getPackage_type() {
+        return package_type;
+    }
+
+    public void setPackage_type(String package_type) {
+        this.package_type = package_type;
+    }
+
+    public float getPackage_price() {
+        return package_price;
+    }
+
+    public void setPackage_price(float package_price) {
+        this.package_price = package_price;
+    }
+
+
+
 }
