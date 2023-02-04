@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClientService} from '../../../service/customer/http-client.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -8,13 +8,13 @@ import {AuthenticationService} from '../../../authentication/authentication.serv
 import {DataService} from '../../../service/data.service';
 import {User_account} from '../../../models/user_account';
 import {AuthService} from '../../../service/auth/auth.service';
-
+import {DOCUMENT} from '@angular/common';
 @Component({
   selector: 'app-login-user',
   templateUrl: './login-user.component.html',
   styleUrls: ['./login-user.component.css']
 })
-export class LoginUserComponent implements OnInit {
+export class LoginUserComponent /*extends UserDetails */implements OnInit {
   @Output() resultObject = new EventEmitter<Customer>();
   // for authenticate
   isLoggedin = false;
@@ -33,7 +33,9 @@ export class LoginUserComponent implements OnInit {
   loading: boolean;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private auth: AuthService, private httpClientService: HttpClientService, private router: Router, private formBuilder: FormBuilder, private alertService: AlertServiceService, private authservice: AuthenticationService, private dataService: DataService) {
+  private paypal: any;
+  // tslint:disable-next-line:max-line-length
+  constructor(private auth: AuthService, private httpClientService: HttpClientService, private router: Router, protected formBuilder: FormBuilder, private alertService: AlertServiceService, private authservice: AuthenticationService, private dataService: DataService) {
     /* if (this.authservice.loggedIn) {
        this.router.navigate(['layout']);
      } */
@@ -41,6 +43,7 @@ export class LoginUserComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   get username() {
@@ -65,8 +68,8 @@ export class LoginUserComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.user_acc.username = this.username.value;
-    this.user_acc.password = this.password.value;
+    this.user_acc.username = String(this.username.value);
+    this.user_acc.password = String(this.password.value);
     this.customer.user_account = this.user_acc;
     // console.log(this.customer.username + this.customer.password);
     this.httpClientService.findUsername(this.customer.user_account.username).subscribe(data => {

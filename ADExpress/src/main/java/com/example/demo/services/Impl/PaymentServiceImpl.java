@@ -129,6 +129,7 @@ public class PaymentServiceImpl implements PaymentService {
         Item item = new Item();
         item.setName(paymentOrder.getPackage_name());
         item.setCurrency("USD");
+        item.setDescription(paymentOrder.getPackage_type());
 
         total =  BigDecimal.valueOf(paymentOrder.getTotal_price()).setScale(2, RoundingMode.HALF_UP).doubleValue();
         System.out.println("PROBA+ "+total);

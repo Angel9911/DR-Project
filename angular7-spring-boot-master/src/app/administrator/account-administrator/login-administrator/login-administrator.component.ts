@@ -29,18 +29,18 @@ export class LoginAdministratorComponent implements OnInit {
 
   ngOnInit() {
   }
-  get username() {
+ /* get username() {
     return this.loginAdministratorForm.get('username');
   }
 
   get password() {
     return this.loginAdministratorForm.get('password');
-  }
+  } */
   LoginAdministrator() {
     if (this.loginAdministratorForm.invalid) {
       return;
     }
-    console.log(this.username.value + this.password.value);
+   // console.log(this.username.value + this.password.value);
     this.auth.authenticate(this.adminAccount.username, this.adminAccount.password).subscribe(
       data => {
         this.isLoggedin = true;
