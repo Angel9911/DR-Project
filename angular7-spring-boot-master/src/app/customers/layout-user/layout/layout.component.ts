@@ -1,18 +1,19 @@
-import {Component, OnInit, PipeTransform} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, PipeTransform, Renderer2} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
-import {DecimalPipe} from '@angular/common';
+import {DecimalPipe, DOCUMENT} from '@angular/common';
 import {HttpClientService} from '../../../service/customer/http-client.service';
 import {DataService} from '../../../service/data.service';
 import {Packages} from '../../../models/Packages';
 import {User_account} from '../../../models/user_account';
-import {Customer} from '../../../models/user';
 import {Sort} from '@angular/material';
+import {PaymentServiceService} from '../../../service/payment-service.service';
+import {PaymentOrder} from '../../../models/PaymentOrder';
 // tslint:disable-next-line:prefer-const
 let customerPackages: Packages[];
 // tslint:disable-next-line:prefer-const
-let addressPackage: any;
+
 
 function search(text: string, pipe: PipeTransform): Packages[] {
   return customerPackages.filter(custPackage => {
@@ -29,22 +30,24 @@ function search(text: string, pipe: PipeTransform): Packages[] {
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, AfterViewInit {
+  payppalIcon = '../../assets/images/paypal_logo.png';
+  script: HTMLScriptElement;
+  // tslint:disable-next-line:ban-types
+  result: Object;
+  product = new PaymentOrder();
+
   packages$: Observable<Packages[]>;
   sortedData: Observable<Packages[]>;
   username: string;
-  packageAddress = [];
   userAcc = new User_account();
-  userAcc1: User_account;
-  cust = new Customer();
   filter = new FormControl('');
 
-  constructor(pipe: DecimalPipe, private httpClientService: HttpClientService, private dataService: DataService) {
-    // this.userAcc.username = this.dataService.customer.user_account.username;
-    // this.cust = this.dataService.customer;
-    this.username = sessionStorage.getItem('username');
-    console.log(this.username);
-    this.httpClientService.getPackages(this.username).subscribe(data => {
+  // tslint:disable-next-line:max-line-length
+  constructor(private paymentService: PaymentServiceService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, pipe: DecimalPipe, private httpClientService: HttpClientService, private dataService: DataService) {
+     this.username = sessionStorage.getItem('username');
+     console.log(this.username);
+     this.httpClientService.getPackages(this.username).subscribe(data => {
       // @ts-ignore
       customerPackages = [...data];
       this.sortedData = of(customerPackages);
@@ -54,10 +57,60 @@ export class LayoutComponent implements OnInit {
         map(text => search(text, pipe))
       );
     });
+
+     this.product.customer_username = this.username;
+     this.product.package_name = 'Пералня';
+    // tslint:disable-next-line:no-unused-expression
+     this.product.package_type = 'Колет';
+     this.product.total_price = 133.00;
+     this.product.package_price = 123.00;
+     this.product.shipping = 5.00;
+     this.product.tax_price = 5.00;
+
+    /* this.paymentService.makePayment(this.product).toPromise().then(res => {
+      this.result = res;
+      paypalIframe.src = res;
+      paypalIframe.style.display = 'block';
+    }); */
+  }
+
+  // tslint:disable-next-line:use-life-cycle-interface
+  ngAfterViewInit() {
+    /*payButton.addEventListener('click', function() {
+      // tslint:disable-next-line:no-shadowed-variable
+      this.paymentService.makePayment().toPromise().then(res => {
+        this.result = res;
+        console.log(this.result);
+        if (typeof this.result === 'string') {
+          paypalEndpoint = this.result;
+
+        }
+      });
+    }); */
   }
 
   ngOnInit() {
-    // tslint:disable-next-line:only-arrow-functions
+
+  }
+
+  makePayment() {
+    const paypalIframe = document.getElementById('paypal-iframe') as HTMLIFrameElement;
+
+    this.paymentService.makePayment(this.product).toPromise().then(res => {
+      this.result = res;
+      console.log(this.result);
+      if (typeof this.result === 'string') {
+        console.log(this.result);
+        window.open(this.result, '_blank', 'width=600, height=400');
+      }
+    });
+   /* const paypalIframe = document.getElementById('paypal-iframe') as HTMLIFrameElement;
+
+    this.paymentService.makePayment(this.product).toPromise().then(res => {
+      paypalIframe.src = res;
+      paypalIframe.style.display = 'block';
+      }); */
+
   }
 
   sortData(sort: Sort) {
@@ -96,5 +149,4 @@ export class LayoutComponent implements OnInit {
     return customerPackages.map(t => t.total_cost).reduce((a, b) => a + b, 0);
   }
 
-// @ts-ignore
 }

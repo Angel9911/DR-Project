@@ -6,13 +6,15 @@ import {Courier} from '../../../models/Courier';
 import {User_account} from '../../../models/user_account';
 import {DataService} from '../../../service/data.service';
 import {AuthService} from '../../../service/auth/auth.service';
+import {UserDetails} from '../../../private_lib/UserDetails';
 
+// @ts-ignore
 @Component({
   selector: 'app-login-courier',
   templateUrl: './login-courier.component.html',
   styleUrls: ['./login-courier.component.css']
 })
-export class LoginCourierComponent implements OnInit {
+export class LoginCourierComponent /*extends UserDetails*/ implements OnInit {
   loginCourierForm: FormGroup;
   invalidLogin = false;
   isLoggedin = false;
@@ -23,24 +25,25 @@ export class LoginCourierComponent implements OnInit {
   result = new Courier();
 
   // tslint:disable-next-line:max-line-length
-  constructor(private form: FormBuilder, private httpService: HttpCourierService, private router: Router, private dataService: DataService, private auth: AuthService) {
+  constructor(protected form: FormBuilder, private httpService: HttpCourierService, private router: Router, private dataService: DataService, private auth: AuthService) {
     this.createForm();
+   // this.createUserForm();
   }
 
   ngOnInit() {
   }
-  get username() {
+ /* get username() {
     return this.loginCourierForm.get('username');
   }
 
   get password() {
     return this.loginCourierForm.get('password');
-  }
+  } */
   LoginCourier() {
     if (this.loginCourierForm.invalid) {
       return;
     }
-    console.log(this.username.value + this.password.value);
+   // console.log(this.username.value + this.password.value);
     console.log(this.courier_account.username);
 
     this.auth.authenticate(this.courier_account.username, this.courier_account.password).subscribe(

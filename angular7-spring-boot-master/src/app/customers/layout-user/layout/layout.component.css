@@ -14,3 +14,29 @@
   display: flex;
 
 }
+/*.btn {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.btn i {
+  margin-right: 10px;
+} */
+.paypal-container {
+  display: flex;
+  align-items: center;
+}
+
+.paypal-button {
+  background-color: #0070ba;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.paypal-logo {
+  height: 50px;
+}
