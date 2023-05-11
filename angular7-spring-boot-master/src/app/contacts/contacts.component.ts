@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClientService} from '../service/customer/http-client.service';
 import {DataService} from '../service/data.service';
 import {AlertServiceService} from '../service/alert-service.service';
+import {Email} from '../models/Email';
 
 @Component({
   selector: 'app-contacts',
@@ -17,6 +18,7 @@ export class ContactsComponent implements OnInit {
   LocationSrc = 'assets/images/location.png';
   LocationAlt = 'location';
   contactForm: FormGroup;
+  // email = new Email();
   submitted: boolean;
   loading: boolean;
 
@@ -30,12 +32,22 @@ export class ContactsComponent implements OnInit {
     this.contactForm.controls.name.setValue(names);
     this.contactForm.controls.email.setValue(this.dataService.customer.email);
   }
+
+  get email() {
+    return this.contactForm.get('email');
+  }
+
+  get message() {
+    return this.contactForm.get('message');
+  }
   sendMessage() {
     this.submitted = true;
-    this.alertService.clear();
+   // this.alertService.clear();
     if (this.contactForm.invalid) {
       return;
     }
+    console.log(name);
+    // this.httpClientService.
     // this.loading=true;
   }
   createForm() {

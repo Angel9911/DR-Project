@@ -37,9 +37,11 @@ export class HttpCourierService {
     return this.httpClient.get<Packages>(`${url}?username=${username}`, {headers: reqHeader});
   }
 
-  updateProblemPackage(statusType: string, packageId: bigint, message: string) {
+  updateProblemPackage(statusType: string, packageId: bigint, message: string, imgFile: FormData) {
     const url = baseUrl + 'package' + '/' + 'problem' + '/' + 'update';
-    return this.httpClient.put(`${url}?packageId=${packageId}&status=${statusType}&message=${message}`, {headers: reqHeader});
+    console.log(imgFile);
+    // tslint:disable-next-line:max-line-length
+    return this.httpClient.post<string>(`${url}?packageId=${packageId}&status=${statusType}&message=${message}`, {file: imgFile}, {headers: reqHeader});
   }
 
   updatePackageSuccessfull(statusType: string, packageId: bigint) {

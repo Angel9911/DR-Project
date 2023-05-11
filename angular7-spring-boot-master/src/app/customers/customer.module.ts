@@ -15,6 +15,7 @@ import {MatFormFieldModule, MatListModule, MatSidenavModule, MatSortModule, MatT
 import {ContactsComponent} from '../contacts/contacts.component';
 import {BrowserModule} from '@angular/platform-browser';
 import {ForgetPasswordComponent} from './account-user/forget-password/forget-password.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {ForgetPasswordComponent} from './account-user/forget-password/forget-pas
     UserAccountComponent,
     ContactsComponent,
     ForgetPasswordComponent,
+    ResetPasswordComponent,
    // PageNotFoundComponent
   ],
     imports: [

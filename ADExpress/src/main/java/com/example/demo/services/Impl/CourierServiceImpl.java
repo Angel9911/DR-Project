@@ -1,6 +1,7 @@
 package com.example.demo.services.Impl;
 
 import com.example.demo.models.*;
+import com.example.demo.private_lib.AwsS3Client;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
 import com.example.demo.repositories.CourierRepository;
@@ -9,9 +10,14 @@ import com.example.demo.repositories.PackageRepository;
 import com.example.demo.repositories.StatusRepository;
 import com.example.demo.services.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.regions.Region;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,6 +28,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
+@CacheConfig(cacheNames = {"courier"})
 public class CourierServiceImpl extends User implements CourierService {
     @Autowired
     CourierRepository courierRepository;
@@ -33,11 +40,15 @@ public class CourierServiceImpl extends User implements CourierService {
     PackageProblemRepository packageProblemRepository;
     @PersistenceContext
     private EntityManager entityManager;
+    @Value("${aws.bucketName}")
+    String bucketName;
+
     @Transactional
     public List<Courier> getAllCouriers() {
         return courierRepository.findAll();
     }
 
+    @CachePut(key="#packageId")
     @Transactional
     @Override
     public void updatePackageByStatus(int packageId, String status) throws ValidationException {
@@ -52,6 +63,7 @@ public class CourierServiceImpl extends User implements CourierService {
         }
     }
 
+    @CachePut
     @Transactional
     @Override
     public void updateProblemPackage(int packageId, String status, String message_problem) throws ValidationException {
@@ -69,7 +81,23 @@ public class CourierServiceImpl extends User implements CourierService {
         }
     }
 
-    @Cacheable("courier")
+    @Override
+    public String uploadFileInS3bucket(MultipartFile file) throws Exception {
+        AwsS3Client s3Client = new AwsS3Client(Region.EU_WEST_2);
+        s3Client.buildS3Client();
+
+        s3Client.setBucketName(bucketName);
+        s3Client.setFile(file);
+
+        String response = s3Client.uploadImgFile();
+        if(!response.isEmpty()){
+           return response;
+        } else{
+            throw new Exception("error");
+        }
+    }
+
+    @Cacheable(key="#username")
     @Transactional
     @Override
     public List<Packages> getCourierPackages(String username) throws Exception {
@@ -81,6 +109,8 @@ public class CourierServiceImpl extends User implements CourierService {
             throw new Exception("error");
         }
     }
+
+    @Cacheable(key = "#username")
     @Transactional
     @Override
     public List<PackageProblem> getCourierProblemPackages(String username) throws Exception {
@@ -96,6 +126,8 @@ public class CourierServiceImpl extends User implements CourierService {
             throw new Exception("error");
         }
     }
+
+    @Cacheable(key="#username")
     @Transactional
     @Override
     public List<Packages> getDeliveredPackages(String username) throws Exception {

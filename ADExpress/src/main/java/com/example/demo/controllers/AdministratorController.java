@@ -28,10 +28,15 @@ public class AdministratorController {
     @Autowired
     private CacheManager cacheManager;
     //@Autowired
-    private CustomerServiceImpl customerServiceImpl;
+    private final CustomerServiceImpl customerServiceImpl;
    // @Autowired
-    private CourierServiceImpl courierServiceImpl;
+    private final CourierServiceImpl courierServiceImpl;
     private Administrator result;
+
+    public AdministratorController(CustomerServiceImpl customerServiceImpl, CourierServiceImpl courierServiceImpl) {
+        this.customerServiceImpl = customerServiceImpl;
+        this.courierServiceImpl = courierServiceImpl;
+    }
 
     // @PreAuthorize("hasRole('administrator')")
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")//check

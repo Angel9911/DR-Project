@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,10 +8,8 @@ import { AppComponent } from './app.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { AddCourierComponent } from './administrator/layout-adiministrator/couriers/add-courier/add-courier.component';
 import { EditCourierComponent } from './administrator/layout-adiministrator/couriers/edit-courier/edit-courier.component';
 import {AuthInterceptorService} from './service/auth/auth-interceptor.service';
-import { ForgetPasswordComponent } from './customers/account-user/forget-password/forget-password.component';
 @NgModule({
   declarations: [
     AppComponent,

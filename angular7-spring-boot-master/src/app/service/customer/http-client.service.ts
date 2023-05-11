@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {Customer} from '../../models/user';
 import {Admin} from '../../models/admin';
+import { saveAs } from 'file-saver';
 import {City} from '../../models/City';
 import {SendRequest} from '../../models/SendRequest';
 import {Packages} from '../../models/Packages';
@@ -69,7 +70,13 @@ export class HttpClientService {
     return this.httpClient.get<Packages>(`${url}?username=${username}`);
   }
   forgotPassword(email: string) {
-    const url = custUrl + 'forgot' + '/' + 'password';
-    return this.httpClient.get<Customer>(`${url}?email=${email}`);
+    const url = 'http://localhost:8082/email/forgot/password';
+    return this.httpClient.get<Customer>(`${url}?toEmailAddress=${email}`);
+  }
+  generateInvoice() {
+    const url =  'http://localhost:8082/invoice/generator';
+    this.httpClient.get(url, { responseType: 'blob' }).subscribe(response => {
+      saveAs(response, 'invoice.pdf');
+    });
   }
 }
