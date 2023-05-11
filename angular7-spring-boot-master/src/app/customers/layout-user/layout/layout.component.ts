@@ -10,6 +10,7 @@ import {User_account} from '../../../models/user_account';
 import {Sort} from '@angular/material';
 import {PaymentServiceService} from '../../../service/payment-service.service';
 import {PaymentOrder} from '../../../models/PaymentOrder';
+import {ChatbotServiceService} from '../../../service/chatbot-service.service';
 // tslint:disable-next-line:prefer-const
 let customerPackages: Packages[];
 // tslint:disable-next-line:prefer-const
@@ -44,7 +45,7 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   filter = new FormControl('');
 
   // tslint:disable-next-line:max-line-length
-  constructor(private paymentService: PaymentServiceService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, pipe: DecimalPipe, private httpClientService: HttpClientService, private dataService: DataService) {
+  constructor(private chatbotService: ChatbotServiceService, private paymentService: PaymentServiceService, private renderer2: Renderer2, @Inject(DOCUMENT) private document: Document, pipe: DecimalPipe, private httpClientService: HttpClientService, private dataService: DataService) {
      this.username = sessionStorage.getItem('username');
      console.log(this.username);
      this.httpClientService.getPackages(this.username).subscribe(data => {
@@ -113,6 +114,9 @@ export class LayoutComponent implements OnInit, AfterViewInit {
 
   }
 
+  generateInvoice() {
+    this.httpClientService.generateInvoice();
+  }
   sortData(sort: Sort) {
     const data = customerPackages.slice();
     if (!sort.active || sort.direction === '') {

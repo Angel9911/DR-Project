@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import {DataService} from '../../service/data.service';
 import {Packages} from '../../models/Packages';
+import {Form} from '@angular/forms';
 const statusType = 'Проблем с пратката';
 
 @Component({
@@ -15,7 +16,9 @@ export class CommentDialogComponent implements OnInit {
   @Input() btnOkText: string;
   @Input() btnCancelText: string;
   @Input() comment: string;
+  selectedFile: File | null = null;
   packages: Packages;
+  private formData: FormData;
   constructor(private activeModal: NgbActiveModal, private dataService: DataService) {
     console.log(this.dataService.packagesId);
 
@@ -32,10 +35,18 @@ export class CommentDialogComponent implements OnInit {
     this.activeModal.close(false);
   }
 
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
   public accept() {
     console.log(this.dataService.packagesId);
-    this.activeModal.close({event: true, data: this.comment});
-    console.log(this.comment);
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      this.activeModal.close({event: true, file: formData, data: this.comment});
+      console.log(this.comment);
+    }
   }
 
   public dismiss() {

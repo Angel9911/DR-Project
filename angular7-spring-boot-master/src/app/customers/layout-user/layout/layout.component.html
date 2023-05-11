@@ -58,12 +58,13 @@
         </tbody>
       </table>
 
+    <button id="invoice-button" class="btn btn-primary" (click)="generateInvoice()">Generate invoice</button>
+
     <div class="paypal-container"><img [src]="payppalIcon" class="paypal-logo">
     <button id="pay-button" class="btn btn-primary paypal-button" (click)="makePayment()">Pay with PayPal</button>
     </div>
     <iframe id="paypal-iframe" src="" width="300" height="300" style="display: none;"></iframe>
-
-
+    <app-chatbot></app-chatbot>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

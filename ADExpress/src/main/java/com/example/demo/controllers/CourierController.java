@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
@@ -45,13 +46,21 @@ public class CourierController {
         }
     }
 
-    @RequestMapping(value = "/package/problem/update", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<?> updateProblemPackage(@RequestParam(value = "packageId") int packageId, @RequestParam(value = "status") String status, @RequestParam(value = "message") String message_problem) {
+    @PostMapping(value = "/package/problem/update")
+    public ResponseEntity<String> updateProblemPackage(@RequestParam(value = "packageId") int packageId, @RequestParam(value = "status") String status, @RequestParam(value = "message") String message_problem, @RequestBody MultipartFile file) {
         try {
-            courierServiceImpl.updateProblemPackage(packageId, status, message_problem);
+            //courierServiceImpl.updateProblemPackage(packageId, status, message_problem);
+            System.out.println(file.getInputStream());
+            System.out.println(file.getOriginalFilename());
+            String response = courierServiceImpl.uploadFileInS3bucket(file);
+            if(!response.isEmpty()){
+                return new ResponseEntity<>(response,HttpStatus.OK);
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (ValidationException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

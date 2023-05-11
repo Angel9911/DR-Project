@@ -79,6 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/account/**",
                         "/customer/email/{email}",
-                        "/customer/city/{name}");
+                        "/customer/city/{name}",
+                        "/email/forgot/password/**"
+                        /*"/invoice/generator" */);
     }
 }

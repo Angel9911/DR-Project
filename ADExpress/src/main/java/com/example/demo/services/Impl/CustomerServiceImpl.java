@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-//@CacheConfig(cacheNames = {"ccustomer"})
+@CacheConfig(cacheNames = {"customer"})
 public class CustomerServiceImpl extends User implements CustomerService {
     @Autowired
     CustomerRepository customerRepository;
@@ -71,13 +71,14 @@ public class CustomerServiceImpl extends User implements CustomerService {
         return res;
     }
 
-    @CachePut("customer")
+    @CachePut
     @Transactional
     @Override
     public Customer Update(Object object) {
         return customerRepository.save((Customer)object);
     }
 
+    @CachePut
     @Transactional
     @Override
     public void Insert(Object object) {
@@ -95,6 +96,7 @@ public class CustomerServiceImpl extends User implements CustomerService {
         //return customerRepository.findByEmail(email);
     }
 
+    @Cacheable
     @Transactional
     @Override
     public List<Customer> getAllCustomers() throws Exception {
@@ -106,7 +108,7 @@ public class CustomerServiceImpl extends User implements CustomerService {
         }
     }
 
-    @Cacheable("customer")
+    @Cacheable(key="#username")
     @Transactional
     @Override
     public List<Packages> getAllPackages(String username) throws Exception {

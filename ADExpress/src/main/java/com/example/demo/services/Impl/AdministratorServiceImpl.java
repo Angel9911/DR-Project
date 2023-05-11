@@ -7,6 +7,8 @@ import com.example.demo.repositories.*;
 import com.example.demo.services.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
+@CacheConfig(cacheNames = {"administrator"})
 public class AdministratorServiceImpl extends User implements AdministratorService {
     @Autowired
     AdministratorRepository administratorRepository;
@@ -44,6 +47,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Value("${adexpress.app.courier.password}")
     private String passwordSecret;
 
+    @CachePut(key="#courier")
     @Transactional
     @Override
     public Courier updateCourier(Courier courier) {
@@ -62,6 +66,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         return courierRepository.deleteByUsernameAndPhone(username, phone);
     }
 
+    @Cacheable
     @Transactional
     @Override
     public List<TypePackage> getAllPackagesTypes() {
@@ -74,7 +79,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         return packageRepository.findPackagesByCustomerPhone(phone);
     }
 
-    @Cacheable("administrator")
+    @Cacheable
     @Transactional
     @Override
     public List<Packages> getAllPackages() throws Exception {
@@ -88,12 +93,13 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         }
     }
 
+    @Cacheable(key="#customerPackage.customer")
     @Transactional
     @Override
-    public Packages registerPackage(Packages packages) {
+    public Packages registerPackage(Packages customerPackage) {
         Packages registerPackage = new Packages();
         Courier getCourier = new Courier();
-        if (!ObjectUtils.isEmpty(packages)) {
+        if (!ObjectUtils.isEmpty(customerPackage)) {
             if (this.IfCourierHasEqualCountPackages("Бургас")) {
                 System.out.println("there are not duplicated records");
                 getCourier = this.getCourierByCity("Бургас");
@@ -101,26 +107,26 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
                 System.out.println("there are duplicated records");
                 getCourier = this.getRandomCourier("Бургас");
             }
-            System.out.println(packages.getName_package());
-            registerPackage.setName_package(packages.getName_package());
+            System.out.println(customerPackage.getName_package());
+            registerPackage.setName_package(customerPackage.getName_package());
             StatusPackage statusPackage = new StatusPackage();
             statusPackage.setStatus_id(statusPackageId);
             registerPackage.setStatusPackage(statusPackage);
             System.out.println(registerPackage.getStatusPackage().getStatus_id());
             TypePackage typePackage = new TypePackage();
-            typePackage.setType_id(typePackageRepository.findTypeIdByName(packages.getTypePackage().getType_name()));
+            typePackage.setType_id(typePackageRepository.findTypeIdByName(customerPackage.getTypePackage().getType_name()));
             Customer customer = new Customer();
-            System.out.println(customerRepository.findUserIdByUserInfo(packages.getCustomer().getName(),packages.getCustomer().getLast_name(),/*packages.getCustomer().getAddress()*/packages.getCustomer().getPhone()));
-            customer.setUser_id(customerRepository.findUserIdByUserInfo(packages.getCustomer().getName(), packages.getCustomer().getLast_name(),/*packages.getCustomer().getAddress(), */packages.getCustomer().getPhone()));
+            System.out.println(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLast_name(),/*packages.getCustomer().getAddress()*/customerPackage.getCustomer().getPhone()));
+            customer.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(), customerPackage.getCustomer().getLast_name(),/*packages.getCustomer().getAddress(), */customerPackage.getCustomer().getPhone()));
             Customer receiver = new Customer();
-            receiver.setUser_id(customerRepository.findUserIdByUserInfo(packages.getReceiver().getName(), packages.getReceiver().getLast_name(), /*packages.getReceiver().getAddress(), */packages.getReceiver().getPhone()));
+            receiver.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getReceiver().getName(), customerPackage.getReceiver().getLast_name(), /*packages.getReceiver().getAddress(), */customerPackage.getReceiver().getPhone()));
             registerPackage.setCustomer(customer);
             registerPackage.setReceiver(receiver);
             registerPackage.setTypePackage(typePackage);
             LocalDate getCurrentDate = java.time.LocalDate.now();
             java.sql.Date getDate = java.sql.Date.valueOf(getCurrentDate);
             registerPackage.setDate_register_package(getDate);
-            registerPackage.setPackage_price(packages.getPackage_price());
+            registerPackage.setPackage_price(customerPackage.getPackage_price());
             registerPackage.setCourier(getCourier);
         }
         return packageRepository.save(registerPackage);

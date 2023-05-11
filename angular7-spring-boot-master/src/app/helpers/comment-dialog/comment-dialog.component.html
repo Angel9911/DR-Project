@@ -6,6 +6,7 @@
 </div>
 <div class="modal-body">
   {{ message }}
+  <input type="file" name="image" (change)="onFileSelected($event)">
   <textarea rows="4" cols="45" name="comment" id="comment" placeholder ="Въведете текста тук..." [(ngModel)]="comment">
 </textarea></div>
 <div class="modal-footer">

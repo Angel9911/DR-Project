@@ -12,6 +12,7 @@ import {PageNotFoundComponent} from '../helpers/page-not-found/page-not-found.co
 import {ContactsComponent} from '../contacts/contacts.component';
 import {AuthGuardService} from '../service/auth/auth-guard.service';
 import {ForgetPasswordComponent} from './account-user/forget-password/forget-password.component';
+import {ResetPasswordComponent} from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgetPasswordComponent,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
   },
   {
     path: '**',

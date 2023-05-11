@@ -65,7 +65,7 @@ export class ListPackagesComponent implements OnInit {
     dialogRef.result.then((result) => {
       if ( result.event === true ) {
         this.dataService.packagesId = packages.package_id;
-        this.httpCourier.updateProblemPackage(statusTypeProblem, packages.package_id, result.data).subscribe(data => {
+        this.httpCourier.updateProblemPackage(statusTypeProblem, packages.package_id, result.data, result.file).subscribe(data => {
           alert('Проблемът на пратката е регистриран успешно!');
         });
         console.log('dada' + result.data); // Refresh Data in table grid

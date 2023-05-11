@@ -111,7 +111,13 @@ public class CustomerController {
     public ResponseEntity<List<Packages>> getCustomerPackages(@RequestParam(value = "username") String username) throws Exception {
         try {
             System.out.println("Request received to the controller");
+            CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("customer");
+            Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
 
+            for (Map.Entry<Object, Object> entry : nativeCache.asMap().entrySet()) {
+                System.out.println("Key = " + entry.getKey());
+                System.out.println("Value = " + entry.getValue());
+            }
             List<Packages> packagesList = customerServiceImpl.getAllPackages(username);
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         } catch (Exception e) {

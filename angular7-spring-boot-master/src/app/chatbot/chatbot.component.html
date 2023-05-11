@@ -1,1 +1,15 @@
-<p>chatbot works!</p>
+<div class="chatbot-container" *ngIf="showChatbot">
+  <div class="chatbot-header">
+    <h2>Chatbot</h2>
+    <button (click)="closeChatbot()">Close</button>
+  </div>
+  <div class="chatbot-messages">
+    <div class="message" *ngFor="let message of messages">
+      <p [ngClass]="{'user-message': message.isUserMessage, 'bot-message': !message.isUserMessage}">{{message.text}}</p>
+    </div>
+  </div>
+  <div class="chatbot-input">
+    <input type="text" [(ngModel)]="userInput" (keydown.enter)="sendMessage()" placeholder="Type your message...">
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
