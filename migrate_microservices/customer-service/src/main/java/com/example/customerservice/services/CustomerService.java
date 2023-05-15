@@ -32,7 +32,7 @@ public class CustomerService {
     public Customer getCustomerPackages(){
         Customer customer = packagesArrayList.get(0);
 
-        List getCustomerPackages = (List) this.restTemplate.getForEntity(this.packageServiceEndPoint,List.class).getBody();
+        List<Object> getCustomerPackages = (List) this.restTemplate.getForEntity(this.packageServiceEndPoint,List.class).getBody();
 
         customer.setListpackages(getCustomerPackages);
 
