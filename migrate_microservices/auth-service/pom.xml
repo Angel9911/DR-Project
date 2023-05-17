@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -53,9 +53,9 @@
             <version>5.3.16</version>
         </dependency>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>common-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>com.shared</groupId>
+            <artifactId>shared-library</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
     </dependencies>
