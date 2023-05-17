@@ -2,6 +2,7 @@ package com.example.authservice.config;
 
 import com.example.authservice.entity.UserCredentials;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shared.library.config.JwtConfig;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.FilterChain;
