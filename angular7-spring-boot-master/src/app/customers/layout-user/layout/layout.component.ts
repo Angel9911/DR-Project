@@ -7,11 +7,18 @@ import {HttpClientService} from '../../../service/customer/http-client.service';
 import {DataService} from '../../../service/data.service';
 import {Packages} from '../../../models/Packages';
 import {User_account} from '../../../models/user_account';
+<<<<<<< HEAD
 //import {Sort} from '@angular/material';
 import {PaymentServiceService} from '../../../service/payment-service.service';
 import {PaymentOrder} from '../../../models/PaymentOrder';
 import {ChatbotServiceService} from '../../../service/chatbot-service.service';
 import {Sort} from '@angular/material/sort';
+=======
+import {Sort} from '@angular/material';
+import {PaymentServiceService} from '../../../service/payment-service.service';
+import {PaymentOrder} from '../../../models/PaymentOrder';
+import {ChatbotServiceService} from '../../../service/chatbot-service.service';
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 // tslint:disable-next-line:prefer-const
 let customerPackages: Packages[];
 // tslint:disable-next-line:prefer-const

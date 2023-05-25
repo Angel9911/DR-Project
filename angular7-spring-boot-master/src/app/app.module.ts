@@ -38,7 +38,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         BrowserAnimationsModule,
         MatFormFieldModule,
         MatInputModule,
+<<<<<<< HEAD
         NgbModule,
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
     ],
    providers: [{
      provide: HTTP_INTERCEPTORS,

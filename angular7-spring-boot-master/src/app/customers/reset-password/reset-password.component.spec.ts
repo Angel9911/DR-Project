@@ -18,7 +18,11 @@ describe('ResetPasswordComponent', () => {
   });
 
   it('should create', () => {
+<<<<<<< HEAD
     cy.wrap(component).should('be.true');
     //expect(component).toBeTruthy();
+=======
+    expect(component).toBeTruthy();
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
   });
 });
