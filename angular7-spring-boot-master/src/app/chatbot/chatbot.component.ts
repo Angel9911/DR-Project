@@ -13,7 +13,11 @@ export class ChatbotComponent implements OnInit {
   response: string;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   sessionId: ArrayBuffer;
+=======
+  sessionId: string;
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
   sessionId: string;
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58

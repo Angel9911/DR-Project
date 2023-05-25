@@ -11,7 +11,10 @@ import {AuthService} from '../../../service/auth/auth.service';
 import {DOCUMENT} from '@angular/common';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser} from '@abacritt/angularx-social-login';
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
@@ -42,7 +45,10 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
   loading: boolean;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   user!: SocialUser;
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
@@ -51,6 +57,7 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
   // tslint:disable-next-line:max-line-length
   private paypal: any;
   // tslint:disable-next-line:max-line-length
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   constructor(private signInAuthService: SocialAuthService, private auth: AuthService, private httpClientService: HttpClientService, private router: Router, protected formBuilder: FormBuilder, private alertService: AlertServiceService, private authservice: AuthenticationService, private dataService: DataService) {
@@ -63,11 +70,16 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
 =======
 =======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
   constructor(private auth: AuthService, private httpClientService: HttpClientService, private router: Router, protected formBuilder: FormBuilder, private alertService: AlertServiceService, private authservice: AuthenticationService, private dataService: DataService) {
     /* if (this.authservice.loggedIn) {
        this.router.navigate(['layout']);
      } */
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
+=======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
@@ -77,11 +89,15 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
   ngOnInit() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     this.signInAuthService.authState.subscribe((user)=>{
       console.log('test');
       console.log(user);
       this.user=user;
     })
+=======
+
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
 
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
@@ -147,6 +163,7 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
     console.log('test-stest: ' + this.result);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   }
 
   loginWithGoogle() {
@@ -158,6 +175,8 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
       scope: 'profile email'
     };
     this.signInAuthService.signIn(FacebookLoginProvider.PROVIDER_ID, googleLoginOptions).then(() =>  this.router.navigate(['/customers/home']));
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======

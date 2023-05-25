@@ -18,11 +18,14 @@ import {ForgetPasswordComponent} from './account-user/forget-password/forget-pas
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from '@abacritt/angularx-social-login';
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
