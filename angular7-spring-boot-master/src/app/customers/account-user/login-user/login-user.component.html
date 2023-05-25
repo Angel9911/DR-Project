@@ -46,8 +46,27 @@
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Влез в профила си
         </button>
+
       </div>
       <p>Ако нямате регистрация</p><a routerLink="/customers/register" class="nav-link registrationLink"> Регистрация</a>
     </form>
+    <!--
+    <asl-google-signin-button GoogleSigninButtonDirective type='standard' size="large" width="320"
+    theme="filled_blue">
+</asl-google-signin-button>
+    -->
+    <div class="google-auth-btn">
+        <asl-google-signin-button class="aslGoogleBtn" size="large" width="320">
+      </asl-google-signin-button>
+
+      <span class="custom-google-signin-text">Sign in with Google</span>
+    </div>
+
+    <div class="facebook-auth-btn">
+      <button class="btn btn-facebook" (click)="loginWithFacebook()">
+        <span class="fa fa-facebook mr-1 custom-facebook-signin-text">Login with Facebook</span>
+        <img [src]="FbSrc" [alt]="FbAlt" height="20" width="20">
+      </button>
+    </div>
   </div>
 </div>

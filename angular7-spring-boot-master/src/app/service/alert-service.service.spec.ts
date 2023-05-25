@@ -7,6 +7,7 @@ describe('AlertServiceService', () => {
 
   it('should be created', () => {
     const service: AlertServiceService = TestBed.get(AlertServiceService);
-    expect(service).toBeTruthy();
+    cy.wrap(service).should('be.true');
+    //expect(service).toBeTruthy();
   });
 });

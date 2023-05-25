@@ -10,6 +10,7 @@ describe('AuthenticationGuard', () => {
   });
 
   it('should ...', inject([AuthenticationGuard], (guard: AuthenticationGuard) => {
-    expect(guard).toBeTruthy();
+    cy.wrap(guard).should('be.true');
+    //expect(guard).toBeTruthy();
   }));
 });

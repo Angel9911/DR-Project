@@ -10,13 +10,13 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to employee-management!');
+    expect(page.getTitleText()).equal('Welcome to package!');
   });
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
-    const logs = await browser.manage().logs().get(logging.Type.BROWSER);
-    expect(logs).not.toContain(jasmine.objectContaining({
+    const logs = await browser().log().get(logging.Type.BROWSER);
+    expect(logs).not.contain(jasmine.objectContaining({
       level: logging.Level.SEVERE,
     }));
   });

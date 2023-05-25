@@ -3,7 +3,6 @@ import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/form
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Customer} from '../models/user';
-import {error} from 'util';
 
 export function existingUsernameValidator(userService: HttpClientService): AsyncValidatorFn {
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {

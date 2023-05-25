@@ -11,6 +11,7 @@ describe('ChatbotServiceService', () => {
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    cy.wrap(service).should('be.true');
+    //expect(service).toBeTruthy();
   });
 });

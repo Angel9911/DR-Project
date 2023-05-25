@@ -7,6 +7,7 @@ describe('ConfirmDialogService', () => {
 
   it('should be created', () => {
     const service: ConfirmDialogService = TestBed.get(ConfirmDialogService);
-    expect(service).toBeTruthy();
+    cy.wrap(service).should('be.true');
+    //expect(service).toBeTruthy();
   });
 });

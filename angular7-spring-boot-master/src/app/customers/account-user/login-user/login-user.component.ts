@@ -9,6 +9,7 @@ import {DataService} from '../../../service/data.service';
 import {User_account} from '../../../models/user_account';
 import {AuthService} from '../../../service/auth/auth.service';
 import {DOCUMENT} from '@angular/common';
+import {FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser} from '@abacritt/angularx-social-login';
 @Component({
   selector: 'app-login-user',
   templateUrl: './login-user.component.html',
@@ -16,6 +17,8 @@ import {DOCUMENT} from '@angular/common';
 })
 export class LoginUserComponent /*extends UserDetails */implements OnInit {
   @Output() resultObject = new EventEmitter<Customer>();
+  FbSrc = 'assets/images/FaceBook-icon.png';
+  FbAlt = 'facebook';
   // for authenticate
   isLoggedin = false;
   isLoginFailed = false;
@@ -31,19 +34,27 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
   loginform: FormGroup;
   submitted: boolean;
   loading: boolean;
+  user!: SocialUser;
 
   // tslint:disable-next-line:max-line-length
   private paypal: any;
   // tslint:disable-next-line:max-line-length
-  constructor(private auth: AuthService, private httpClientService: HttpClientService, private router: Router, protected formBuilder: FormBuilder, private alertService: AlertServiceService, private authservice: AuthenticationService, private dataService: DataService) {
+  constructor(private signInAuthService: SocialAuthService, private auth: AuthService, private httpClientService: HttpClientService, private router: Router, protected formBuilder: FormBuilder, private alertService: AlertServiceService, private authservice: AuthenticationService, private dataService: DataService) {
     /* if (this.authservice.loggedIn) {
        this.router.navigate(['layout']);
-     } */
+     }
+    this.googleAuthService.authState.subscribe((user: SocialUser) => {
+        console.log(user);
+    }) */
     this.CreateLoginForm();
   }
 
   ngOnInit() {
-
+    this.signInAuthService.authState.subscribe((user)=>{
+      console.log('test');
+      console.log(user);
+      this.user=user;
+    })
   }
 
   get username() {
@@ -101,5 +112,16 @@ export class LoginUserComponent /*extends UserDetails */implements OnInit {
       }
     );
     console.log('test-stest: ' + this.result);
+  }
+
+  loginWithGoogle() {
+    this.signInAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(() =>  this.router.navigate(['/customers/home']));
+  }
+
+  loginWithFacebook() {
+    let googleLoginOptions = {
+      scope: 'profile email'
+    };
+    this.signInAuthService.signIn(FacebookLoginProvider.PROVIDER_ID, googleLoginOptions).then(() =>  this.router.navigate(['/customers/home']));
   }
 }

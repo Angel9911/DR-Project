@@ -7,6 +7,7 @@ describe('HttpClientService', () => {
 
   it('should be created', () => {
     const service: HttpClientService = TestBed.get(HttpClientService);
-    expect(service).toBeTruthy();
+    cy.wrap(service).should('be.true');
+    //expect(service).toBeTruthy();
   });
 });

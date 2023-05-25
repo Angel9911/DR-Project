@@ -5,8 +5,12 @@ import {HeaderLayoutAdiministratorComponent} from '../headers/header-layout-adim
 import {HeaderLoginAdministratorComponent} from '../headers/header-login-administrator/header-login-administrator.component';
 import {ConfirmDialogComponent} from '../helpers/confirm-dialog/confirm-dialog.component';
 import {ConfirmDialogService} from '../service/confirm-dialog.service';
-import {MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+//import {MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [

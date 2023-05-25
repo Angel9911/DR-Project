@@ -7,6 +7,7 @@ describe('AuthGuardService', () => {
 
   it('should be created', () => {
     const service: AuthGuardService = TestBed.get(AuthGuardService);
-    expect(service).toBeTruthy();
+    cy.wrap(service).should('be.true');
+    //expect(service).toBeTruthy();
   });
 });

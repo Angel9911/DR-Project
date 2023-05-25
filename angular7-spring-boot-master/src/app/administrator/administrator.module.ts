@@ -9,7 +9,7 @@ import {ListUsersComponent} from './layout-adiministrator/users/list-users/list-
 import {SharedModuleAdminModule} from '../shared-module/shared-module-admin.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HomeLayoutComponent} from './layout-adiministrator/home-layout/home-layout.component';
-import {MatListModule, MatSidenavModule} from '@angular/material';
+//import {MatListModule, MatSidenavModule} from '@angular/material';
 import {ListCouriersComponent} from './layout-adiministrator/list-couriers/list-couriers.component';
 import {ListPackagesComponent} from './layout-adiministrator/list-packages/list-packages.component';
 import {NgbModule, NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,8 @@ import {AddCourierComponent} from './layout-adiministrator/couriers/add-courier/
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptorService} from '../service/auth/auth-interceptor.service';
 import {ConfirmDialogComponent} from '../helpers/confirm-dialog/confirm-dialog.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [

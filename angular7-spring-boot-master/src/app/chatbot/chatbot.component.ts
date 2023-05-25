@@ -11,7 +11,7 @@ export class ChatbotComponent implements OnInit {
   messages: any[] = [];
   userInput: string;
   response: string;
-  sessionId: string;
+  sessionId: ArrayBuffer;
 
   constructor(private chatbotService: ChatbotServiceService) {
     this.showChatbot = true;

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {City} from '../../../../models/City';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Courier} from '../../../../models/Courier';
-import {Router} from '@angular/router';
 import {HttpAdiministratorService} from '../../../../service/administrator/http-adiministrator.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class AddCourierComponent implements OnInit {
   courierCreate = new Courier();
   city = new City();
   addForm: FormGroup;
-  constructor(private router: Router, private apiService: HttpAdiministratorService, private form: FormBuilder) {
+  constructor(private apiService: HttpAdiministratorService, private form: FormBuilder) {
     this.createForm();
   }
 
@@ -24,7 +23,7 @@ export class AddCourierComponent implements OnInit {
   createCourier(courier) {
     this.apiService.createCourier(this.courierCreate).subscribe(response => {
       alert('Куриерът е създаден успешно');
-      this.router.navigate(['/administrator/home']);
+      window.location.href = '/administrator/home';
     });
   }
   createForm() {

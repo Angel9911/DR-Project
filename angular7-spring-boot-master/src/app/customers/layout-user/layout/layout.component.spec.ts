@@ -20,6 +20,7 @@ describe('LayoutComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    cy.wrap(component).should('be.true');
+    //expect(component).toBeTruthy();
   });
 });
