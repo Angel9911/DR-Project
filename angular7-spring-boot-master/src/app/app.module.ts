@@ -39,7 +39,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         MatFormFieldModule,
         MatInputModule,
 <<<<<<< HEAD
+<<<<<<< HEAD
         NgbModule,
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 =======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
     ],

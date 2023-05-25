@@ -8,16 +8,22 @@ import {DataService} from '../../../service/data.service';
 import {Packages} from '../../../models/Packages';
 import {User_account} from '../../../models/user_account';
 <<<<<<< HEAD
+<<<<<<< HEAD
 //import {Sort} from '@angular/material';
 import {PaymentServiceService} from '../../../service/payment-service.service';
 import {PaymentOrder} from '../../../models/PaymentOrder';
 import {ChatbotServiceService} from '../../../service/chatbot-service.service';
 import {Sort} from '@angular/material/sort';
 =======
+=======
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 import {Sort} from '@angular/material';
 import {PaymentServiceService} from '../../../service/payment-service.service';
 import {PaymentOrder} from '../../../models/PaymentOrder';
 import {ChatbotServiceService} from '../../../service/chatbot-service.service';
+<<<<<<< HEAD
+>>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
+=======
 >>>>>>> 96e6108617b064c9890a2c56099c02c04753ae58
 // tslint:disable-next-line:prefer-const
 let customerPackages: Packages[];
