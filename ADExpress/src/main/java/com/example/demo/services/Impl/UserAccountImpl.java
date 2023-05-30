@@ -25,6 +25,10 @@ public class UserAccountImpl implements UserDetails {
         this.authorities = authorities;
     }
 
+    public UserAccountImpl(String username) {
+        this.username = username;
+    }
+
     public static UserAccountImpl build(User_account user) {
         List<GrantedAuthority> authorities = user.getUserRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole_description().name()))

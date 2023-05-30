@@ -52,7 +52,7 @@ public class JwtAuthController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<?> userLogin(@RequestBody User_account user_account) {
         System.out.println("AuthController -- userLogin");
-
+        System.out.println(user_account.getPassword());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user_account.getUsername(), user_account.getPassword()));
 

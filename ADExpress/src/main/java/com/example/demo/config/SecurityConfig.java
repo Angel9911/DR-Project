@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
         //auth.inMemoryAuthentication().withUser("test-customer").password("test-123").roles("");
+        System.out.println(userDetailsService.IsUsernameExist("ddimitrov99"));
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
     @Bean
@@ -65,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class); .antMatcher("/account/**") */
         httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(
                 "/login",
+                "/google/auth/login",
                 "/register"
         )
                 .permitAll()
@@ -78,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(final WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers("/account/**",
+                        //"/google/auth/login",
                         "/customer/email/{email}",
                         "/customer/city/{name}",
                         "/email/forgot/password/**"

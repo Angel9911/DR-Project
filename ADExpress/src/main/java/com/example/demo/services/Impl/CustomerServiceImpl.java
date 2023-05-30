@@ -1,7 +1,5 @@
 package com.example.demo.services.Impl;
 
-import ch.qos.logback.classic.Logger;
-import com.example.demo.config.JwtAuthEntryPoint;
 import com.example.demo.models.*;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
