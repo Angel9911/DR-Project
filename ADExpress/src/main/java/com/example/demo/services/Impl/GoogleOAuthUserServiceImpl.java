@@ -6,6 +6,7 @@ import com.example.demo.models.Roles;
 import com.example.demo.models.User_account;
 import com.example.demo.models.jwt.JwtResponse;
 import com.example.demo.payload.oauth.GoogleAuthRequest;
+import com.example.demo.payload.oauth.GoogleAuthResponse;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.services.GoogleOAuthUserService;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -55,7 +56,9 @@ public class GoogleOAuthUserServiceImpl implements GoogleOAuthUserService {
 
     }
     @Override
-    public JwtResponse verifyToken(GoogleAuthRequest token) throws GeneralSecurityException, IOException {
+    public GoogleAuthResponse verifyToken(GoogleAuthRequest token) throws GeneralSecurityException, IOException {
+        GoogleAuthResponse googleAuthResponse = new GoogleAuthResponse();
+
         HttpTransport httpTransport = new NetHttpTransport();
         GsonFactory gsonFactory =  new GsonFactory();
         logger.info("ClientID(it's located in app.properties): "+clientId);
@@ -75,6 +78,7 @@ public class GoogleOAuthUserServiceImpl implements GoogleOAuthUserService {
 
         String getEmail = payload.getEmail();
         Customer customer = customerRepository.findByEmail(getEmail);
+        System.out.println(customer);
         if(customer != null){
             User_account user_account = customer.getUser_account();
             if(user_account!=null){
@@ -86,10 +90,12 @@ public class GoogleOAuthUserServiceImpl implements GoogleOAuthUserService {
                 rolesList.forEach((user) -> getRoles.add(user.getRole_description().name()));
                 authResponse.setToken(jwttoken);
                 authResponse.setRoles(getRoles);
+                googleAuthResponse.setUsername(user_account.getUsername());
+                googleAuthResponse.setJwtResponse(authResponse);
                 logger.info("Generated token is "+authResponse.getToken());
             }
         }
-        return authResponse;
+        return googleAuthResponse;
     }
 
 }

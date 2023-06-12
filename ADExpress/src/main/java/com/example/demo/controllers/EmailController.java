@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -27,8 +29,11 @@ public class EmailController {
                                             @RequestParam(value = "subject")String subject,
                                             @RequestParam(value = "message")String message){
         try {
-
-            String response = emailService.sendEmail("angelkrasimirov99@gmail.com", "TEST", "test test");
+            List<String> toEmailAddresses = new ArrayList<>();
+            toEmailAddresses.add("angelkrasimirov99@gmail.com");
+            toEmailAddresses.add("dimitrovangel99@gmail.com");
+            toEmailAddresses.add("singapur1@abv.bg");
+            String response = emailService.sendEmail("angelkrasimirov99@gmail.com", toEmailAddresses, "TEST", "test test");
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         }catch(MailException mailException){

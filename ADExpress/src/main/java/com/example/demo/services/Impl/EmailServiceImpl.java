@@ -1,6 +1,8 @@
 package com.example.demo.services.Impl;
 
 import org.hibernate.pretty.MessageHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -20,10 +22,12 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Properties;
 
 @Service
 public class EmailServiceImpl implements EmailService{
+    private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
     protected Session session;
    // @Value("${spring.mail.username}")
    // private String sender;
@@ -51,17 +55,24 @@ public class EmailServiceImpl implements EmailService{
     }
 
     @Override
-    public String sendEmail(String toEmailAddress, String subject, String message2) {
+    public String sendEmail(String fromEmailAddress,List<String> toEmailAddress, String subject, String message2) {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("angelkrasimirov99@gmail.com"));
-            message.setRecipients(
-                    Message.RecipientType.TO,
-                    InternetAddress.parse("angelkrasimirov99@gmail.com, dimitrovangel99@gmail.com, singapur1@abv.bg")
-            );
-            message.setSubject("Testing Gmail TLS");
-            message.setText("Email sent via smtp protocol,"
+            message.setFrom(new InternetAddress(fromEmailAddress));
+            if(!toEmailAddress.isEmpty()) {
+
+                String emailAddresses = String.join(", ", toEmailAddress);
+                logger.debug("test parameters "+ fromEmailAddress);
+                logger.debug("test parameters "+ subject);
+                logger.debug("test if the recipients are correct"+emailAddresses);
+                message.setRecipients(
+                        Message.RecipientType.TO,
+                        InternetAddress.parse(emailAddresses)
+                );
+            }
+            message.setSubject(subject);
+            message.setText(message2 + ","
                     + "\n\n Please do not spam my email!");
 
             Transport.send(message);
