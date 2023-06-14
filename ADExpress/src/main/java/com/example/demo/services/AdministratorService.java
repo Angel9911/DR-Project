@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Courier;
-import com.example.demo.models.Packages;
-import com.example.demo.models.TypePackage;
+import com.example.demo.models.entity.Courier;
+import com.example.demo.models.entity.Packages;
+import com.example.demo.models.entity.TypePackage;
 import org.springframework.stereotype.Service;
 
 

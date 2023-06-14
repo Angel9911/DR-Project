@@ -1,7 +1,7 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.models.Customer;
-import com.example.demo.models.User_account;
+import com.example.demo.models.entity.Customer;
+import com.example.demo.models.entity.User_account;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.RolesRepository;
 import com.example.demo.repositories.UserAccountRepository;

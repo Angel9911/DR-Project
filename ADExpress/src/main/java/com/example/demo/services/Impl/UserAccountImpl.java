@@ -1,6 +1,6 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.models.User_account;
+import com.example.demo.models.entity.User_account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

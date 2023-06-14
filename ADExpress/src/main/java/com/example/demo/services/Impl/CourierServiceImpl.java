@@ -1,6 +1,6 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.models.*;
+import com.example.demo.models.entity.*;
 import com.example.demo.private_lib.AwsS3Client;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
@@ -37,7 +37,6 @@ public class CourierServiceImpl extends User implements CourierService {
     private final StatusRepository statusRepository;
 
     private final PackageProblemRepository packageProblemRepository;
-
     @PersistenceContext
     private EntityManager entityManager;
     @Value("${aws.bucketName}")
@@ -163,7 +162,7 @@ public class CourierServiceImpl extends User implements CourierService {
 
     @Override
     public Courier Update(Object object) {
-        return null;
+        return courierRepository.save((Courier) object);
     }
 
     @Override
@@ -177,8 +176,8 @@ public class CourierServiceImpl extends User implements CourierService {
 
         Root<Packages>packagesRoot = criteriaQuery.from(Packages.class);
         Join<Packages,TypePackage> typePackageJoin = packagesRoot.join("typePackage", JoinType.INNER);
-        Join<Packages,StatusPackage> statusPackageJoin = packagesRoot.join("statusPackage", JoinType.INNER);
-        Join<Packages,Customer> customerJoin = packagesRoot.join("customer", JoinType.INNER);
+        Join<Packages, StatusPackage> statusPackageJoin = packagesRoot.join("statusPackage", JoinType.INNER);
+        Join<Packages, Customer> customerJoin = packagesRoot.join("customer", JoinType.INNER);
         Join<Packages,Courier> courierJoin = packagesRoot.join("courier", JoinType.INNER);
         Join<Courier,User_account> userAccountJoin = courierJoin.join("user_account_courier", JoinType.INNER);
 

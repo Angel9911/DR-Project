@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.models.City;
-import com.example.demo.models.Customer;
-import com.example.demo.models.Packages;
+import com.example.demo.models.entity.City;
+import com.example.demo.models.entity.Customer;
+import com.example.demo.models.entity.Packages;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Courier;
-import com.example.demo.models.PackageProblem;
-import com.example.demo.models.Packages;
+import com.example.demo.models.entity.Courier;
+import com.example.demo.models.entity.PackageProblem;
+import com.example.demo.models.entity.Packages;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,6 +1,6 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.models.*;
+import com.example.demo.models.entity.*;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
 import com.example.demo.repositories.*;
@@ -31,13 +31,16 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
    @Autowired
     RolesRepository rolesRepository;
     @Autowired
-    CityRepository cityRepository;
-    @Autowired
     TypePackageRepository typePackageRepository;
     @Autowired
     PackageRepository packageRepository;
     @Autowired
     PasswordEncoder encoder;
+    //instead using directly repositories different of the repository which is responsible for the specific service
+    // we will try to use the services which we need
+    private final CustomerServiceImpl customerService;
+
+    private final CourierServiceImpl courierService;
     @Autowired
     UserAccountRepository userRepository;
     Long statusPackageId = 4L; // 4 - izpratena pratka
@@ -47,11 +50,17 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Value("${adexpress.app.courier.password}")
     private String passwordSecret;
 
+    public AdministratorServiceImpl(CustomerServiceImpl customerService, CourierServiceImpl courierService) {
+        this.customerService = customerService;
+        this.courierService = courierService;
+    }
+
     @CachePut(key="#courier")
     @Transactional
     @Override
     public Courier updateCourier(Courier courier) {
-        return courierRepository.save(courier);
+        //return courierRepository.save(courier);
+        return courierService.Update(courier);
     }
 
     @Transactional
@@ -228,7 +237,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
 
         } */
         if(object instanceof Courier){
-            return courierRepository.save((Courier) object);
+            return courierService.Update(object);//courierRepository.save((Courier) object);
         }
         return object;
     }
@@ -238,13 +247,15 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     public void Insert(Object object) {
         if(object instanceof Customer){
             Customer customer = (Customer)object;
-            customerRepository.save(customer);
+            customerService.Insert(customer);
+            //customerRepository.save(customer); replace with service
         }
         if(object instanceof Courier){
             Courier courier = (Courier)object;
             User_account getAccount = this.createCourierAccount(courier.getCourier_first_name(),courier.getCourier_last_name(),"courier");
             courier.setUser_account_courier(getAccount);
-             courierRepository.save(courier);
+            //courierRepository.save(courier);
+            customerService.Insert(courier);
         }
     }
 

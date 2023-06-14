@@ -1,22 +1,21 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.models.*;
+import com.example.demo.models.entity.City;
+import com.example.demo.models.entity.Customer;
+import com.example.demo.models.entity.Packages;
+import com.example.demo.models.entity.User_account;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
 import com.example.demo.repositories.CityRepository;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.PackageRepository;
-import com.example.demo.repositories.UserAccountRepository;
 import com.example.demo.services.CustomerService;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.github.benmanes.caffeine.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +35,7 @@ public class CustomerServiceImpl extends User implements CustomerService {
     private final CityRepository cityRepository;
 
     private final  PackageRepository packageRepository;
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -45,7 +45,6 @@ public class CustomerServiceImpl extends User implements CustomerService {
         this.customerRepository = customerRepository;
         this.cityRepository = cityRepository;
         this.packageRepository = packageRepository;
-
     }
 
     @Transactional

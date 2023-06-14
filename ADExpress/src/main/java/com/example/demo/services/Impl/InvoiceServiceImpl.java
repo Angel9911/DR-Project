@@ -1,7 +1,7 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.models.Customer;
-import com.example.demo.models.Packages;
+import com.example.demo.models.entity.Customer;
+import com.example.demo.models.entity.Packages;
 import com.example.demo.services.InvoiceService;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;

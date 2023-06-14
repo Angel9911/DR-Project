@@ -1,11 +1,10 @@
 package com.example.demo.services.Impl;
 
-import com.example.demo.models.Customer;
+import com.example.demo.models.entity.Customer;
 import com.example.demo.models.PaymentOrder;
 import com.example.demo.services.PaymentService;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
