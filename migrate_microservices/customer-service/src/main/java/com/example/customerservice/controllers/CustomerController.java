@@ -20,13 +20,13 @@ public class CustomerController {
     @GetMapping(value = "/customers", produces = "application/json")
     public ResponseEntity<List<Customer>> getCustomers(){
         List<Customer> customerList = this.customerService.getCustomers();
-        return new ResponseEntity<>(customerList,HttpStatus.OK);
+        return new ResponseEntity<List<Customer>>(customerList,HttpStatus.OK);
     }
 
     @GetMapping(value="/customers/packages", produces = "application/json")
     public ResponseEntity<Customer> getCustomerPackages() throws InterruptedException {
         Customer customer = this.customerService.getCustomerPackages();
-        return new ResponseEntity<>(customer,HttpStatus.OK);
+        return new ResponseEntity<Customer>(customer,HttpStatus.OK);
 
     }
 

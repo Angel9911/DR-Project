@@ -23,32 +23,37 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityCredentialsConfig {
-    AuthenticationManager authenticationManager;
-
+    @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
     private JwtAuthEntryPoint jwtAuthEntryPoint;
-
-    private JwtUserCredentialsAuthFilter authenticationJwtTokenFilter;
+   // @Autowired
+   // JwtUserCredentialsAuthFilter authenticationJwtTokenFilter;
 
     @Autowired
     private JwtConfig jwtConfig;
+
+    public SecurityCredentialsConfig() {
+    }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
+        AuthenticationManagerBuilder auth = http.getSharedObject(AuthenticationManagerBuilder.class);
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 .anyRequest().authenticated();
-
-        http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        http.addFilterBefore(new JwtUserCredentialsAuthFilter(authenticationManager,jwtConfig), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
     @Bean
     public JwtConfig jwtConfig() {
         return new JwtConfig();

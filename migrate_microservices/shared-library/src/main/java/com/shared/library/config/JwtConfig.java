@@ -3,6 +3,7 @@ package com.shared.library.config;
 import javax.servlet.ServletContext;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class JwtConfig {
@@ -22,7 +23,7 @@ public class JwtConfig {
     public JwtConfig(Properties properties) {
         this.properties = properties;
 
-        try (FileInputStream inputStream = new FileInputStream(CONFIG_FILE)) {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILE)) {
 
             properties.load(inputStream);
 
@@ -32,6 +33,15 @@ public class JwtConfig {
     }
 
     public JwtConfig() {
+        this.properties = new Properties();
+
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(CONFIG_FILE)) {
+
+            properties.load(inputStream);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getUri() {

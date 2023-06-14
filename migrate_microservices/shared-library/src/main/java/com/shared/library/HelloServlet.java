@@ -1,6 +1,9 @@
 package com.shared.library;
 
+import com.shared.library.config.JwtConfig;
+
 import java.io.*;
+import java.util.Properties;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -9,7 +12,8 @@ public class HelloServlet extends HttpServlet {
     private String message;
 
     public void init() {
-        message = "Hello World!";
+       // JwtConfig jwtConfig = new JwtConfig(new Properties());
+        message = "message";
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
