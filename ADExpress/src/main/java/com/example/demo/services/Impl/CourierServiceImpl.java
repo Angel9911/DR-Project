@@ -9,7 +9,6 @@ import com.example.demo.repositories.PackageProblemRepository;
 import com.example.demo.repositories.PackageRepository;
 import com.example.demo.repositories.StatusRepository;
 import com.example.demo.services.CourierService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
@@ -30,18 +29,26 @@ import java.util.*;
 @Service
 @CacheConfig(cacheNames = {"courier"})
 public class CourierServiceImpl extends User implements CourierService {
-    @Autowired
-    CourierRepository courierRepository;
-    @Autowired
-    PackageRepository packageRepository;
-    @Autowired
-    StatusRepository statusRepository;
-    @Autowired
-    PackageProblemRepository packageProblemRepository;
+
+    private final CourierRepository courierRepository;
+
+    private final PackageRepository packageRepository;
+
+    private final StatusRepository statusRepository;
+
+    private final PackageProblemRepository packageProblemRepository;
+
     @PersistenceContext
     private EntityManager entityManager;
     @Value("${aws.bucketName}")
     String bucketName;
+
+    public CourierServiceImpl(CourierRepository courierRepository, PackageRepository packageRepository, StatusRepository statusRepository, PackageProblemRepository packageProblemRepository) {
+        this.courierRepository = courierRepository;
+        this.packageRepository = packageRepository;
+        this.statusRepository = statusRepository;
+        this.packageProblemRepository = packageProblemRepository;
+    }
 
     @Transactional
     public List<Courier> getAllCouriers() {

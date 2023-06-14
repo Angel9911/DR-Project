@@ -1,29 +1,20 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Customer;
-import com.example.demo.models.Packages;
 import com.example.demo.services.Impl.CustomerServiceImpl;
 import com.example.demo.services.Impl.InvoiceServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.bind.ValidationException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 import static java.lang.String.format;
-import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_PDF;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -33,10 +24,12 @@ public class InvoiceController {
 
     private static final Logger logger = LoggerFactory.getLogger(InvoiceController.class);
 
+    private final InvoiceServiceImpl invoiceService;
+
     @Autowired
-    private InvoiceServiceImpl invoiceService;
-    @Autowired
-    private CustomerServiceImpl customerService;
+    public InvoiceController(InvoiceServiceImpl invoiceService) {
+        this.invoiceService = invoiceService;
+    }
 
     @RequestMapping(value = "/generator", method = RequestMethod.GET, produces = "application/pdf")
     public ResponseEntity<Resource> generatePdf() throws Exception {

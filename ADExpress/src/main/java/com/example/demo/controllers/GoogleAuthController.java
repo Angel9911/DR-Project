@@ -4,6 +4,7 @@ import com.example.demo.models.jwt.JwtResponse;
 import com.example.demo.payload.oauth.GoogleAuthRequest;
 import com.example.demo.payload.oauth.GoogleAuthResponse;
 import com.example.demo.services.Impl.GoogleOAuthUserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ public class GoogleAuthController {
 
     private final GoogleOAuthUserServiceImpl googleOAuthUserService;
 
+    @Autowired
     public GoogleAuthController(GoogleOAuthUserServiceImpl googleOAuthUserService) {
         this.googleOAuthUserService = googleOAuthUserService;
     }

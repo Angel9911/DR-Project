@@ -18,8 +18,13 @@ import java.util.List;
 @RequestMapping("/courier")
 public class CourierController {
 
-    @Autowired(required = true)
-    private CourierServiceImpl courierServiceImpl;
+
+    private final CourierServiceImpl courierServiceImpl;
+
+    @Autowired
+    public CourierController(CourierServiceImpl courierServiceImpl) {
+        this.courierServiceImpl = courierServiceImpl;
+    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<String>> getCourierPackages() {

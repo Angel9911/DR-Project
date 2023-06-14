@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.services.Impl.EmailServiceImpl;
-import com.sun.mail.iap.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +18,11 @@ import java.util.List;
 public class EmailController {
     private static final Logger LOG = LoggerFactory.getLogger(EmailController.class);
 
+    private final EmailServiceImpl emailService;
     @Autowired
-    private EmailServiceImpl emailService;
+    public EmailController(EmailServiceImpl emailService) {
+        this.emailService = emailService;
+    }
 
     @GetMapping(produces = "application/json")
     public ResponseEntity<String> sendEmail(@RequestParam(value = "toEmailAddress")String toEmailAddress,

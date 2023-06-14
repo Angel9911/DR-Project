@@ -30,19 +30,23 @@ import java.util.Map;
 @Service
 @CacheConfig(cacheNames = {"customer"})
 public class CustomerServiceImpl extends User implements CustomerService {
-    @Autowired
-    CustomerRepository customerRepository;
-    @Autowired
-    CityRepository cityRepository;
-    @Autowired
-    PackageRepository packageRepository;
-    @Autowired
-    UserAccountRepository userAccountRepository;
+
+    private final CustomerRepository customerRepository;
+
+    private final CityRepository cityRepository;
+
+    private final  PackageRepository packageRepository;
     @PersistenceContext
     private EntityManager entityManager;
-    @Autowired
+
     private CacheManager cacheManager;
-    //private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, CityRepository cityRepository, PackageRepository packageRepository){
+        this.customerRepository = customerRepository;
+        this.cityRepository = cityRepository;
+        this.packageRepository = packageRepository;
+
+    }
 
     @Transactional
     @Override

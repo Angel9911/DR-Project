@@ -9,13 +9,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletOutputStream;
 import java.io.*;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -25,8 +22,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     private final String invoice_template_path = "/jasper/invoice_template.jrxml";
     private final String logo_invoice = "/images/logo.png";
 
-    @Autowired
-    private CustomerServiceImpl customerService;
+    private final CustomerServiceImpl customerService;
+
+    public InvoiceServiceImpl(CustomerServiceImpl customerService) {
+        this.customerService = customerService;
+    }
 
     @Override
     public byte[] generateInvoiceFor() throws Exception {

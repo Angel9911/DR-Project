@@ -1,7 +1,6 @@
 package com.example.demo.services.Impl;
 
 import com.example.demo.models.Customer;
-import com.example.demo.models.Packages;
 import com.example.demo.models.PaymentOrder;
 import com.example.demo.services.PaymentService;
 import com.paypal.api.payments.*;
@@ -13,17 +12,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URI;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-    @Autowired
-    protected CustomerServiceImpl customerService;
+
+    protected final CustomerServiceImpl customerService;
 
     public final String success_url = "/customers/home";
     public final String cancel_url = "";
@@ -39,6 +34,10 @@ public class PaymentServiceImpl implements PaymentService {
     private static final String paymentMethod = "paypal";
     private static final String intent = "sale";
     private APIContext apiContext;
+
+    public PaymentServiceImpl(CustomerServiceImpl customerService) {
+        this.customerService = customerService;
+    }
 
     @PostConstruct
     public void init(){

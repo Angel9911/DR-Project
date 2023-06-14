@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Customer;
 import com.example.demo.models.PaymentOrder;
 import com.example.demo.services.Impl.PaymentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,16 +7,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.bind.ValidationException;
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/paypal")
 public class PaymentController {
 
     private PaymentOrder paymentOrder;
+
+    private final PaymentServiceImpl paymentService;
+
     @Autowired
-    private PaymentServiceImpl paymentService;
+    public PaymentController(PaymentServiceImpl paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @RequestMapping(value="/make/payment",method = RequestMethod.POST,produces = "application/json")
     public ResponseEntity<String> makePayment(@RequestBody PaymentOrder paymentOrder){

@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.config.cache_config.CaffeineCacheConfig;
 import com.example.demo.models.City;
 import com.example.demo.models.Customer;
 import com.example.demo.models.Packages;
@@ -9,13 +8,11 @@ import com.github.benmanes.caffeine.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
@@ -27,14 +24,16 @@ import java.util.Map;
 @RequestMapping("/customer")
 public class CustomerController {
     //@Autowired
-    //private UserAccountService accountService;
-    @Autowired
-    private CustomerServiceImpl customerServiceImpl;
+    private final CustomerServiceImpl customerServiceImpl;
     @Autowired
     PasswordEncoder encoder;
     @Autowired
     private CacheManager cacheManager;
-    private Customer result;
+
+    @Autowired
+    public CustomerController(CustomerServiceImpl customerServiceImpl) {
+        this.customerServiceImpl = customerServiceImpl;
+    }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Customer> insertCustomer(@RequestBody Customer customer) {
@@ -50,7 +49,7 @@ public class CustomerController {
     // @PreAuthorize("hasRole('user')")
     public ResponseEntity<Customer> LoginCustomer(@PathVariable(value = "username") String username) {
         try {
-            this.result = customerServiceImpl.Login(username);
+            Customer result = customerServiceImpl.Login(username);
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ValidationException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
