@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.User_account;
+import com.example.demo.models.entity.User_account;
 import com.example.demo.services.Impl.UserAccountServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,12 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.City;
-import com.example.demo.models.Customer;
-import com.example.demo.models.Packages;
+import com.example.demo.models.dtos.CustomerDto;
+import com.example.demo.models.entity.City;
+import com.example.demo.models.entity.Customer;
+import com.example.demo.models.entity.Packages;
 import com.example.demo.services.Impl.CustomerServiceImpl;
 import com.github.benmanes.caffeine.cache.Cache;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
@@ -25,14 +27,16 @@ import java.util.Map;
 public class CustomerController {
     //@Autowired
     private final CustomerServiceImpl customerServiceImpl;
+    private final ModelMapper modelMapper;
     @Autowired
     PasswordEncoder encoder;
     @Autowired
     private CacheManager cacheManager;
 
     @Autowired
-    public CustomerController(CustomerServiceImpl customerServiceImpl) {
+    public CustomerController(CustomerServiceImpl customerServiceImpl, ModelMapper modelMapper) {
         this.customerServiceImpl = customerServiceImpl;
+        this.modelMapper = modelMapper;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
@@ -58,7 +62,9 @@ public class CustomerController {
 
     // DO TUK E KACHENO V DOKUMENTACIQTA
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> updateCustomer(@RequestBody CustomerDto customerDto) {
+
+        Customer customer = this.modelMapper.map(customerDto, Customer.class);
         if (customer.getUser_id() != null) {
             try {
                 Customer result = customerServiceImpl.Update(customer);

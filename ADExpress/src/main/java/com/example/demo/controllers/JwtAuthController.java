@@ -1,9 +1,9 @@
 package com.example.demo.controllers;
 
 import com.example.demo.config.JwtTokenUtil;
-import com.example.demo.models.Customer;
-import com.example.demo.models.Roles;
-import com.example.demo.models.User_account;
+import com.example.demo.models.entity.Customer;
+import com.example.demo.models.entity.Roles;
+import com.example.demo.models.entity.User_account;
 import com.example.demo.models.jwt.JwtResponse;
 import com.example.demo.payload.SignupRequest;
 import com.example.demo.repositories.CustomerRepository;

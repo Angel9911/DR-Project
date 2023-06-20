@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Courier;
-import com.example.demo.models.PackageProblem;
-import com.example.demo.models.Packages;
+import com.example.demo.models.entity.Courier;
+import com.example.demo.models.entity.PackageProblem;
+import com.example.demo.models.entity.Packages;
 import com.example.demo.services.Impl.CourierServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

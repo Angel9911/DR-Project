@@ -1,13 +1,11 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.*;
+import com.example.demo.models.entity.*;
 import com.example.demo.services.Impl.AdministratorServiceImpl;
 import com.example.demo.services.Impl.CourierServiceImpl;
 import com.example.demo.services.Impl.CustomerServiceImpl;
-import com.github.benmanes.caffeine.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +15,6 @@ import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
