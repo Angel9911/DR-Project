@@ -1,12 +1,12 @@
 {
   "type": "service_account",
-  "project_id": "courier-project-380615",
-  "private_key_id": "661db754d13888ea442610dfbcefdce42c5da979",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC90bjNMfMpDm75\nnxRAfbj+Z0+shpUM925+8P85LYp96FXVcR17L7C05Tw3XqfBwgVKXi0zsXTBcWfT\nyQam1PnpoFW74alwQumeAAifUWg47353z9dbiHFQZMTBEgp4lQLYVracfrh7Fohj\nw0qBV2ifhAZd7oH8f3n9I10nV/kZW3sgr4KFb6mWT1Ob0fWNBWnXTFhP/ntu3k5q\nBORPfExXFRxnsg6JBFGLopjaEhsJh0utlmzvI1SlPzvn6yeZ8f3DUw5x3A1dhMvN\nGWae1rMS5VMCoZ9fnihBASht1TsrFDfZfpcZa+V+o6zwwvbYDxchJ41kHhuhowAS\nmDZ5EvrlAgMBAAECggEAASYtoPpiLzex5st2fyxzrACanCAFc3pk/ho95U34Bmqb\naGsio04G2xV/L5OgXt0qlIhs7CDxJMGnwAG5y1VDPQ2WL0i+spoJGYaFBtfikmOq\nx5Vnx5tUGkk94rBWBWRbi808lkZzHfWlNjtmrlFF5h9RvYxV15468hQeeoA/Fw7y\ny0QUEzU7H+uh4f5beE89dZYSRE9ToXspbVKr0HCwDeUtZ31EMwTKpvclaktsDVwp\ngc9NwvsHSVAoNnRF8rZVS/r0i5ojBZFN5IqwTo9hkHKJ+XLQRE0L0qa0wS4BdSsY\nHwyq9R6hZbdfQ2SXuK+S2LtbiJvfS6NgjtPDPTh7cQKBgQDr9czhafQpZlphD35Q\nVfe6jbRYVzBJ0p7sQQqqYI3DSfKVs6XNycpndslOJIVujCd81olxv3tMTV8O/7re\n6ZBsGrpzjbqghLA/PktpxXhrJzmR8Urketvi7PyIRsTEZWjO5PTMxApfzaGkQA5g\nCrWOHLwRaCqE1kTcOmJ6SM9okQKBgQDN8LwEc4WcKF7k6rMqME3fyvHx2msv9b9c\nr3J5vZHJCcJaZYpv/QOajP54ZfePbuEag0qOR4ElUfGUjtTiRB8aaLc8z12Dnwgx\nrY/7E1GeVRn60zWvC0V/bxl+1cHRJ7aDzSc5nRuAoN1EsCc1B43HaJ+T4TwUSZAF\nEEzryTR3FQKBgBcX0VtmUT0UBVhmechHAZ3CbJoQvmsbL+6TVwXhuT4ZqKI6GMoR\nK7wAhicdr+ln0h2HqZ/2S4zmLZ18Lb/PQBE0dHcGsfMvyUgHQr4xU125UwsTgG7o\nD0kgRH7Z3jwSaLWG9uZrcVB7AYzfsAh6Q9aKvWU+upqRld+v3x90rMfhAoGADhZQ\nljFcy2DLlPclCFbDjPJx+GxLdr1luK5bs04vYcQkIlDd1mlFTNYmNhArjgk0pr6i\nY/cqM2ZWkyXuFAg65HCTUDqTGATR56wKtE8O/zitDUZTXsTznRL5eH6gwnDoAD4R\nV9SSZAsc96zhEbSRkzlp6RC4Ll8V1fLWgC6EQz0CgYEAuzpZ297A5CWdeBZJI++/\n0oQQvnCqzrocFYmFDPTu8trAw1xmTkm0ZfzK4DQOB7DwkhdznBBXh/7avrZTSynw\nymEFE/cxwCoID30Rtt5ayVZHTGORfNtJzOGl2nBrA1kFryyxPNAP16ldlAvSHHsy\n6B0QmOPq306aIL4Hw84YBvU=\n-----END PRIVATE KEY-----\n",
+  "project_id": "",
+  "private_key_id": "",
+  "private_key": "-----",
   "client_email": "chatbot@courier-project-380615.iam.gserviceaccount.com",
-  "client_id": "106223499015277636091",
+  "client_id": "",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chatbot%40courier-project-380615.iam.gserviceaccount.com"
+  "client_x509_cert_url": ""
 }
