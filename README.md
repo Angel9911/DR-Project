@@ -5,4 +5,4 @@ All server resources are forbidden to the unauthorized users. When the user logs
 
 The code for client-side is angular-spring-boot-master
 
-The code for service-side is AD-Express
+The code for server-side is AD-Express
