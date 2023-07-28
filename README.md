@@ -6,3 +6,5 @@ All server resources are forbidden to the unauthorized users. When the user logs
 The code for client-side is angular-spring-boot-master - angular 15
 
 The code for server-side is AD-Express
+
+Migrate-microservices is the project which consists different services which communicate between them. So this is where migration from monolith to microservices takes place.
