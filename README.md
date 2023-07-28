@@ -3,6 +3,6 @@ It's the repository where the project files are stored. There are code from Fron
 The server and the client communicate by using a rest api. The client send the request to the specified end point, the server processes the submitted information and return a http response with object or collection of objects to the client.
 All server resources are forbidden to the unauthorized users. When the user logs in, the server generates and return "bearer" token to the client which is stored in the local storage. This token is active for 30 minutes.
 
-The code for client-side is angular-spring-boot-master
+The code for client-side is angular-spring-boot-master - angular 15
 
 The code for server-side is AD-Express
