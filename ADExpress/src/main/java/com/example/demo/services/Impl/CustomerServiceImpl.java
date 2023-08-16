@@ -4,12 +4,14 @@ import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
 import com.example.demo.models.entity.User_account;
+import com.example.demo.models.views.CustomerView;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
 import com.example.demo.repositories.CityRepository;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.PackageRepository;
 import com.example.demo.services.CustomerService;
+import com.example.demo.services.UserAccountService;
 import com.github.benmanes.caffeine.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
@@ -28,7 +30,7 @@ import java.util.Map;
 
 @Service
 @CacheConfig(cacheNames = {"customer"})
-public class CustomerServiceImpl extends User implements CustomerService {
+public class CustomerServiceImpl implements CustomerService, UserAccountService {
 
     private final CustomerRepository customerRepository;
 
@@ -49,12 +51,9 @@ public class CustomerServiceImpl extends User implements CustomerService {
 
     @Transactional
     @Override
-    public Customer Login(String username) throws ValidationException{
-        User_account user_account2 = new User_account();
-        user_account2.setUsername(username);
-        Customer customer2 = new Customer();
-        customer2.setUser_account(user_account2);
-        Customer customer =  this.buildWhereClause(customer2);
+    public CustomerView Login(String username) throws ValidationException{
+        return this.customerRepository.findByAccount_Username(username);
+        /*Customer customer =  this.customerRepository.findByAccount_Username(username);
         Customer res = new Customer();
         if (customer != null) {
             res.setUser_id(customer.getUser_id());
@@ -69,14 +68,14 @@ public class CustomerServiceImpl extends User implements CustomerService {
         } else {
             throw new ValidationException("error");
         }
-        return res;
+        return res; */
     }
 
     @CachePut
     @Transactional
     @Override
-    public Customer Update(Object object) {
-        return customerRepository.save((Customer)object);
+    public Customer Update(Customer customer) {
+        return customerRepository.save(customer);
     }
 
     @CachePut
@@ -93,8 +92,7 @@ public class CustomerServiceImpl extends User implements CustomerService {
     public Customer IsEmailExist(String email) {
         Customer customer = new Customer();
         customer.setEmail(email);
-        return this.buildWhereClause(customer);
-        //return customerRepository.findByEmail(email);
+        return customerRepository.findByEmail(email);
     }
 
     @Cacheable
@@ -145,9 +143,9 @@ public class CustomerServiceImpl extends User implements CustomerService {
      * Its used to build dynamic set of parameters by which to retrieve a Customer object.
      * In this way, the queries findUserByUsernameAndPassword and findByEmail in customerRepository are useless.
      * This method replaces them.
-     * @param customer
      * @return Customer
      */
+    /*
     private Customer buildWhereClause(Customer customer){
         //EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "" );
         //EntityManager entitymanager = emfactory.createEntityManager( );
@@ -173,7 +171,7 @@ public class CustomerServiceImpl extends User implements CustomerService {
                 .select(customerRoot)
                 .where(predicates.toArray(new Predicate[] {})));
         return typedQuery.getSingleResult();
-    }
+    } */
 
     public void checkCacheIsWorking(){
         CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("customer");

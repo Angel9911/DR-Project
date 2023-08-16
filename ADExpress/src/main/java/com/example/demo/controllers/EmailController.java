@@ -10,6 +10,7 @@ import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -29,7 +30,7 @@ public class EmailController {
                                             @RequestParam(value = "subject")String subject,
                                             @RequestParam(value = "message")String message){
         try {
-            List<String> toEmailAddresses = new ArrayList<>();
+            LinkedHashSet<String> toEmailAddresses = new LinkedHashSet<>();
             toEmailAddresses.add("angelkrasimirov99@gmail.com");
             toEmailAddresses.add("dimitrovangel99@gmail.com");
             toEmailAddresses.add("singapur1@abv.bg");
@@ -62,7 +63,7 @@ public class EmailController {
         try {
 
             String emailad = "singapur1@abv.bg";// "singapur1@abv.bg";
-            String response = emailService.sendEmailWithAttachment(emailad, "Mamencito ti", "Tova e sudurjanieto na imeila i bi trqbvalo da e prikachen i shibaniq pdf fail", "purchase_order.pdf");
+            String response = emailService.sendEmailWithAttachment(emailad, "Subject", "Tova e sudurjanieto na imeila i bi trqbvalo da e prikachen i pdf fail", "purchase_order.pdf");
 
             return new ResponseEntity<>(response, HttpStatus.OK);
 

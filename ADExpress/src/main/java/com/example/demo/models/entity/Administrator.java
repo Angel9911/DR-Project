@@ -11,7 +11,7 @@ public class Administrator {
     @SequenceGenerator(sequenceName = "administrator_id", allocationSize = 1, name = "ADMINISTRATOR_SEQ")
     private Long administrator_id;
     @OneToOne(cascade = CascadeType.ALL) // for relationship users_acc -> users_info (one to one)
-    @JoinColumn(name = "administrator_acc_id"/*,referencedColumnName="user_account_id", insertable=false, updatable=false*/)
+    @JoinColumn(name = "administrator_acc_id",referencedColumnName="user_account_id"/*, insertable=false, updatable=false*/)
     private User_account user_account_administrator;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship cities -> users_info (many to one)
     @JoinColumn(name = "office_id", referencedColumnName = "office_id", insertable = false, updatable = false)

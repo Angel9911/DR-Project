@@ -11,9 +11,7 @@ public class TypePackage {
     private Long type_id;
     @Column(name="type_name",nullable = false)
     private String type_name;
-    @OneToMany(mappedBy = "typePackage", fetch = FetchType.LAZY,cascade = CascadeType.ALL) // for relationship cities -> offices (one to many)
-   // @JoinColumn(name="type_id",referencedColumnName="type_package_id",insertable=false, updatable=false)
-    private List<Packages> packagesList;
+
 
     public TypePackage(Long type_id, String type_name) {
         this.type_id = type_id;

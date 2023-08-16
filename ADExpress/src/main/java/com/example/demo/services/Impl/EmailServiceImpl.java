@@ -1,32 +1,27 @@
 package com.example.demo.services.Impl;
 
-import org.hibernate.pretty.MessageHelper;
+import com.example.demo.private_lib.EmailMessage;
+import com.example.demo.services.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 
 @Service
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
     protected Session session;
    // @Value("${spring.mail.username}")
@@ -37,7 +32,7 @@ public class EmailServiceImpl implements EmailService{
 
     public EmailServiceImpl() {
         final String username = "angelkrasimirov99@gmail.com";
-        final String password = "vcpjqktuwpzmbipe";
+        final String password = "";
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -55,35 +50,19 @@ public class EmailServiceImpl implements EmailService{
     }
 
     @Override
-    public String sendEmail(String fromEmailAddress,List<String> toEmailAddress, String subject, String message2) {
+    public String sendEmail(String fromEmailAddress, LinkedHashSet<String> toEmailAddresses, String subject, String message) {
 
         try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromEmailAddress));
-            if(!toEmailAddress.isEmpty()) {
+            EmailMessage emailMessage = EmailMessage.EmailMessageBuilder
+                    .get()
+                    .from(fromEmailAddress)
+                    .toEmailAddresses(toEmailAddresses)
+                    .subject(subject)
+                    .message(message)
+                    .build();
 
-                String emailAddresses = String.join(", ", toEmailAddress);
-                logger.debug("test parameters "+ fromEmailAddress);
-                logger.debug("test parameters "+ subject);
-                logger.debug("test if the recipients are correct"+emailAddresses);
-                message.setRecipients(
-                        Message.RecipientType.TO,
-                        InternetAddress.parse(emailAddresses)
-                );
-            }
-            message.setSubject(subject);
-            message.setText(message2 + ","
-                    + "\n\n Please do not spam my email!");
+            this.sendEmail(emailMessage);
 
-            Transport.send(message);
-
-          /*  SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setTo(toEmailAddress);
-            simpleMailMessage.setFrom("angelkrasimirov99@gmail.com");
-            simpleMailMessage.setSubject(subject);
-            simpleMailMessage.setText(message);
-
-            emailSender.send(simpleMailMessage);  */
             return "Mail sent successfully";
 
         }catch(Exception e){
@@ -97,18 +76,22 @@ public class EmailServiceImpl implements EmailService{
 
         try {
             String resetPassLink = "http://localhost:4200/customers/reset-password";
-            MimeMessage mimeMessage = new MimeMessage(session);
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setFrom("angelkrasimirov99@gmail.com","ADEXPRESS SUPPORT");
-            helper.setTo(toEmailAddress);
-            helper.setSubject("ADEXPRESS - Forgot Password");
-            helper.setText("Hello"
+
+            String messageText = "Hello"
                     + "\n You have request to reset your password"
                     + "\n Click the link below to change the password"
                     + "\n\n <p><a href=" + resetPassLink + "> Change my password</a><p>"
-                    + "\n\n\n\n Ignore this email if you do remember your password or you have not made the request.",true);
+                    + "\n\n\n\n Ignore this email if you do remember your password or you have not made the request.";
 
-            Transport.send(mimeMessage);
+            EmailMessage message = EmailMessage.EmailMessageBuilder
+                    .get()
+                    .from("angelkrasimirov99@gmail.com")
+                    .to(toEmailAddress)
+                    .subject("ADEXPRESS - Forgot Password")
+                    .message(messageText)
+                    .build();
+
+            this.sendEmail(message);
 
             return "Mail sent successfully";
 
@@ -121,31 +104,19 @@ public class EmailServiceImpl implements EmailService{
     @Override
     public String sendEmailWithAttachment(String toEmailAddress, String subject, String message, String attachment) {
         try {
-            MimeMessage mimeMessage = new MimeMessage(session);
-            mimeMessage.setFrom(new InternetAddress("angelkrasimirov99@gmail.com"));
-            mimeMessage.addRecipient(Message.RecipientType.TO,
-                    new InternetAddress(toEmailAddress));
-            mimeMessage.setSubject(subject);
+            String content = message+","+"\n\n\n <p style='color:red;text-decoration:underline;text-align:center'>tuka bi trqbvalo teksta da e centriran,cherven i podchertan </p>";
 
-            BodyPart mbody = new MimeBodyPart();
-            mbody.setContent(message+","+"\n\n\n <p style='color:red;text-decoration:underline;text-align:center'>tuka bi trqbvalo teksta da e centriran,cherven i podchertan </p>", "text/html");
-           // mbody.setText(message);
-            MimeBodyPart mbody1 = new MimeBodyPart();
-            DataSource source = new FileDataSource("E:\\Programs\\SpringAngularProject\\angular7-springboot-crud-tutorial-master\\ADExpress\\src\\main\\resources\\images\\"+attachment);
-            mbody1.setDataHandler(new DataHandler(source));
-            mbody1.setFileName(attachment);
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mbody);
-            multipart.addBodyPart(mbody1);
-            mimeMessage.setContent(multipart);
+            EmailMessage emailMessage = EmailMessage.EmailMessageBuilder
+                    .get()
+                    .from("angelkrasimirov99@gmail.com")
+                    .to(toEmailAddress)
+                    .message(content)
+                    .build();
 
-            //FileSystemResource fileSystemResource = new FileSystemResource(ResourceUtils.getFile("images/"+attachment));
-            //MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
-           // messageHelper.addAttachment("Test file attachment",fileSystemResource);
+            this.sendEmail(emailMessage);
 
-            Transport.send(mimeMessage);
             return "Mail sent successfully";
-        }catch(MessagingException messagingException){
+        }catch(MessagingException | UnsupportedEncodingException messagingException){
             messagingException.printStackTrace();
             return "Error while sending email";
         }
@@ -175,5 +146,70 @@ public class EmailServiceImpl implements EmailService{
             messagingException.printStackTrace();
             return "Error while sending email";
         }
+    }
+
+
+
+    private void sendEmail(EmailMessage emailMessage) throws MessagingException, UnsupportedEncodingException {
+
+        MimeMessage message = new MimeMessage(session);
+        String emailAddresses = "";
+
+        if (!emailMessage.getToEmailAddresses().isEmpty()) {
+
+            emailAddresses = String.join(", ", emailMessage.getToEmailAddresses());
+        }
+
+        if(emailMessage.getAttachmentFileName()!=null){
+
+            message.setFrom(new InternetAddress(emailMessage.getFromEmailAddress()));
+            message.addRecipient(Message.RecipientType.TO,
+                    new InternetAddress(emailAddresses));
+            message.setSubject(emailMessage.getSubject());
+
+            BodyPart mbody = new MimeBodyPart();
+            mbody.setContent(emailMessage.getMessage(), "text/html");
+            MimeBodyPart mbody1 = new MimeBodyPart();
+            DataSource source = new FileDataSource("E:\\Programs\\SpringAngularProject\\angular7-springboot-crud-tutorial-master\\ADExpress\\src\\main\\resources\\images\\"+emailMessage.getAttachmentFileName());
+            mbody1.setDataHandler(new DataHandler(source));
+            mbody1.setFileName(emailMessage.getAttachmentFileName());
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(mbody);
+            multipart.addBodyPart(mbody1);
+            message.setContent(multipart);
+        }else if (!emailMessage.getSubject().equals("ADEXPRESS - Forgot Password")) {
+
+            message.setFrom(new InternetAddress(emailMessage.getFromEmailAddress()));
+
+                logger.debug("test if the recipients are correct" + emailAddresses);
+                logger.debug("test if the email sender are correct" + emailMessage.getFromEmailAddress());
+
+                message.setRecipients(
+                        Message.RecipientType.TO,
+                        InternetAddress.parse(emailAddresses)
+                );
+
+            message.setSubject(emailMessage.getSubject());
+            message.setText(emailMessage.getMessage() + ","
+                    + "\n\n Please do not spam my email!");
+
+        } else{
+
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom("angelkrasimirov99@gmail.com","ADEXPRESS SUPPORT");
+
+            List<String> list = new ArrayList<>(emailMessage.getToEmailAddresses());
+
+            if(!list.isEmpty()){
+
+                String toEmailAddress = list.get(0);
+
+                helper.setTo(toEmailAddress);
+            }
+
+            helper.setSubject(emailMessage.getSubject());
+            helper.setText(emailMessage.getMessage(),true);
+        }
+        Transport.send(message);
     }
 }

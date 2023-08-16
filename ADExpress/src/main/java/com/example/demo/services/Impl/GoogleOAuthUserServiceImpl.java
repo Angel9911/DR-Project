@@ -70,7 +70,7 @@ public class GoogleOAuthUserServiceImpl implements GoogleOAuthUserService {
         Customer customer = customerRepository.findByEmail(getEmail);
         System.out.println(customer);
         if(customer != null){
-            User_account user_account = customer.getUser_account();
+            User_account user_account = customer.getAccount();
             if(user_account!=null){
 
                 String jwttoken = jwtTokenUtil.generateJwtTokenByUsername(user_account.getUsername());

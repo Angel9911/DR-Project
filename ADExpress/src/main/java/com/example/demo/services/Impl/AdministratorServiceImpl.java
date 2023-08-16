@@ -72,7 +72,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Transactional
     @Override
     public int deleteCourierByUsernamePhone(String username, String phone) {
-        return courierRepository.deleteByUsernameAndPhone(username, phone);
+        return courierRepository.deleteByPhoneAndAccount_Username(phone,username);
     }
 
     @Cacheable
@@ -125,10 +125,10 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
             TypePackage typePackage = new TypePackage();
             typePackage.setType_id(typePackageRepository.findTypeIdByName(customerPackage.getTypePackage().getType_name()));
             Customer customer = new Customer();
-            System.out.println(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLast_name(),/*packages.getCustomer().getAddress()*/customerPackage.getCustomer().getPhone()));
-            customer.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(), customerPackage.getCustomer().getLast_name(),/*packages.getCustomer().getAddress(), */customerPackage.getCustomer().getPhone()));
+            System.out.println(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLastName(),/*packages.getCustomer().getAddress()*/customerPackage.getCustomer().getPhone()));
+            customer.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(), customerPackage.getCustomer().getLastName(),/*packages.getCustomer().getAddress(), */customerPackage.getCustomer().getPhone()));
             Customer receiver = new Customer();
-            receiver.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getReceiver().getName(), customerPackage.getReceiver().getLast_name(), /*packages.getReceiver().getAddress(), */customerPackage.getReceiver().getPhone()));
+            receiver.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getReceiver().getName(), customerPackage.getReceiver().getLastName(), /*packages.getReceiver().getAddress(), */customerPackage.getReceiver().getPhone()));
             registerPackage.setCustomer(customer);
             registerPackage.setReceiver(receiver);
             registerPackage.setTypePackage(typePackage);
@@ -153,7 +153,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         }
         Courier randomCourier = keyList.get(randomKey);
         Integer randomValue = courierList.get(randomCourier);
-        System.out.println("test random" + randomCourier.getCourier_phone() + " " + randomValue);
+        System.out.println("test random" + randomCourier.getPhone() + " " + randomValue);
         return randomCourier;
     }
 
@@ -183,7 +183,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         List<Integer> sortedList = new ArrayList<>(couriers.values());
         for (Map.Entry<Courier, Integer> entry : couriers.entrySet()) {
             if (entry.getValue().equals(sortedList.get(0))) {
-                System.out.println(entry.getKey().getCourier_phone());
+                System.out.println(entry.getKey().getPhone());
                 getCourier.setCourier_id(entry.getKey().getCourier_id());
             }
         }
@@ -192,9 +192,9 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
 
     private Map<Courier, Integer> getCouriers(String city) {
         Map<Courier, Integer> couriers = new HashMap<>();
-        List<Courier> getCouriersByCity = courierRepository.findPackagesByCityName1(city);
+        List<Courier> getCouriersByCity = courierRepository.findPackagesByCityName(city);
         for (Courier courier : getCouriersByCity) {
-            System.out.println(courier.getCourier_phone() + " " + courier.getPackagesList().size());
+            System.out.println(courier.getPhone() + " " + courier.getPackagesList().size());
             couriers.put(courier, courier.getPackagesList().size());
         }
         return couriers;
@@ -253,7 +253,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         if(object instanceof Courier){
             Courier courier = (Courier)object;
             User_account getAccount = this.createCourierAccount(courier.getCourier_first_name(),courier.getCourier_last_name(),"courier");
-            courier.setUser_account_courier(getAccount);
+            courier.setAccount(getAccount);
             //courierRepository.save(courier);
             customerService.Insert(courier);
         }

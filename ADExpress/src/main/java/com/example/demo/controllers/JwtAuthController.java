@@ -72,9 +72,9 @@ public class JwtAuthController {
     public ResponseEntity<String> userRegister(@RequestBody SignupRequest signupRequest) throws Exception {
 // Create new user's account
         System.out.println("test in auth controller" + signupRequest.getUsername());
-        String isUserExisting = customerRepository.IsThereExistingUser(signupRequest.getCustomer().getPhone());
+        Customer isUserExisting = customerRepository.findCustomerByPhone(signupRequest.getCustomer().getPhone());
         System.out.println("test in auth controller2" + isUserExisting);
-        if (isUserExisting != null) {
+        if (isUserExisting.getPhone() != null) {
             User_account user = new User_account(signupRequest.getUsername(),
                     encoder.encode(signupRequest.getPassword()));
             insertUserRoles(signupRequest, user);
@@ -88,7 +88,7 @@ public class JwtAuthController {
             insertUserRoles(signupRequest, user);
             Customer result = signupRequest.getCustomer();
             result.setName(signupRequest.getCustomer().getName());
-            result.setLast_name(signupRequest.getCustomer().getLast_name());
+            result.setLastName(signupRequest.getCustomer().getLastName());
             result.setCity(signupRequest.getCustomer().getCity());
             result.setEmail(signupRequest.getCustomer().getEmail());
             result.setAddress(signupRequest.getCustomer().getAddress());
@@ -96,7 +96,7 @@ public class JwtAuthController {
             userRepository.save(user);
             //  User_account user_account = new User_account();
             // user_account.setUser_account_id(user.getUser_account_id());
-            result.setUser_account(user);
+            result.setAccount(user);
             customerServiceImpl.Insert(result);
             return new ResponseEntity<String>("User has registered successfully", HttpStatus.OK);
         }

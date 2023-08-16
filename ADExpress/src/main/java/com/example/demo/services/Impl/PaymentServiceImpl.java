@@ -46,7 +46,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public String makePayment(PaymentOrder paymentOrder) throws Exception {
-        Customer customer = customerService.Login(paymentOrder.getCustomer_username());
+        Customer customer = (Customer) customerService.Login(paymentOrder.getCustomer_username());
         System.out.println("paymentController "+customer.getAddress());
         Payer payer = getPayerInformation(customer);
         System.out.println("payerinfo: "+payer.getPayerInfo());
@@ -88,7 +88,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName(customer.getName());
-        payerInfo.setLastName(customer.getLast_name());
+        payerInfo.setLastName(customer.getLastName());
         payerInfo.setEmail(customer.getEmail());
 
         payer.setPayerInfo(payerInfo);

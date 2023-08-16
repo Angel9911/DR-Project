@@ -17,8 +17,8 @@ public class UserAccountServiceImp implements UserDetailsService {
      Logger logger = LoggerFactory.getLogger(UserAccountServiceImp.class);
     @Autowired
      UserAccountRepository userAccountRepository;
-    @Autowired
-     CustomerRepository customerRepository;
+   // @Autowired
+   // CustomerRepository customerRepository;
 
     @Override
     @Transactional

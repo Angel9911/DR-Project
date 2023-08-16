@@ -1,6 +1,6 @@
 package com.example.demo.private_lib;
 
-import com.example.demo.models.*;
+import com.example.demo.models.entity.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,7 +33,7 @@ public class PackageHandler {
             packages.setTypePackage(typePackage);
             Customer customer = new Customer();
             customer.setName(packageProblem.getPackages_problem().getCustomer().getName());
-            customer.setLast_name(packageProblem.getPackages_problem().getCustomer().getLast_name());
+            customer.setLastName(packageProblem.getPackages_problem().getCustomer().getLastName());
             customer.setAddress(packageProblem.getPackages_problem().getCustomer().getAddress());
             customer.setPhone(packageProblem.getPackages_problem().getCustomer().getPhone());
             packages.setCustomer(customer);
@@ -69,7 +69,7 @@ public class PackageHandler {
             getPackage.setTotal_cost(packages.getTotal_cost());
             Customer customer = new Customer();
             customer.setName(packages.getCustomer().getName());
-            customer.setLast_name(packages.getCustomer().getLast_name());
+            customer.setLastName(packages.getCustomer().getLastName());
             customer.setPhone(packages.getCustomer().getPhone());
             customer.setAddress(packages.getCustomer().getAddress());
             getPackage.setCustomer(customer); //  moje bi trqbva da se promeni na receiver

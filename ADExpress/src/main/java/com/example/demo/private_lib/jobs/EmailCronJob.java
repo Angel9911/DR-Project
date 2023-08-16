@@ -1,20 +1,10 @@
 package com.example.demo.private_lib.jobs;
 
-import com.example.demo.models.Customer;
 import com.example.demo.repositories.CustomerRepository;
-import com.example.demo.services.Impl.CustomerServiceImpl;
 import com.example.demo.services.Impl.EmailServiceImpl;
-import com.google.api.gax.rpc.InvalidArgumentException;
-import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.C;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class EmailCronJob {

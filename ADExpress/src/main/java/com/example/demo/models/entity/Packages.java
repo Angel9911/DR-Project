@@ -23,7 +23,7 @@ public class Packages {
     @JoinColumn(name="type_package_id",referencedColumnName="type_id", insertable=true, updatable=true)
     private TypePackage typePackage;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> offices (many to one)
-    @JoinColumn(name="office_id",referencedColumnName="office_id", insertable=true, updatable=true)
+    @JoinColumn(name="o ffice_id",referencedColumnName="office_id", insertable=true, updatable=true)
     private Office office;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> courier (many to one)
     @JoinColumn(name="courier_id",referencedColumnName="courier_id", insertable=true, updatable=true)
@@ -52,10 +52,6 @@ public class Packages {
     @Column(name="review_package",nullable = true)
     @JsonIgnore
     private Boolean review_package;
-    @OneToOne(mappedBy = "packages_problem", fetch = FetchType.LAZY/*,cascade = CascadeType.ALL*/)
-    @JsonIgnore
-    private PackageProblem packageProblem;
-
 
     public Packages() {
 

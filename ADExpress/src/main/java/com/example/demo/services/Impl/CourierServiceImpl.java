@@ -149,7 +149,8 @@ public class CourierServiceImpl extends User implements CourierService {
     @Transactional
     @Override
     public Courier Login(String username) throws ValidationException {
-        Courier courier = courierRepository.findCourierByUsernameAndPassword(username);
+
+        Courier courier = courierRepository.findByAccount_Username(username);
         if (courier != null) {
             Courier res = new Courier();
             res.setCourier_first_name(courier.getCourier_first_name());

@@ -4,45 +4,63 @@ import com.example.demo.models.dtos.CustomerDto;
 import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
-import com.example.demo.services.Impl.CustomerServiceImpl;
+import com.example.demo.models.views.CustomerView;
+import com.example.demo.services.CustomerService;
+import com.example.demo.services.UserAccountService;
+import com.example.demo.utils.ObjectMapper;
 import com.github.benmanes.caffeine.cache.Cache;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    //@Autowired
-    private final CustomerServiceImpl customerServiceImpl;
+
+    private final CustomerService customerService;
+
+    private final UserAccountService userAccountService;
+
     private final ModelMapper modelMapper;
-    @Autowired
-    PasswordEncoder encoder;
+
     @Autowired
     private CacheManager cacheManager;
 
     @Autowired
-    public CustomerController(CustomerServiceImpl customerServiceImpl, ModelMapper modelMapper) {
-        this.customerServiceImpl = customerServiceImpl;
-        this.modelMapper = modelMapper;
+    public CustomerController(CustomerService customerService, UserAccountService userAccountService) {
+        this.customerService = customerService;
+        this.userAccountService = userAccountService;
+        this.modelMapper = ObjectMapper.getMapperInstance();
+        this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<Customer> insertCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> insertCustomer(@RequestBody CustomerDto customerDto) {
         try {
-            customerServiceImpl.Insert(customer);
+            TypeMap<CustomerDto,Customer> typeMap= ObjectMapper.getTypeMapInstance(CustomerDto.class,Customer.class);
+
+            typeMap.addMapping(CustomerDto::getFirstName,Customer::setName);
+            typeMap.addMapping(CustomerDto::getLastName,Customer::setLastName);
+
+            Customer customer = ObjectMapper.map(customerDto,Customer.class);
+            userAccountService.Insert(customer);
             return new ResponseEntity<>(customer, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -51,9 +69,10 @@ public class CustomerController {
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
     // @PreAuthorize("hasRole('user')")
-    public ResponseEntity<Customer> LoginCustomer(@PathVariable(value = "username") String username) {
+    public ResponseEntity<CustomerView> LoginCustomer(@PathVariable(value = "username") String username) {
         try {
-            Customer result = customerServiceImpl.Login(username);
+            CustomerView result = (CustomerView) userAccountService.Login(username);
+
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ValidationException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -62,12 +81,27 @@ public class CustomerController {
 
     // DO TUK E KACHENO V DOKUMENTACIQTA
     @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Customer> updateCustomer(@RequestBody CustomerDto customerDto) {
+    public ResponseEntity<?> updateCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult) {
+        // to do - implement validation using bindingresult
+        if(bindingResult.hasErrors()){
+            List<String> getAllErrorMessages = bindingResult.getAllErrors()
+                    .stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
 
-        Customer customer = this.modelMapper.map(customerDto, Customer.class);
+            return new ResponseEntity<>(getAllErrorMessages,HttpStatus.BAD_REQUEST);
+            // to do
+        }
+        TypeMap<CustomerDto,Customer> typeMap = ObjectMapper.getTypeMapInstance(CustomerDto.class,Customer.class);
+
+        typeMap.addMapping(CustomerDto::getFirstName,Customer::setName);
+        typeMap.addMapping(CustomerDto::getLastName,Customer::setLastName);
+
+        Customer customer = typeMap.map(customerDto);
+
         if (customer.getUser_id() != null) {
             try {
-                Customer result = customerServiceImpl.Update(customer);
+                Customer result = customerService.Update(customer);
 
                 return new ResponseEntity<>(result, HttpStatus.OK);
             } catch (EntityNotFoundException e) {
@@ -82,7 +116,7 @@ public class CustomerController {
     @GetMapping(produces = "application/json") // http://localhost:8082/customer?email=email2@example.com
     public ResponseEntity<Boolean> findEmail(@RequestParam(value = "email") String email) {
         if (email != null) {
-            Customer result = customerServiceImpl.IsEmailExist(email);
+            Customer result = customerService.IsEmailExist(email);
             if (result != null) {
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
@@ -96,7 +130,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/city", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<String>> getAllExamples() {
-        List<City> listCities = new ArrayList<>(customerServiceImpl.getAllCities());
+        List<City> listCities = new ArrayList<>(customerService.getAllCities());
         List<String> cityNames = new ArrayList<>();
         for (City city : listCities) {
             cityNames.add(city.getCity_name());
@@ -108,7 +142,7 @@ public class CustomerController {
     @RequestMapping(value = "/city/{name}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<City> GetCityIdByName(@PathVariable(value = "name") String name) {
         City city = new City();
-        city.setCity_id(customerServiceImpl.getCityIdByName(name).getCity_id());
+        city.setCity_id(customerService.getCityIdByName(name).getCity_id());
         return new ResponseEntity<>(city, HttpStatus.OK);
     }
 
@@ -123,7 +157,7 @@ public class CustomerController {
                 System.out.println("Key = " + entry.getKey());
                 System.out.println("Value = " + entry.getValue());
             }
-            List<Packages> packagesList = customerServiceImpl.getAllPackages(username);
+            List<Packages> packagesList = customerService.getAllPackages(username);
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

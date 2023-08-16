@@ -1,6 +1,6 @@
 package com.example.demo.private_lib.jobs;
 
-import com.example.demo.models.Customer;
+import com.example.demo.models.entity.Customer;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.services.Impl.CustomerServiceImpl;
 import com.example.demo.services.Impl.EmailServiceImpl;
@@ -11,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Slf4j
@@ -51,7 +51,7 @@ public class PromotionCron implements Job {
                 throw new IllegalArgumentException("Invalid input parameters");
             }
             List<Customer> getAllCustomers = customerRepository.findAll();
-            List<String> toEmailAddresses = new ArrayList<>();
+            LinkedHashSet<String> toEmailAddresses = new LinkedHashSet<>();
 
             for (Customer customer : getAllCustomers){
                 if(customer.getEmail()!=null) {

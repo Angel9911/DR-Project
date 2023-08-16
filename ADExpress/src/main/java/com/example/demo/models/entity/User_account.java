@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -25,15 +26,6 @@ public class User_account {
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_account_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Roles> userRoles;
-    @OneToOne(mappedBy = "user_account_courier"/*,fetch = FetchType.LAZY,cascade = CascadeType.ALL*/)
-    @JsonIgnore
-    private Courier courier;
-    @OneToOne(mappedBy = "user_account_customer"/*, fetch = FetchType.LAZY,cascade = CascadeType.ALL*/)
-    @JsonIgnore
-    private Customer customer;
-    @OneToOne(mappedBy = "user_account_administrator"/*, fetch = FetchType.LAZY,cascade = CascadeType.ALL*/)
-    @JsonIgnore
-    private Administrator administrator;
 
     public User_account(Long user_account_id, String username, String password, List<Roles> roles) {
         this.user_account_id = user_account_id;
@@ -76,34 +68,11 @@ public class User_account {
     }
 
     public List<Roles> getUserRoles() {
-        return userRoles;
+        return Collections.unmodifiableList(userRoles);
     }
 
     public void setUserRoles(List<Roles> userRoles) {
         this.userRoles = userRoles;
     }
 
-    public Courier getCourier() {
-        return courier;
-    }
-
-    public void setCourier(Courier courier) {
-        this.courier = courier;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Administrator getAdministrator() {
-        return administrator;
-    }
-
-    public void setAdministrator(Administrator administrator) {
-        this.administrator = administrator;
-    }
 }

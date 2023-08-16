@@ -14,4 +14,5 @@ public interface CustomerService {
     List<Packages> getAllPackages(String username) throws Exception;
     List<City> getAllCities();
     City getCityIdByName(String name);
+    Customer Update(Customer customer);
 }

@@ -1,6 +1,6 @@
 package com.example.demo.repositories;
 
-import com.example.demo.models.Packages;
+import com.example.demo.models.entity.Packages;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,8 +22,8 @@ public interface PackageRepository  extends JpaRepository<Packages,Integer> {
     @Query(value = "select p.name_package, t.type_name, uf.address, s.status_type, p.package_id, p.courier_id, p.user_id, p.office_id, p.review_package, p.size_height, p.size_width, p.weight_package, p.date_register_package, p.date_delivery_package, p.package_price, p.total_cost, p.receiver_id, p.status_id, p.type_package_id, uf.name, uf.last_name, uf.phone "+
             "from packages p "+
             "inner join type_package t on p.type_package_id = t.type_id "+
-         //   "inner join offices o on p.office_id = o.office_id "+
-          //  "inner join cities ct on o.city_id = ct.city_id "+
+            "inner join offices o on p.office_id = o.office_id "+
+            "inner join cities ct on o.city_id = ct.city_id "+
             "inner join package_status s on p.status_id = s.status_id "+
             "inner join users_info uf on p.user_id = uf.user_id "+
             "inner join user_account u on uf.user_acc_id = u.user_account_id "+

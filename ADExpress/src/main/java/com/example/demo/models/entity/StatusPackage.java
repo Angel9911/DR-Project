@@ -13,15 +13,11 @@ public class StatusPackage {
     private Long status_id;
     @Column(name="status_type",nullable = false)
     private String status_type;
-    @OneToMany(mappedBy = "statusPackage", fetch = FetchType.LAZY,cascade = CascadeType.ALL) // for relationship package_status -> packages (one to many)
-    @JsonIgnore
-    // @JoinColumn(name="status_id",referencedColumnName="status_id",insertable=false, updatable=false)
-    private List<Packages> packagesList;
 
-    public StatusPackage(Long status_id, String status_type, List<Packages> packagesList) {
+    public StatusPackage(Long status_id, String status_type) {
         this.status_id = status_id;
         this.status_type = status_type;
-        this.packagesList = packagesList;
+
     }
 
     public StatusPackage() {
@@ -44,12 +40,4 @@ public class StatusPackage {
         this.status_type = status_type;
     }
 
-
-    public List<Packages> getPackagesList() {
-        return packagesList;
-    }
-
-    public void setPackagesList(List<Packages> packagesList) {
-        this.packagesList = packagesList;
-    }
 }

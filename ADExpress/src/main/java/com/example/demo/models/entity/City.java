@@ -3,6 +3,7 @@ package com.example.demo.models.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -45,7 +46,7 @@ public class City {
     }
 
     public List<Office> getOfficeList() {
-        return officeList;
+        return Collections.unmodifiableList(officeList);
     }
 
     public void setOfficeList(List<Office> officeList) {

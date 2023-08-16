@@ -1,9 +1,14 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.dtos.CourierDto;
+import com.example.demo.models.dtos.CustomerDto;
 import com.example.demo.models.entity.*;
+import com.example.demo.services.CourierService;
+import com.example.demo.services.CustomerService;
 import com.example.demo.services.Impl.AdministratorServiceImpl;
-import com.example.demo.services.Impl.CourierServiceImpl;
-import com.example.demo.services.Impl.CustomerServiceImpl;
+import com.example.demo.utils.ObjectMapper;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
@@ -15,6 +20,7 @@ import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -25,14 +31,18 @@ public class AdministratorController {
     @Autowired
     private CacheManager cacheManager;
     //@Autowired
-    private final CustomerServiceImpl customerServiceImpl;
+    private final CustomerService customerService;
    // @Autowired
-    private final CourierServiceImpl courierServiceImpl;
+    private final CourierService courierService;
+
+    private final ModelMapper mapper;
+
     private Administrator result;
 
-    public AdministratorController(CustomerServiceImpl customerServiceImpl, CourierServiceImpl courierServiceImpl) {
-        this.customerServiceImpl = customerServiceImpl;
-        this.courierServiceImpl = courierServiceImpl;
+    public AdministratorController(CustomerService customerService, CourierService courierServiceImpl) {
+        this.customerService = customerService;
+        this.courierService = courierServiceImpl;
+        this.mapper = ObjectMapper.getMapperInstance();
     }
 
     // @PreAuthorize("hasRole('administrator')")
@@ -47,20 +57,34 @@ public class AdministratorController {
     }
 
     @GetMapping(value = "/customers", produces = "application/json") //check
-    public ResponseEntity<List<Customer>> getCustomers() throws Exception {
+    public ResponseEntity<List<CustomerDto>> getCustomers() throws Exception {
         try {
-            List<Customer> resultList = new ArrayList<>(customerServiceImpl.getAllCustomers());
-            return new ResponseEntity<>(resultList, HttpStatus.OK);
+            List<Customer> customerList = new ArrayList<>(customerService.getAllCustomers());
+
+            List<CustomerDto> customers = ObjectMapper.map(customerList,CustomerDto.class);
+            // to do filter by phone
+
+            return new ResponseEntity<>(customers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping(value = "/couriers", produces = "application/json")//check
-    public ResponseEntity<List<Courier>> getCouriers() {
+    public ResponseEntity<List<CourierDto>> getCouriers() {
         try {
-            List<Courier> customerList = new ArrayList<>(courierServiceImpl.getAllCouriers());
-            return new ResponseEntity<>(customerList, HttpStatus.OK);
+
+            List<Courier> courierList = new ArrayList<>(courierService.getAllCouriers());
+
+            TypeMap<Courier,CourierDto> typeMap = ObjectMapper.getTypeMapInstance(Courier.class,CourierDto.class);
+
+            typeMap.addMapping(Courier::getCourier_first_name,CourierDto::setFirstName);
+            typeMap.addMapping(Courier::getCourier_last_name,CourierDto::setLastName);
+            typeMap.addMapping(Courier::getCourier_city_name,CourierDto::setCity);
+
+            List<CourierDto> couriers = ObjectMapper.map(courierList,typeMap);
+            // to do filter by phone
+            return new ResponseEntity<>(couriers, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -69,14 +93,20 @@ public class AdministratorController {
     // DO TUK E KACHENO V DOKUMENTACIQTA
     @RequestMapping(value = "/courier/create", method = RequestMethod.POST, produces = "application/json")
     // bi trqbvalo da bachka
-    public ResponseEntity<Courier> insertCourier(@RequestBody @Valid Courier courier) throws ValidationException {
+    public ResponseEntity<CourierDto> insertCourier(@RequestBody @Valid CourierDto courierDto) throws ValidationException {
+
+        Courier courier = ObjectMapper.map(courierDto,Courier.class);
+
         administratorService.Insert(courier);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/customer/create", method = RequestMethod.POST, produces = "application/json")
     // bi trqbvalo da bachka
-    public ResponseEntity<Customer> insertCustomer(@RequestBody Customer customer) throws ValidationException {
+    public ResponseEntity<CustomerDto> insertCustomer(@RequestBody CustomerDto customerDto) throws ValidationException {
+
+        Customer customer = ObjectMapper.map(customerDto,Customer.class);
+
         administratorService.Insert(customer);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -119,7 +149,7 @@ public class AdministratorController {
 
     @GetMapping(value = "/cities")
     public ResponseEntity<?> getAllCities() {
-        List<City> cityList = customerServiceImpl.getAllCities();
+        List<City> cityList = customerService.getAllCities();
         if (cityList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
