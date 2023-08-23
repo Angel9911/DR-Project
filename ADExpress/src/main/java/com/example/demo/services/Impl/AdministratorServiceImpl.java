@@ -1,6 +1,7 @@
 package com.example.demo.services.Impl;
 
 import com.example.demo.models.entity.*;
+import com.example.demo.private_lib.CourierHandler;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
 import com.example.demo.repositories.*;
@@ -106,15 +107,18 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Transactional
     @Override
     public Packages registerPackage(Packages customerPackage) {
+        Map<Courier, Integer> couriers = this.getCouriers("Бургас");
+
+
         Packages registerPackage = new Packages();
         Courier getCourier = new Courier();
         if (!ObjectUtils.isEmpty(customerPackage)) {
-            if (this.IfCourierHasEqualCountPackages("Бургас")) {
+            if (CourierHandler.IfCourierHasEqualCountPackages(couriers)) {
                 System.out.println("there are not duplicated records");
-                getCourier = this.getCourierByCity("Бургас");
+                getCourier = CourierHandler.getCourierByCity(couriers);
             } else {
                 System.out.println("there are duplicated records");
-                getCourier = this.getRandomCourier("Бургас");
+                getCourier = CourierHandler.getRandomCourier(couriers);
             }
             System.out.println(customerPackage.getName_package());
             registerPackage.setName_package(customerPackage.getName_package());
@@ -142,53 +146,6 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         // return null;
     }
 
-    private Courier getRandomCourier(String city) {
-        int randomKey = 0;
-        Map<Courier, Integer> courierList = this.getCouriers(city);
-        Set<Courier> keySet = courierList.keySet();
-        List<Courier> keyList = new ArrayList<>(keySet);
-        int countCouriers = keyList.size();
-        for (int i = 0; i < countCouriers; i++) {
-            randomKey = this.randomCouriers.nextInt(countCouriers);
-        }
-        Courier randomCourier = keyList.get(randomKey);
-        Integer randomValue = courierList.get(randomCourier);
-        System.out.println("test random" + randomCourier.getPhone() + " " + randomValue);
-        return randomCourier;
-    }
-
-    private Boolean IfCourierHasEqualCountPackages(String city) {
-        Map<Courier, Integer> courierList = this.getCouriers(city);
-        List<Integer> ListCouriers = new ArrayList<>(courierList.values());
-        List<Integer> duplicateList = new ArrayList<>();
-        for (int i = 0; i < ListCouriers.size(); i++) {
-            for (int j = 1; j < ListCouriers.size(); j++) {
-                if (ListCouriers.get(i).equals(ListCouriers.get(j)) && i != j) {
-                    duplicateList.add(ListCouriers.get(i));
-                    break;
-                }
-            }
-        }
-        System.out.println(duplicateList.isEmpty());
-        if (duplicateList.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private Courier getCourierByCity(String city) {
-        Courier getCourier = new Courier();
-        Map<Courier, Integer> couriers = this.getCouriers(city);
-        List<Integer> sortedList = new ArrayList<>(couriers.values());
-        for (Map.Entry<Courier, Integer> entry : couriers.entrySet()) {
-            if (entry.getValue().equals(sortedList.get(0))) {
-                System.out.println(entry.getKey().getPhone());
-                getCourier.setCourier_id(entry.getKey().getCourier_id());
-            }
-        }
-        return getCourier;
-    }
 
     private Map<Courier, Integer> getCouriers(String city) {
         Map<Courier, Integer> couriers = new HashMap<>();
@@ -199,17 +156,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         }
         return couriers;
     }
-    private User_account createCourierAccount(String fName, String lName, String role){
-        this.usernameCourier = fName.charAt(0) +lName;
-        this.passwordCourier = this.usernameCourier + passwordSecret;
-        User_account user_account = new User_account(this.usernameCourier,encoder.encode(this.passwordCourier));
-        List<Roles> roles = new ArrayList<>();
-        Roles modRole = rolesRepository.findRole_idByRole_description(role);
-        roles.add(modRole);
-        user_account.setUserRoles(roles);
-        userRepository.save(user_account);
-        return user_account;
-    }
+
     @Transactional
     @Override
     public Administrator Login(String username) throws ValidationException {
@@ -252,10 +199,19 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         }
         if(object instanceof Courier){
             Courier courier = (Courier)object;
-            User_account getAccount = this.createCourierAccount(courier.getCourier_first_name(),courier.getCourier_last_name(),"courier");
+
+            List<Roles> roles = new ArrayList<>();
+
+            Roles modRole = rolesRepository.findRole_idByRole_description("courier");
+
+            roles.add(modRole);
+
+            User_account getAccount = CourierHandler.createCourierAccount(courier.getCourier_first_name(),courier.getCourier_last_name(),roles,encoder);
+            userRepository.save(getAccount);
+
             courier.setAccount(getAccount);
             //courierRepository.save(courier);
-            customerService.Insert(courier);
+            courierService.Insert(courier);
         }
     }
 

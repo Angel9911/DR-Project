@@ -168,7 +168,9 @@ public class CourierServiceImpl extends User implements CourierService {
 
     @Override
     public void Insert(Object object) {
-
+        if(object instanceof Courier){
+            courierRepository.save((Courier) object);
+        }
     }
 
     private List<Packages> buildWhereClause(String username, int status_id){

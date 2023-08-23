@@ -11,9 +11,4 @@ import java.util.List;
 
 public interface PaymentService {
     String makePayment(PaymentOrder paymentOrder) throws Exception;
-    PaymentOrder executePayment();
-    Payer getPayerInformation(Customer customer);
-    List<Transaction> getTransactionInfo(PaymentOrder paymentOrder);
-    RedirectUrls getRedirectsUrl();
-    String approvalLink(Payment approvedPayment);
 }

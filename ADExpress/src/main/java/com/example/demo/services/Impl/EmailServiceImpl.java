@@ -32,7 +32,7 @@ public class EmailServiceImpl implements EmailService {
 
     public EmailServiceImpl() {
         final String username = "angelkrasimirov99@gmail.com";
-        final String password = "";
+        final String password = "vcpjqktuwpzmbipe";
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -53,6 +53,7 @@ public class EmailServiceImpl implements EmailService {
     public String sendEmail(String fromEmailAddress, LinkedHashSet<String> toEmailAddresses, String subject, String message) {
 
         try {
+            // using builder pattern
             EmailMessage emailMessage = EmailMessage.EmailMessageBuilder
                     .get()
                     .from(fromEmailAddress)
