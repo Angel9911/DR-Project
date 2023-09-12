@@ -7,4 +7,20 @@ The code for client-side is angular-spring-boot-master - angular 15
 
 The code for server-side is AD-Express
 
-Migrate-microservices is the project which consists different services which communicate between them. So this is where migration from monolith to microservices takes place.
+## :hammer: Used technologies
+* [Spring Boot](https://spring.io/projects/spring-boot)
+* [Java](https://www.w3schools.com/java/)
+* TypeScript
+* [Angular](https://angular.io/)
+* [Bootstrap](https://github.com/twbs/bootstrap)
+* [jUnit](https://junit.org/junit5/)
+* [PostgreSQL](https://www.postgresql.org/)
+* HTML & CSS
+* SOLID  PRINCIPLES AND DESIGN PATTERNS
+
+## Images
+
+## Author
+Angel Dimitrov
+<br />
+[LinkedIn](https://www.linkedin.com/in/angel-dimitrov-70331b215/)
