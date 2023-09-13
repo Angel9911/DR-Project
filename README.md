@@ -32,6 +32,23 @@ All server resources are forbidden to the unauthorized users. When the user logs
 ![FilterShipmentsByPrice](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/customer_packages_filter_name_package.png)
 ![FilterShipmentsByPrice](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/customer_packages_filter_price_package.png)
 
+#### • Courier view
+
+* List of shipments that the courier must deliver(filtered by customer phone)
+![FilterCourierShipmentsByPhone](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/courier_list_package_search_phone.png)
+
+* Filtered by shipment name
+![FilterCourierShipmentsByName](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/courier_list_package_search_package_name.png)
+
+* Problem Shipments
+![ProblemShipments](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/courier_packages_problem.png)
+
+* Register a problem shipment
+![RegisterProblemShipment](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/courier_package_problem.png)
+
+
+#### • Administrator view
+
 ## Author
 Angel Dimitrov
 <br />
