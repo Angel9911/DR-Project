@@ -54,6 +54,17 @@ All server resources are forbidden to the unauthorized users. When the user logs
 
 #### • Administrator view
 
+* Register a shipment in the system
+![RegisterShipment](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/register_package.png)
+
+* All registered customers in the system(Filtered by phone)
+![AllCustomers](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/administrator_list_customers_tmpl.png)
+![AllCustomersFilteredByPhone](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/administrator_list_customers_search_tmpl.png)
+
+* All registered couriers in the system(Filtered by phone)
+![AllCouriers](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/administrator_list_couriers_tmpl.png)
+![AllCouriersFilteredByPhone](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/administrator_list_couriers_search_tmpl.png)
+
 ## Author
 Angel Dimitrov
 <br />
