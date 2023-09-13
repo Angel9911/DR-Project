@@ -21,11 +21,13 @@ All server resources are forbidden to the unauthorized users. When the user logs
 
 ## Images
 
-#### • SignUp/SignIn Pages for the customers
+#### • Customer view
+
+* SignUp/SignIn Pages for the customers
 ![RegisterViewModel](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/reg_tmpl.png)
 ![LoginViewPage](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/login_tmpl.png)
 
-#### • Packages Page - Here customers can see information about their all shipments(delivered, shipped, as well as problem shipments).
+* Packages Page - Here customers can see information about their all shipments(delivered, shipped, as well as problem shipments).
 ![CustomerShipmentsView](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/customer_packages_1.png)
 
 * Filter shipments by shipment name and price
