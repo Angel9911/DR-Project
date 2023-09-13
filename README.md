@@ -46,6 +46,11 @@ All server resources are forbidden to the unauthorized users. When the user logs
 * Register a problem shipment
 ![RegisterProblemShipment](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/courier_package_problem.png)
 
+* Delivered shipments
+![DeliveredShipments](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/courier_list_delivered_package.png)
+
+* Register a successfully delivered shipment
+![RegisterSuccessShipment](https://github.com/Angel9911/DR-Project/blob/main/Using_System_Pictures/courier_delivered_package_success.png)
 
 #### • Administrator view
 
