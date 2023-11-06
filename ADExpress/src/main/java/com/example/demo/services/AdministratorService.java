@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface AdministratorService {
@@ -14,7 +15,10 @@ public interface AdministratorService {
     List<Packages> getAllPackages() throws Exception;
     List<Packages> findPackagesByCustomerPhone(String phone);
     List<TypePackage> getAllPackagesTypes();
+    Optional<Integer> findCustomerById(int customerId);
+    Optional<Courier> findCourierByUsername(String username);
     int deleteCustomerById(int id);
     int deleteCourierByUsernamePhone(String username, String phone);
     Courier updateCourier(Courier courier);
+    boolean isOwner(String username, Long adminId);
 }

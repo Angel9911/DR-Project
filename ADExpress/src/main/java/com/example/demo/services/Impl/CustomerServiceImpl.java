@@ -27,10 +27,11 @@ import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @CacheConfig(cacheNames = {"customer"})
-public class CustomerServiceImpl implements CustomerService, UserAccountService {
+public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
@@ -51,24 +52,14 @@ public class CustomerServiceImpl implements CustomerService, UserAccountService 
 
     @Transactional
     @Override
-    public CustomerView Login(String username) throws ValidationException{
-        return this.customerRepository.findByAccount_Username(username);
-        /*Customer customer =  this.customerRepository.findByAccount_Username(username);
-        Customer res = new Customer();
-        if (customer != null) {
-            res.setUser_id(customer.getUser_id());
-            res.setName(customer.getName());
-            res.setLast_name(customer.getLast_name());
-            res.setCity(customer.getCity());
-            res.setEmail(customer.getEmail());
-            res.setAddress(customer.getAddress());
-            res.setPhone(customer.getPhone());
-            User_account user_account = customer.getUser_account();
-            res.setUser_account(user_account);
-        } else {
-            throw new ValidationException("error");
-        }
-        return res; */
+    public CustomerView Login(Long customerId) throws ValidationException{
+        return this.customerRepository.findByUserId(customerId);
+    }
+
+    @Transactional
+    @Override
+    public CustomerView getCustomerDetails(String username) throws ValidationException {
+        return customerRepository.findByAccount_Username(username);
     }
 
     @CachePut
@@ -76,6 +67,18 @@ public class CustomerServiceImpl implements CustomerService, UserAccountService 
     @Override
     public Customer Update(Customer customer) {
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public boolean isOwner(String currentUsername, Long givenCustomerId) {
+
+        Optional<Customer> givenCustomer = customerRepository.findById(givenCustomerId);
+
+        if(givenCustomer.isEmpty() || currentUsername == null){
+            return false;
+        }
+
+        return givenCustomer.get().getAccount().getUsername().equalsIgnoreCase(currentUsername);
     }
 
     @CachePut

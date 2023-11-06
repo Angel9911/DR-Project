@@ -1,9 +1,11 @@
 package com.example.demo.services.Impl;
 
+import com.example.demo.events.NotificationMessageEvent;
 import com.example.demo.private_lib.EmailMessage;
 import com.example.demo.services.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.util.Properties;
 @Service
 public class EmailServiceImpl implements EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
+    private final ApplicationEventPublisher eventPublisher;
     protected Session session;
    // @Value("${spring.mail.username}")
    // private String sender;
@@ -30,7 +33,8 @@ public class EmailServiceImpl implements EmailService {
     //@Autowired
     //private final JavaMailSender emailSender;
 
-    public EmailServiceImpl() {
+    public EmailServiceImpl(ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
         final String username = "angelkrasimirov99@gmail.com";
         final String password = "vcpjqktuwpzmbipe";
 
@@ -51,7 +55,6 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public String sendEmail(String fromEmailAddress, LinkedHashSet<String> toEmailAddresses, String subject, String message) {
-
         try {
             // using builder pattern
             EmailMessage emailMessage = EmailMessage.EmailMessageBuilder
@@ -87,7 +90,7 @@ public class EmailServiceImpl implements EmailService {
             EmailMessage message = EmailMessage.EmailMessageBuilder
                     .get()
                     .from("angelkrasimirov99@gmail.com")
-                    .to(toEmailAddress)
+                    .to(toEmailAddress) // nullpointer exception eventually
                     .subject("ADEXPRESS - Forgot Password")
                     .message(messageText)
                     .build();
@@ -104,6 +107,8 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public String sendEmailWithAttachment(String toEmailAddress, String subject, String message, String attachment) {
+        //eventPublisher.publishEvent(new NotificationMessageEvent(this,"359894343421","test_courier_order")); - only for test if the publisher and listeners work correctly
+
         try {
             String content = message+","+"\n\n\n <p style='color:red;text-decoration:underline;text-align:center'>tuka bi trqbvalo teksta da e centriran,cherven i podchertan </p>";
 

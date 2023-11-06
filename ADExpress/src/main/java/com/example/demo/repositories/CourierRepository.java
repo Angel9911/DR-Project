@@ -8,12 +8,18 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public interface CourierRepository extends JpaRepository<Courier, Long> {
     List<Courier> findAll();
 
-    Courier findByAccount_Username(String username);
+    Optional<Courier> findByAccount_Username(String username);
+
+    @Query(value = "SELECT c.courier_id " +
+            "FROM couriers c " +
+            "WHERE c.courier_id = :id",nativeQuery = true)
+    Optional<Integer> findCourierById(@Param("id") int id);
 
     int deleteByPhoneAndAccount_Username(String phone,String username);
 

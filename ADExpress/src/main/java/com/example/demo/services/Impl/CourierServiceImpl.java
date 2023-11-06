@@ -1,5 +1,6 @@
 package com.example.demo.services.Impl;
 
+import com.example.demo.events.NotificationMessageEvent;
 import com.example.demo.models.entity.*;
 import com.example.demo.private_lib.AwsS3Client;
 import com.example.demo.private_lib.PackageHandler;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,16 +39,20 @@ public class CourierServiceImpl extends User implements CourierService {
     private final StatusRepository statusRepository;
 
     private final PackageProblemRepository packageProblemRepository;
+
+    private final ApplicationEventPublisher eventPublisher;
+
     @PersistenceContext
     private EntityManager entityManager;
     @Value("${aws.bucketName}")
     String bucketName;
 
-    public CourierServiceImpl(CourierRepository courierRepository, PackageRepository packageRepository, StatusRepository statusRepository, PackageProblemRepository packageProblemRepository) {
+    public CourierServiceImpl(CourierRepository courierRepository, PackageRepository packageRepository, StatusRepository statusRepository, PackageProblemRepository packageProblemRepository, ApplicationEventPublisher eventPublisher) {
         this.courierRepository = courierRepository;
         this.packageRepository = packageRepository;
         this.statusRepository = statusRepository;
         this.packageProblemRepository = packageProblemRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     @Transactional
@@ -60,9 +66,18 @@ public class CourierServiceImpl extends User implements CourierService {
     public void updatePackageByStatus(int packageId, String status) throws ValidationException {
         int statusId = statusRepository.findStatusIdByStatusType(status);
         if (packageId != 0 && statusId != 0) {
+
             System.out.println(packageId + "" + statusId);
+
+            if(statusId == 5){
+                Customer getCustomerByPackage = this.getCustomerDataByPackage(packageId);
+                eventPublisher.publishEvent(new NotificationMessageEvent(this,packageId,getCustomerByPackage.getPhone(),"test_courier_order"));
+            }
+
             LocalDate getCurrentDate = java.time.LocalDate.now();
+
             java.sql.Date getDate = java.sql.Date.valueOf(getCurrentDate);
+
             packageRepository.updateStatusPackage(statusId, packageId, getDate);
         } else {
             throw new ValidationException("error");
@@ -146,15 +161,26 @@ public class CourierServiceImpl extends User implements CourierService {
         }
     }
 
+    @Override
+    public boolean isOwner(String username, Long courierId) {
+        return false;
+        // TODO : Add checking implementation
+    }
+
+    private boolean isCourier(User_account user_account){
+        return false;
+        // TODO : Check if the user has role "courier"
+    }
+
     @Transactional
     @Override
     public Courier Login(String username) throws ValidationException {
 
-        Courier courier = courierRepository.findByAccount_Username(username);
-        if (courier != null) {
+        Optional<Courier> courier = courierRepository.findByAccount_Username(username);
+        if (courier.isPresent()) {
             Courier res = new Courier();
-            res.setCourier_first_name(courier.getCourier_first_name());
-            res.setCourier_last_name(courier.getCourier_last_name());
+            res.setCourier_first_name(courier.get().getCourier_first_name());
+            res.setCourier_last_name(courier.get().getCourier_last_name());
             return res;
         } else {
             throw new ValidationException("error");
@@ -196,5 +222,12 @@ public class CourierServiceImpl extends User implements CourierService {
                 .where(predicates.toArray(new Predicate[] {}))
         );
         return typedQuery.getResultList();
+    }
+
+    private Customer getCustomerDataByPackage(int packageId){
+
+        Packages getCustomerPackage = packageRepository.findByPackageId((long) packageId);
+
+        return getCustomerPackage.getCustomer();
     }
 }

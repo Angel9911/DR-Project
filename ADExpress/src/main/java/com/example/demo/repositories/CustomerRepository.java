@@ -10,9 +10,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Integer>, JpaSpecificationExecutor {
+public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor {
 
     @Override
     List<Customer> findAll();
@@ -25,6 +26,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Jp
 
     Customer findCustomerByPhone(String phone);
 
+    CustomerView findByUserId(Long id);
+
     @Modifying
     @Query(value = "DELETE FROM users_info WHERE users_info.user_id=:user_id", nativeQuery = true)
     int deleteByUsername(int user_id);
@@ -34,8 +37,10 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>, Jp
             "WHERE uf.name=:name AND uf.last_name=:lastName AND uf.phone=:phone", nativeQuery = true)
     long findUserIdByUserInfo(@Param("name") String name, @Param("lastName") String lastName, @Param("phone") String phone);
 
-    @Query(value = "SELECT c.user_id FROM users_info c WHERE c.phone = :phone", nativeQuery = true)
-    long findUserIdByPhone(@Param("phone") String phone);
+    @Query(value = "SELECT uf.user_id " +
+            "FROM users_info uf " +
+            "WHERE uf.user_id = :id", nativeQuery = true)
+    Optional<Integer> findByUser_id(@Param("id") int id);
 
     @Modifying
     @Query(value = "UPDATE users_info SET user_acc_id = :user_acc_id, email = :email WHERE phone = :phone ", nativeQuery = true)

@@ -12,7 +12,11 @@ import java.util.List;
 
 @Repository
 public interface PackageRepository  extends JpaRepository<Packages,Integer> {
+
     List<Packages> findAll();
+
+    Packages findByPackageId(Long id);
+
     @Modifying
     @Query(value="UPDATE packages SET status_id = :status_id, date_delivery_package = :delivery_date WHERE package_id = :package_id",nativeQuery = true)
     void updateStatusPackage(int status_id, int package_id, Date delivery_date);
@@ -66,4 +70,8 @@ public interface PackageRepository  extends JpaRepository<Packages,Integer> {
           //  "inner join user_account u on uf.user_acc_id = u.user_account_id "+
             "where p.package_id = :packageId ", nativeQuery = true)
     Packages getPackageByPackageId(int packageId);
+
+    @Query(value = "select p.package_id, p.name_package, p.status_id, p.type_package_id, p.office_id, p.courier_id, p.user_id, p.weight_package, p.size_height, p.size_width, p.review_package, p.receiver_id, p.package_price, p.total_cost, p.date_register_package, p.date_delivery_package " +
+            "from packages p",nativeQuery = true)
+    List<Packages> getListAllPackages();
 }

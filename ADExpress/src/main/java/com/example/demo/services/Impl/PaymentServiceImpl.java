@@ -9,16 +9,18 @@ import com.example.demo.services.PaymentService;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.RedirectUrls;
 import com.paypal.api.payments.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
+
     private final PaymentProcessor<RedirectUrls,Transaction,Payer> paymentProcessor;
 
-    public PaymentServiceImpl() {
-        AbstractPaymentModel<RedirectUrls, Transaction, Payer> payPalModel = new PayPalPaymentModel();
-        paymentProcessor = new PaymentProcessor<>(payPalModel);
+    public PaymentServiceImpl(PayPalPaymentModel payPalPaymentModel) {
+        //AbstractPaymentModel<RedirectUrls, Transaction, Payer> payPalModel = new PayPalPaymentModel();
+        paymentProcessor = new PaymentProcessor<>(payPalPaymentModel);
     }
 
 

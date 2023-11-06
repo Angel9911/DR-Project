@@ -18,5 +18,5 @@ public interface CourierService {
     List<Packages> getCourierPackages(String username) throws Exception ;
     List<PackageProblem> getCourierProblemPackages(String username) throws Exception ;
     List<Packages> getDeliveredPackages(String username) throws Exception ;
-
+    boolean isOwner(String username, Long courierId);
 }

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator,Long> {
     @Query(value="SELECT u.user_account_id, a.administrator_id, a.administrator_acc_id, o.office_id, c.city_id, u.username, u.password, c.city_name, o.office_location "+
@@ -16,6 +18,8 @@ public interface AdministratorRepository extends JpaRepository<Administrator,Lon
             "INNER JOIN cities c on o.city_id = c.city_id "+
             "WHERE u.username=:username", nativeQuery = true)
     Administrator findAdministratorByUsername(@Param("username") String username);
+
+    Optional<Administrator> findByAccountAdmin_Username(String username);
   /*  @Query("select c.name,c.last_name,c.phone,p.name_package,t.type_name,s.status_type " +
             "from customer c" +
             "inner join packages p on p.customer_id = c.customer_id" +

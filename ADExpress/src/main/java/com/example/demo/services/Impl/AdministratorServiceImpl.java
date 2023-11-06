@@ -1,6 +1,7 @@
 package com.example.demo.services.Impl;
 
 import com.example.demo.models.entity.*;
+import com.example.demo.models.enums.Role;
 import com.example.demo.private_lib.CourierHandler;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
@@ -64,6 +65,27 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         return courierService.Update(courier);
     }
 
+    @Override
+    public boolean isOwner(String currentAdminUsername, Long givenAdminId) {
+
+        Optional<Administrator> givenAdmin = administratorRepository.findById(givenAdminId);
+
+        Optional<Administrator> currentAdmin = administratorRepository.findByAccountAdmin_Username(currentAdminUsername);
+
+        if(givenAdmin.isEmpty() || currentAdmin.isEmpty()){
+            return false;
+        }
+
+        return isAdmin(currentAdmin.get().getAccountAdmin()) && givenAdmin.get().getAccountAdmin().getUsername().equalsIgnoreCase(currentAdminUsername);
+    }
+
+    private boolean isAdmin(User_account administrator) {
+       return administrator.getUserRoles()
+                .stream()
+                .map(Roles::getRole_description)
+                .anyMatch(role -> role == Role.administrator);
+    }
+
     @Transactional
     @Override
     public int deleteCustomerById(int id) {
@@ -81,6 +103,18 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Override
     public List<TypePackage> getAllPackagesTypes() {
         return typePackageRepository.findAllTypes();
+    }
+
+    @Transactional
+    @Override
+    public Optional<Integer> findCustomerById(int customerId) {
+        return customerRepository.findByUser_id(customerId);
+    }
+
+    @Transactional
+    @Override
+    public Optional<Courier> findCourierByUsername(String username) {
+        return courierRepository.findByAccount_Username(username);
     }
 
     @Transactional
@@ -130,9 +164,9 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
             typePackage.setType_id(typePackageRepository.findTypeIdByName(customerPackage.getTypePackage().getType_name()));
             Customer customer = new Customer();
             System.out.println(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLastName(),/*packages.getCustomer().getAddress()*/customerPackage.getCustomer().getPhone()));
-            customer.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(), customerPackage.getCustomer().getLastName(),/*packages.getCustomer().getAddress(), */customerPackage.getCustomer().getPhone()));
+            customer.setUserId(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(), customerPackage.getCustomer().getLastName(),/*packages.getCustomer().getAddress(), */customerPackage.getCustomer().getPhone()));
             Customer receiver = new Customer();
-            receiver.setUser_id(customerRepository.findUserIdByUserInfo(customerPackage.getReceiver().getName(), customerPackage.getReceiver().getLastName(), /*packages.getReceiver().getAddress(), */customerPackage.getReceiver().getPhone()));
+            receiver.setUserId(customerRepository.findUserIdByUserInfo(customerPackage.getReceiver().getName(), customerPackage.getReceiver().getLastName(), /*packages.getReceiver().getAddress(), */customerPackage.getReceiver().getPhone()));
             registerPackage.setCustomer(customer);
             registerPackage.setReceiver(receiver);
             registerPackage.setTypePackage(typePackage);
@@ -164,8 +198,8 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         Administrator result = new Administrator();
         if (administrator != null) {
             User_account user_account = new User_account();
-            user_account.setUsername(administrator.getUser_account_administrator().getUsername());
-            result.setUser_account_administrator(user_account);
+            user_account.setUsername(administrator.getAccountAdmin().getUsername());
+            result.setAccountAdmin(user_account);
             Office office = new Office();
             office.setOffice_location(administrator.getOffice_administrator().getOffice_location());
             City city = new City();
