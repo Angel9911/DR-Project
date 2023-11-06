@@ -1,24 +1,19 @@
 package com.example.demo.config.jobs;
 
-import com.example.demo.private_lib.jobs.PromotionCron;
-import org.quartz.JobDetail;
+import com.example.demo.private_lib.jobs.promotion_jobs.PromotionEmailCron;
 import org.quartz.Scheduler;
-import org.quartz.SchedulerFactory;
-import org.quartz.Trigger;
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 import javax.sql.DataSource;
-import javax.swing.*;
-import java.util.Properties;
 
 /**
  * This class contains main configuration of Quartz. Here we access spring application and retrieves Scheduler instance
@@ -96,11 +91,12 @@ public class QuartzConfig {
 
         JobDetailFactoryBean jobDetailFactory
                 = new JobDetailFactoryBean();
-        jobDetailFactory.setJobClass(PromotionCron.class);
+        jobDetailFactory.setJobClass(PromotionEmailCron.class);
         return jobDetailFactory;
     }
 
     @Bean
+    @Qualifier("scheduler")
     public Scheduler scheduler(){
         return createSchedulerFactory().getScheduler();
     }

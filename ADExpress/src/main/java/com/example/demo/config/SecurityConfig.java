@@ -1,5 +1,7 @@
 package com.example.demo.config;
 
+import com.example.demo.config.JwtAuthEntryPoint;
+import com.example.demo.config.JwtTokenFilter;
 import com.example.demo.services.Impl.UserAccountServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +25,7 @@ import javax.servlet.Filter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -67,6 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.cors().and().csrf().disable().authorizeRequests().antMatchers(
                 "/login",
                 "/google/auth/login",
+                "/email/forgot/password/**",
+                "/email/send/attachment/**",
                 "/register"
         )
                 .permitAll()
@@ -76,14 +80,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
-    @Override
-    public void configure(final WebSecurity web) throws Exception {
-        web.ignoring()
+    //@Override
+    //public void configure(final WebSecurity web) throws Exception {
+       /* web.ignoring()
                 .antMatchers("/account/**",
                         //"/google/auth/login",
                         "/customer/email/{email}",
                         "/customer/city/{name}",
                         "/email/forgot/password/**"
-                        /*"/invoice/generator" */);
-    }
+                        /*"/invoice/generator" */;
+    //}
 }
