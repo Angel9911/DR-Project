@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.global.ObjectNotFoundException;
 import com.example.demo.models.dtos.CourierDto;
 import com.example.demo.models.dtos.CustomerDto;
 import com.example.demo.models.entity.*;
@@ -13,14 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -30,9 +35,9 @@ public class AdministratorController {
     private AdministratorServiceImpl administratorService;
     @Autowired
     private CacheManager cacheManager;
-    //@Autowired
+
     private final CustomerService customerService;
-   // @Autowired
+
     private final CourierService courierService;
 
     private final ModelMapper mapper;
@@ -56,8 +61,9 @@ public class AdministratorController {
         }
     }
 
-    @GetMapping(value = "/customers", produces = "application/json") //check
-    public ResponseEntity<List<CustomerDto>> getCustomers() throws Exception {
+    @GetMapping(value = "/customers/{id}", produces = "application/json") //check
+    @PreAuthorize("@administratorServiceImpl.isOwner(authentication.principal.username, #adminId)")
+    public ResponseEntity<List<CustomerDto>> getCustomers(@PathVariable("id") Long adminId, Authentication authentication) throws Exception {
         try {
             List<Customer> customerList = new ArrayList<>(customerService.getAllCustomers());
 
@@ -70,12 +76,15 @@ public class AdministratorController {
         }
     }
 
-    @GetMapping(value = "/couriers", produces = "application/json")//check
-    public ResponseEntity<List<CourierDto>> getCouriers() {
+    @GetMapping(value = "/couriers/{id}", produces = "application/json")//check
+    @PreAuthorize("@administratorServiceImpl.isOwner(authentication.principal.username, #adminId)")
+    public ResponseEntity<List<CourierDto>> getCouriers(@PathVariable("id") Long adminId, Authentication authentication) {
         try {
 
             List<Courier> courierList = new ArrayList<>(courierService.getAllCouriers());
 
+            //authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).forEach(System.out::println); // here i get role using authentication principal
+            //  TODO: implement it in service class to check if the user is administrator
             TypeMap<Courier,CourierDto> typeMap = ObjectMapper.getTypeMapInstance(Courier.class,CourierDto.class);
 
             typeMap.addMapping(Courier::getCourier_first_name,CourierDto::setFirstName);
@@ -121,20 +130,31 @@ public class AdministratorController {
                 return new ResponseEntity<Courier>(HttpStatus.NOT_FOUND);
             }
         } else {
-            return new ResponseEntity<Courier>(HttpStatus.NOT_FOUND);
+            throw new ObjectNotFoundException("courier "+courier);
+           // return new ResponseEntity<Courier>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping(value = "/customers/delete/{user_id}")
     public ResponseEntity<Integer> deleteCustomer(@PathVariable(value = "user_id") int user_id) {
-        int res = administratorService.deleteCustomerById(user_id);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        Optional<Integer> isCustomerExists = administratorService.findCustomerById(user_id);
+        if(isCustomerExists.isPresent()){
+            int res = administratorService.deleteCustomerById(user_id);
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        }else{
+            throw new ObjectNotFoundException("customer with id "+user_id);
+        }
     }
 
     @DeleteMapping(value = "/couriers/delete/{username}/{phone}")
     public ResponseEntity<Integer> deleteCourier(@PathVariable(value = "username") String username, @PathVariable(value = "phone") String phone) {
-        int result = administratorService.deleteCourierByUsernamePhone(username, phone);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        Optional<Courier> isExistsCourier = administratorService.findCourierByUsername(username);
+        if(isExistsCourier.isPresent()){
+            int result = administratorService.deleteCourierByUsernamePhone(username, phone);
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }else{
+            throw new ObjectNotFoundException("courier with username "+username);
+        }
     }
 
     @GetMapping(value = "/types")

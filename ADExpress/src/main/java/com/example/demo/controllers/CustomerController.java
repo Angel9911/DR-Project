@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exceptions.global.ObjectNotValidException;
 import com.example.demo.models.dtos.CustomerDto;
 import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
@@ -18,12 +19,15 @@ import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +40,7 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    private final UserAccountService userAccountService;
+    //private final UserAccountService userAccountService;
 
     private final ModelMapper modelMapper;
 
@@ -44,9 +48,8 @@ public class CustomerController {
     private CacheManager cacheManager;
 
     @Autowired
-    public CustomerController(CustomerService customerService, UserAccountService userAccountService) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-        this.userAccountService = userAccountService;
         this.modelMapper = ObjectMapper.getMapperInstance();
         this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
@@ -60,18 +63,19 @@ public class CustomerController {
             typeMap.addMapping(CustomerDto::getLastName,Customer::setLastName);
 
             Customer customer = ObjectMapper.map(customerDto,Customer.class);
-            userAccountService.Insert(customer);
+            customerService.Insert(customer);
             return new ResponseEntity<>(customer, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new ObjectNotValidException(" customer ");
+            //return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @RequestMapping(value = "/{username}", method = RequestMethod.GET, produces = "application/json")
-    // @PreAuthorize("hasRole('user')")
-    public ResponseEntity<CustomerView> LoginCustomer(@PathVariable(value = "username") String username) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+    @PreAuthorize("@customerServiceImpl.isOwner(authentication.principal.username, #id)")
+    public ResponseEntity<CustomerView> LoginCustomer(@PathVariable(value = "id") Long id, Authentication authentication) {
         try {
-            CustomerView result = (CustomerView) userAccountService.Login(username);
+            CustomerView result = customerService.Login(id);
 
             return new ResponseEntity<>(result, HttpStatus.OK);
         } catch (ValidationException exception) {
@@ -99,7 +103,7 @@ public class CustomerController {
 
         Customer customer = typeMap.map(customerDto);
 
-        if (customer.getUser_id() != null) {
+        if (customer.getUserId() != null) {
             try {
                 Customer result = customerService.Update(customer);
 
@@ -162,5 +166,9 @@ public class CustomerController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    private boolean isOwner(String username){
+        return false;
     }
 }

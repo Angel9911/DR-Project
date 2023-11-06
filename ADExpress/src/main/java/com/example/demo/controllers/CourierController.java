@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,7 +48,8 @@ public class CourierController {
     }
 
     @RequestMapping(value = "/package/update", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<?> updatePackageByStatus(@RequestParam(value = "packageId") int packageId, @RequestParam(value = "status") String status) {
+    public ResponseEntity<?> updatePackageByStatus(@RequestParam(value = "packageId") int packageId
+            , @RequestParam(value = "status") String status) {
         try {
             courierServiceImpl.updatePackageByStatus(packageId, status);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -58,7 +61,7 @@ public class CourierController {
     @PostMapping(value = "/package/problem/update")
     public ResponseEntity<String> updateProblemPackage(@RequestParam(value = "packageId") int packageId, @RequestParam(value = "status") String status, @RequestParam(value = "message") String message_problem, @RequestBody MultipartFile file) {
         try {
-            //courierServiceImpl.updateProblemPackage(packageId, status, message_problem);
+
             System.out.println(file.getInputStream());
             System.out.println(file.getOriginalFilename());
             String response = courierServiceImpl.uploadFileInS3bucket(file);
@@ -74,11 +77,11 @@ public class CourierController {
     }
 
     @GetMapping(value = "/packages", produces = "application/json")
-    public ResponseEntity<List<Packages>> getCourierPackages(@RequestParam(value = "username") String username) throws Exception {
-        System.out.println(username);
-        System.out.println("test2");
+    @PreAuthorize(value = "@courierServiceImpl.isOwner(authentication.principal.username, #id)")
+    public ResponseEntity<List<Packages>> getCourierPackages(@RequestParam(value = "id") Long id
+                , Authentication authentication) throws Exception {
         try {
-            List<Packages> packagesList = courierServiceImpl.getCourierPackages(username);
+            List<Packages> packagesList = courierServiceImpl.getCourierPackages("username");// TODO : replace this with courier id
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -1,6 +1,7 @@
 package com.example.demo.controllers.crons;
 
-import com.example.demo.private_lib.jobs.PromotionCron;
+
+import com.example.demo.services.Impl.PromotionService;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cron/email")
 public class EmailCronController {
 
-    private final PromotionCron promotionCron;
+    private final PromotionService promotionService;
 
     @Autowired
-    public EmailCronController(PromotionCron promotionCron) {
-        this.promotionCron = promotionCron;
+    public EmailCronController(PromotionService promotionService) {
+        this.promotionService = promotionService;
     }
 
     @PostMapping(value="/send/promotion", produces = "application/json")
@@ -28,7 +29,7 @@ public class EmailCronController {
         if (interval.isEmpty()) {
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         } else {
-            this.promotionCron.schedulePromotionJob(interval,from,subject,message);
+            this.promotionService.schedulePromotionJob(interval,from,subject,message);
             return new ResponseEntity<>(true,HttpStatus.OK);
         }
     }
