@@ -13,7 +13,7 @@ public class PackageHandler {
     static List<Packages> resultPackages;
     static List<PackageProblem> packageProblemList;
 
-    public PackageHandler() {
+    private PackageHandler() {
         resultPackages = new ArrayList<>();
     }
     public static List<PackageProblem> getCourierProblemPackages(List<Object> getPackages)throws Exception {
@@ -26,7 +26,7 @@ public class PackageHandler {
         for (PackageProblem packageProblem : listPackageProblem) {
             PackageProblem getPackageProblem = new PackageProblem();
             Packages packages = new Packages();
-            packages.setPackage_id(packageProblem.getPackages_problem().getPackage_id());
+            packages.setPackageId(packageProblem.getPackages_problem().getPackageId());
             packages.setName_package(packageProblem.getPackages_problem().getName_package());
             TypePackage typePackage = new TypePackage();
             typePackage.setType_name(packageProblem.getPackages_problem().getTypePackage().getType_name());
@@ -57,7 +57,7 @@ public class PackageHandler {
         resultPackages = new ArrayList<>();
         for (Packages packages : getPackages) {
             Packages getPackage = new Packages();
-            getPackage.setPackage_id(packages.getPackage_id());
+            getPackage.setPackageId(packages.getPackageId());
             getPackage.setName_package(packages.getName_package());
             StatusPackage statusPackage = new StatusPackage();
             statusPackage.setStatus_type(packages.getStatusPackage().getStatus_type());

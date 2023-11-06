@@ -9,6 +9,8 @@ import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.ValidationException;
 import java.math.BigDecimal;
@@ -16,35 +18,30 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class PayPalPaymentModel extends AbstractPaymentModel<RedirectUrls, Transaction, Payer> {
-    @Value("${adexpress.paypal.clientId}")
-    String client_id;
-
-    @Value("${adexpress.paypal.clientSecret}")
-    String secret_id;
-
-    @Value("${adexpress.paypal.mode}")
-    String environmentMode;
 
     public final String success_url = "/customers/home";
     public final String cancel_url = "";
     private static final String paymentMethod = "paypal";
     private static final String currencyType = "USD";
     private static final String intent = "sale";
-    private APIContext apiContext;
+    private final APIContext apiContext;
     @Autowired
     private CustomerServiceImpl customerService;
 
-    public PayPalPaymentModel() {
+    public PayPalPaymentModel(@Value("${adexpress.paypal.clientId}") String clientId, @Value("${adexpress.paypal.clientSecret}") String secretId, @Value("${adexpress.paypal.mode}") String environmentMode) {
+
         // works like conduit between paypal and our application and used for authentication.
-        this.apiContext = new APIContext(client_id,secret_id,environmentMode);
+
+        this.apiContext = new APIContext(clientId,secretId,environmentMode);
     }
 
     @Override
     public String processPayment(PaymentOrder paymentOrder) throws Exception {
         Customer customer = null;
         try {
-            customer = (Customer) customerService.Login(paymentOrder.getCustomer_username());
+            customer = (Customer) customerService.getCustomerDetails(paymentOrder.getCustomer_username());
         } catch (ValidationException validationException) {
             validationException.printStackTrace();
         }

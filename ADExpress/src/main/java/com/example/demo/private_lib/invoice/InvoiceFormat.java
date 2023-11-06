@@ -2,6 +2,7 @@ package com.example.demo.private_lib.invoice;
 
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
+import com.example.demo.private_lib.invoice.models.InvoiceModel;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public abstract class InvoiceFormat {
 
-    public byte[] generateInvoice(String logoPath, String headerTitle, Customer customer, List<Packages> packagesList) throws DocumentException, IOException {
+    public byte[] generateInvoice(String logoPath, String headerTitle, InvoiceModel invoiceObject, List<Packages> packagesList) throws DocumentException, IOException {
         Document document = new Document();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, out);
@@ -24,7 +25,7 @@ public abstract class InvoiceFormat {
         addLogo(document, logoPath);
         addHeader(document, headerTitle);
 
-        addCustomerInfo(document, customer);
+        addCustomerInfo(document, invoiceObject);
 
         PdfPTable table = createTable();
         for (Packages item : packagesList) {
@@ -40,7 +41,7 @@ public abstract class InvoiceFormat {
 
     protected abstract void addLogo(Document document, String logoPath) throws IOException, DocumentException;
     protected abstract void addHeader(Document document,String title) throws DocumentException;
-    protected abstract void addCustomerInfo(Document document, Customer customer) throws DocumentException;
+    protected abstract void addCustomerInfo(Document document, InvoiceModel invoiceObject) throws DocumentException;
     protected abstract PdfPTable createTable();
     protected abstract void addTableData(PdfPTable pdfPTable, Packages packages);
 }
