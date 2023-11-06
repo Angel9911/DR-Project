@@ -18,7 +18,8 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ")
     @SequenceGenerator(sequenceName = "users_info_id", allocationSize = 1, name = "CUST_SEQ")
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Firstname
     @Column(name = "name", nullable = false)
@@ -53,7 +54,7 @@ public class Customer {
     List<Packages> packagesList;
 
     public Customer(Long user_id, String name, String lastName, String city, String email, String address, String phone) {
-        this.user_id = user_id;
+        this.userId = user_id;
         this.name = name;
         this.lastName = lastName;
         this.city = city;
@@ -75,12 +76,12 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public void setUserId(Long user_id) {
+        this.userId = user_id;
     }
 
     public String getName() {

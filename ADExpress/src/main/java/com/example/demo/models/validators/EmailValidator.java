@@ -23,6 +23,12 @@ public class EmailValidator implements ConstraintValidator<Email,CharSequence> {
 
     @Override
     public boolean isValid(CharSequence charSequence, ConstraintValidatorContext constraintValidatorContext) {
+
+        if(charSequence == null){
+            ValidatorUtils.setErrorMessage(constraintValidatorContext, " Email is empty");
+            return false;
+        }
+
         String email = charSequence.toString();
         int emailSize = email.length();
 

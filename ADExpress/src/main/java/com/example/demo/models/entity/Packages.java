@@ -13,7 +13,8 @@ import java.util.Date;
 public class Packages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long package_id;
+    @Column(name = "package_id")
+    private Long packageId;
     @Column(name="name_package",nullable = false)
     private String name_package;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> package_status (many to one)
@@ -23,7 +24,7 @@ public class Packages {
     @JoinColumn(name="type_package_id",referencedColumnName="type_id", insertable=true, updatable=true)
     private TypePackage typePackage;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> offices (many to one)
-    @JoinColumn(name="o ffice_id",referencedColumnName="office_id", insertable=true, updatable=true)
+    @JoinColumn(name="office_id",referencedColumnName="office_id", insertable=true, updatable=true)
     private Office office;
     @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> courier (many to one)
     @JoinColumn(name="courier_id",referencedColumnName="courier_id", insertable=true, updatable=true)
@@ -58,7 +59,7 @@ public class Packages {
     }
 
     public Packages(Long package_id, String name_package, StatusPackage statusPackage, TypePackage typePackage, Office office, Courier courier) {
-        this.package_id = package_id;
+        this.packageId = package_id;
         this.name_package = name_package;
         this.statusPackage = statusPackage;
         this.typePackage = typePackage;
@@ -67,19 +68,19 @@ public class Packages {
     }
 
     public Packages(Long package_id, String name_package, StatusPackage statusPackage, TypePackage typePackage, Office office) {
-        this.package_id = package_id;
+        this.packageId = package_id;
         this.name_package = name_package;
         this.statusPackage = statusPackage;
         this.typePackage = typePackage;
         this.office = office;
     }
 
-    public Long getPackage_id() {
-        return package_id;
+    public Long getPackageId() {
+        return packageId;
     }
 
-    public void setPackage_id(Long package_id) {
-        this.package_id = package_id;
+    public void setPackageId(Long package_id) {
+        this.packageId = package_id;
     }
 
     public String getName_package() {
