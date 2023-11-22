@@ -83,8 +83,6 @@ public class AdministratorController {
 
             List<Courier> courierList = new ArrayList<>(courierService.getAllCouriers());
 
-            //authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).forEach(System.out::println); // here i get role using authentication principal
-            //  TODO: implement it in service class to check if the user is administrator
             TypeMap<Courier,CourierDto> typeMap = ObjectMapper.getTypeMapInstance(Courier.class,CourierDto.class);
 
             typeMap.addMapping(Courier::getCourier_first_name,CourierDto::setFirstName);
@@ -122,7 +120,7 @@ public class AdministratorController {
 
     @RequestMapping(value = "/courier/update", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Courier> updateCustomer(@RequestBody Courier courier) {
-        if (courier.getCourier_id() != null) {
+        if (courier.getCourierId() != null) {
             try {
                 Courier result = administratorService.updateCourier(courier);
                 return new ResponseEntity<>(result, HttpStatus.OK);
@@ -137,7 +135,7 @@ public class AdministratorController {
 
     @DeleteMapping(value = "/customers/delete/{user_id}")
     public ResponseEntity<Integer> deleteCustomer(@PathVariable(value = "user_id") int user_id) {
-        Optional<Integer> isCustomerExists = administratorService.findCustomerById(user_id);
+        Optional<Customer> isCustomerExists = administratorService.findCustomerById(user_id);
         if(isCustomerExists.isPresent()){
             int res = administratorService.deleteCustomerById(user_id);
             return new ResponseEntity<>(res, HttpStatus.OK);

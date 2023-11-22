@@ -26,7 +26,7 @@ public class RemoveShipmentsBeforeYear {
     }
 
 
-    @Scheduled(fixedRate = 1000)
+    //@Scheduled(fixedRate = 1000)
     public void execute() throws InterruptedException {
 
         List<Packages> getAllShipments = packageRepository.findAll(); // TODO: add this implementation in Service class(PackagesServiceImpl)
@@ -57,7 +57,7 @@ public class RemoveShipmentsBeforeYear {
     }
 
     private void removeShipmentsBeforeYear(List<Integer> deliveredShipmentsBeforeYear) {
-        packageRepository.deleteAllById(deliveredShipmentsBeforeYear); // TODO: add this implementation in Service class(PackagesServiceImpl)
+        //packageRepository.deleteAllById(deliveredShipmentsBeforeYear); // TODO: add this implementation in Service class(PackagesServiceImpl)
     }
 
     private List<Integer> getDeliveredShipmentsBeforeYear(TreeMap<Long, Long> shipmentPastDeliveryDays) {

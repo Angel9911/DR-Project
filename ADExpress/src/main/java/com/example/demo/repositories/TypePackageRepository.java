@@ -6,8 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface TypePackageRepository extends JpaRepository<TypePackage,Long> {
+
+    Optional<TypePackage> findTypePackageByTypeId(Long typeId);
+
     @Query(value="SELECT t.type_id,t.type_name " +
             "FROM type_package t;",nativeQuery = true)
     List<TypePackage> findAllTypes();

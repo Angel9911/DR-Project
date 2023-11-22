@@ -68,7 +68,7 @@ public final class CourierHandler {
         for (Map.Entry<Courier, Integer> entry : couriers.entrySet()) {
             if (entry.getValue().equals(sortedList.get(0))) {
                 System.out.println(entry.getKey().getPhone());
-                getCourier.setCourier_id(entry.getKey().getCourier_id());
+                getCourier.setCourierId(entry.getKey().getCourierId());
             }
         }
         return getCourier;

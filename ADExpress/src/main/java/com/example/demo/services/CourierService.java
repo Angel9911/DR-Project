@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface CourierService {
@@ -18,5 +19,8 @@ public interface CourierService {
     List<Packages> getCourierPackages(String username) throws Exception ;
     List<PackageProblem> getCourierProblemPackages(String username) throws Exception ;
     List<Packages> getDeliveredPackages(String username) throws Exception ;
+    List<Courier> getAllCouriersByCityName(String cityName);
+    int deleteCourierByPhoneAndUsername(String phone, String username);
+    Optional<Courier> getCourierByUsername(String username);
     boolean isOwner(String username, Long courierId);
 }

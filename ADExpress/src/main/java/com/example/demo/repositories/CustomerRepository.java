@@ -19,10 +19,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSp
     List<Customer> findAll();
 
     //Customer findByAccount_Username(String username);
+    Optional<Customer> findById(Long id);
 
     CustomerView findByAccount_Username(String username);
 
-    Customer findByEmail(String email);
+    Optional<Customer> findByEmail(String email);
 
     Customer findCustomerByPhone(String phone);
 
@@ -30,7 +31,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSp
 
     @Modifying
     @Query(value = "DELETE FROM users_info WHERE users_info.user_id=:user_id", nativeQuery = true)
-    int deleteByUsername(int user_id);
+    int deleteByUserId(int user_id);
 
     @Query(value = "SELECT uf.user_id " +
             "FROM users_info uf " +

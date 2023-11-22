@@ -7,6 +7,8 @@ import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
 import com.example.demo.repositories.*;
 import com.example.demo.services.AdministratorService;
+import com.example.demo.services.CourierService;
+import com.example.demo.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
@@ -26,11 +28,7 @@ import java.util.*;
 public class AdministratorServiceImpl extends User implements AdministratorService {
     @Autowired
     AdministratorRepository administratorRepository;
-   @Autowired
-    CourierRepository courierRepository;
-   @Autowired
-    CustomerRepository customerRepository;
-   @Autowired
+    @Autowired
     RolesRepository rolesRepository;
     @Autowired
     TypePackageRepository typePackageRepository;
@@ -40,19 +38,15 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     PasswordEncoder encoder;
     //instead using directly repositories different of the repository which is responsible for the specific service
     // we will try to use the services which we need
-    private final CustomerServiceImpl customerService;
+    private final CustomerService customerService;
 
     private final CourierServiceImpl courierService;
     @Autowired
     UserAccountRepository userRepository;
     Long statusPackageId = 4L; // 4 - izpratena pratka
-    private final Random randomCouriers = new Random();
-    protected String usernameCourier;
-    protected String passwordCourier;
-    @Value("${adexpress.app.courier.password}")
-    private String passwordSecret;
 
-    public AdministratorServiceImpl(CustomerServiceImpl customerService, CourierServiceImpl courierService) {
+    public AdministratorServiceImpl(CustomerService customerService, CourierServiceImpl courierService) {
+
         this.customerService = customerService;
         this.courierService = courierService;
     }
@@ -61,7 +55,6 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Transactional
     @Override
     public Courier updateCourier(Courier courier) {
-        //return courierRepository.save(courier);
         return courierService.Update(courier);
     }
 
@@ -89,13 +82,14 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Transactional
     @Override
     public int deleteCustomerById(int id) {
-        return customerRepository.deleteByUsername(id);
+        return customerService.deleteCustomerByCustomerId(id);
     }
 
     @Transactional
     @Override
     public int deleteCourierByUsernamePhone(String username, String phone) {
-        return courierRepository.deleteByPhoneAndAccount_Username(phone,username);
+
+        return courierService.deleteCourierByPhoneAndUsername(phone, username);
     }
 
     @Cacheable
@@ -107,14 +101,14 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
 
     @Transactional
     @Override
-    public Optional<Integer> findCustomerById(int customerId) {
-        return customerRepository.findByUser_id(customerId);
+    public Optional<Customer> findCustomerById(int customerId) {
+        return customerService.findCustomerById(customerId);
     }
 
     @Transactional
     @Override
     public Optional<Courier> findCourierByUsername(String username) {
-        return courierRepository.findByAccount_Username(username);
+        return courierService.getCourierByUsername(username);
     }
 
     @Transactional
@@ -157,16 +151,16 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
             System.out.println(customerPackage.getName_package());
             registerPackage.setName_package(customerPackage.getName_package());
             StatusPackage statusPackage = new StatusPackage();
-            statusPackage.setStatus_id(statusPackageId);
+            statusPackage.setStatusId(statusPackageId);
             registerPackage.setStatusPackage(statusPackage);
-            System.out.println(registerPackage.getStatusPackage().getStatus_id());
+            System.out.println(registerPackage.getStatusPackage().getStatusId());
             TypePackage typePackage = new TypePackage();
-            typePackage.setType_id(typePackageRepository.findTypeIdByName(customerPackage.getTypePackage().getType_name()));
+            typePackage.setTypeId(typePackageRepository.findTypeIdByName(customerPackage.getTypePackage().getType_name()));
             Customer customer = new Customer();
-            System.out.println(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLastName(),/*packages.getCustomer().getAddress()*/customerPackage.getCustomer().getPhone()));
-            customer.setUserId(customerRepository.findUserIdByUserInfo(customerPackage.getCustomer().getName(), customerPackage.getCustomer().getLastName(),/*packages.getCustomer().getAddress(), */customerPackage.getCustomer().getPhone()));
+            System.out.println(customerService.getCustomerIdByUsersInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLastName(),customerPackage.getCustomer().getPhone()));
+            customer.setUserId(customerService.getCustomerIdByUsersInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLastName(),customerPackage.getCustomer().getPhone()));
             Customer receiver = new Customer();
-            receiver.setUserId(customerRepository.findUserIdByUserInfo(customerPackage.getReceiver().getName(), customerPackage.getReceiver().getLastName(), /*packages.getReceiver().getAddress(), */customerPackage.getReceiver().getPhone()));
+            receiver.setUserId(customerService.getCustomerIdByUsersInfo(customerPackage.getCustomer().getName(),customerPackage.getCustomer().getLastName(),customerPackage.getCustomer().getPhone()));
             registerPackage.setCustomer(customer);
             registerPackage.setReceiver(receiver);
             registerPackage.setTypePackage(typePackage);
@@ -183,7 +177,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
 
     private Map<Courier, Integer> getCouriers(String city) {
         Map<Courier, Integer> couriers = new HashMap<>();
-        List<Courier> getCouriersByCity = courierRepository.findPackagesByCityName(city);
+        List<Courier> getCouriersByCity = courierService.getAllCouriersByCityName(city);
         for (Courier courier : getCouriersByCity) {
             System.out.println(courier.getPhone() + " " + courier.getPackagesList().size());
             couriers.put(courier, courier.getPackagesList().size());
@@ -218,7 +212,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
 
         } */
         if(object instanceof Courier){
-            return courierService.Update(object);//courierRepository.save((Courier) object);
+            return courierService.Update(object);
         }
         return object;
     }
@@ -229,7 +223,6 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
         if(object instanceof Customer){
             Customer customer = (Customer)object;
             customerService.Insert(customer);
-            //customerRepository.save(customer); replace with service
         }
         if(object instanceof Courier){
             Courier courier = (Courier)object;
@@ -244,7 +237,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
             userRepository.save(getAccount);
 
             courier.setAccount(getAccount);
-            //courierRepository.save(courier);
+
             courierService.Insert(courier);
         }
     }

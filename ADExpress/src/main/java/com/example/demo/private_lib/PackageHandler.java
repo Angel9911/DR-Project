@@ -16,77 +16,109 @@ public class PackageHandler {
     private PackageHandler() {
         resultPackages = new ArrayList<>();
     }
-    public static List<PackageProblem> getCourierProblemPackages(List<Object> getPackages)throws Exception {
-        if (getPackages instanceof PackageProblem) {
+    public static List<PackageProblem> getCourierProblemPackages(List<PackageProblem> getPackages)throws Exception {
+       /* if (getPackages instanceof PackageProblem) {
             List<PackageProblem> listPackageProblem = getPackages.stream()
                     .filter(element -> element instanceof PackageProblem)
                     .map(element -> (PackageProblem) element)
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList());*/
         packageProblemList = new ArrayList<>();
-        for (PackageProblem packageProblem : listPackageProblem) {
+        for (PackageProblem packageProblem : getPackages) {
             PackageProblem getPackageProblem = new PackageProblem();
-            Packages packages = new Packages();
-            packages.setPackageId(packageProblem.getPackages_problem().getPackageId());
-            packages.setName_package(packageProblem.getPackages_problem().getName_package());
-            TypePackage typePackage = new TypePackage();
-            typePackage.setType_name(packageProblem.getPackages_problem().getTypePackage().getType_name());
-            packages.setTypePackage(typePackage);
-            Customer customer = new Customer();
-            customer.setName(packageProblem.getPackages_problem().getCustomer().getName());
-            customer.setLastName(packageProblem.getPackages_problem().getCustomer().getLastName());
-            customer.setAddress(packageProblem.getPackages_problem().getCustomer().getAddress());
-            customer.setPhone(packageProblem.getPackages_problem().getCustomer().getPhone());
-            packages.setCustomer(customer);
-            packages.setSize_height(0);
-            packages.setSize_width(0);
-            packages.setReview_package(false);
-            packages.setPackage_price(packageProblem.getPackages_problem().getPackage_price());
-            System.out.println(packageProblem.getPackages_problem().getTotal_cost());
-            packages.setTotal_cost(packageProblem.getPackages_problem().getTotal_cost());
-            Date registerDate = getDate(packageProblem.getPackages_problem().getDate_register_package());
-            packages.setDate_register_package(registerDate);
-            getPackageProblem.setPackages_problem(packages);
+
+            Packages shipmentInformation = getShipmentInformation(packageProblem.getPackages_problem());
+
+
+            Customer customer = getCustomer(packageProblem.getPackages_problem());
+            shipmentInformation.setCustomer(customer);
+
+            getPackageProblem.setPackages_problem(shipmentInformation);
+
             getPackageProblem.setMessage(packageProblem.getMessage());
 
             packageProblemList.add(getPackageProblem);
         }
-    }
+    //}
         return packageProblemList;
     }
+
+    private static Packages getShipmentInformation(Packages shipment) {
+        Packages shipmentData = new Packages();
+
+        shipmentData.setPackageId(shipment.getPackageId());
+        shipmentData.setName_package(shipment.getName_package());
+        System.out.println(shipment.getSize_height());
+        if(shipment.getSize_height() != null){
+            shipmentData.setSize_height(shipment.getSize_height().intValue());
+        }
+        if(shipment.getSize_width() != null){
+            shipmentData.setSize_width(shipment.getSize_width().intValue());
+        }
+
+        shipmentData.setReview_package(false);
+
+        if(shipment.getPackage_price() != null){
+
+            shipmentData.setPackage_price(shipment.getPackage_price());
+        }
+
+        if(shipment.getTotal_cost() != null){
+
+            shipmentData.setTotal_cost(shipment.getTotal_cost());
+        }
+
+        if(shipment.getDate_register_package()!=null){
+            Date registerDate = getDate(shipment.getDate_register_package());
+            shipmentData.setDate_register_package(registerDate);
+        }
+
+        if(shipment.getDate_delivery_package()!=null){
+            Date deliveryDate = getDate(shipment.getDate_delivery_package());
+            shipmentData.setDate_delivery_package(deliveryDate);
+        }
+
+        StatusPackage statusPackage = getStatusPackage(shipment);
+        shipment.setStatusPackage(statusPackage);
+
+        TypePackage typePackage = getTypePackage(shipment);
+        shipment.setTypePackage(typePackage);
+
+        return shipmentData;
+    }
+
     public static List<Packages> getPackageList(List<Packages> getPackages){
         resultPackages = new ArrayList<>();
         for (Packages packages : getPackages) {
-            Packages getPackage = new Packages();
-            getPackage.setPackageId(packages.getPackageId());
-            getPackage.setName_package(packages.getName_package());
-            StatusPackage statusPackage = new StatusPackage();
-            statusPackage.setStatus_type(packages.getStatusPackage().getStatus_type());
-            TypePackage typePackage = new TypePackage();
-            typePackage.setType_name(packages.getTypePackage().getType_name());
-            getPackage.setStatusPackage(statusPackage);
-            getPackage.setTypePackage(typePackage);
-            getPackage.setPackage_price(packages.getPackage_price());
-            getPackage.setTotal_cost(packages.getTotal_cost());
-            Customer customer = new Customer();
-            customer.setName(packages.getCustomer().getName());
-            customer.setLastName(packages.getCustomer().getLastName());
-            customer.setPhone(packages.getCustomer().getPhone());
-            customer.setAddress(packages.getCustomer().getAddress());
+
+            Packages getPackage = getShipmentInformation(packages);
+
+            Customer customer = getCustomer(packages);
             getPackage.setCustomer(customer); //  moje bi trqbva da se promeni na receiver
-            if(packages.getDate_register_package()!=null){
-                Date registerDate = getDate(packages.getDate_register_package());
-                getPackage.setDate_register_package(registerDate);
-            }
-            if(packages.getDate_delivery_package()!=null){
-                Date deliveryDate = getDate(packages.getDate_delivery_package());
-                getPackage.setDate_delivery_package(deliveryDate);
-            }
-            getPackage.setSize_height(0);
-            getPackage.setSize_width(0);
-            getPackage.setReview_package(false);
+
             resultPackages.add(getPackage);
         }
         return resultPackages;
+    }
+
+    private static StatusPackage getStatusPackage(Packages shipment) {
+        StatusPackage statusPackage = new StatusPackage();
+        statusPackage.setStatus_type(shipment.getStatusPackage().getStatus_type());
+        return statusPackage;
+    }
+
+    private static TypePackage getTypePackage(Packages shipment) {
+        TypePackage typePackage = new TypePackage();
+        typePackage.setType_name(shipment.getTypePackage().getType_name());
+        return typePackage;
+    }
+
+    private static Customer getCustomer(Packages shipment) {
+        Customer customer = new Customer();
+        customer.setName(shipment.getCustomer().getName());
+        customer.setLastName(shipment.getCustomer().getLastName());
+        customer.setAddress(shipment.getCustomer().getAddress());
+        customer.setPhone(shipment.getCustomer().getPhone());
+        return customer;
     }
     private static Date getDate(Date datePackage) {
         DateFormat outputFormatter = new SimpleDateFormat("yyyy-MM-dd");

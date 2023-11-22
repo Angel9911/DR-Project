@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.LinkedHashSet;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -60,9 +61,9 @@ public class EmailController {
     @RequestMapping(value = "/forgot/password", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<String> forgotPassword(@RequestParam(value = "toEmailAddress") String toEmailAddress) {
 
-        Customer customer = this.customerService.IsEmailExist(toEmailAddress);
+        Optional<Customer> customer = this.customerService.IsEmailExist(toEmailAddress);
 
-        if(customer == null){
+        if(customer.isEmpty()){
             throw new ObjectNotFoundException(" with email"+toEmailAddress);
         }
 

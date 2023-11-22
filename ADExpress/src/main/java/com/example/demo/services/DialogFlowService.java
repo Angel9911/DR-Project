@@ -4,6 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface DialogFlowService {
-    String sendMessage(String message, String sessionId) throws IOException;
+    String detectIntent(String sessionId, String query) throws IOException;
     String generateSessionId();
 }

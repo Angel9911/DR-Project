@@ -8,17 +8,21 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.bind.ValidationException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface CustomerService {
     CustomerView Login(Long customerId) throws ValidationException;
     CustomerView getCustomerDetails(String username)throws ValidationException;
+    long getCustomerIdByUsersInfo(String name, String lastName, String phone);
+    Optional<Customer> findCustomerById(int customerId);
     void Insert(Object object);
-    Customer IsEmailExist(String email);
+    Optional<Customer> IsEmailExist(String email);
     List<Customer> getAllCustomers() throws Exception;
     List<Packages> getAllPackages(String username) throws Exception;
     List<City> getAllCities();
     City getCityIdByName(String name);
     Customer Update(Customer customer);
+    int deleteCustomerByCustomerId(int customerId);
     boolean isOwner(String username, Long customerId);
 }

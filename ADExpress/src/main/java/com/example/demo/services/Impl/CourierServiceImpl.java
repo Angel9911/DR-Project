@@ -2,6 +2,7 @@ package com.example.demo.services.Impl;
 
 import com.example.demo.events.NotificationMessageEvent;
 import com.example.demo.models.entity.*;
+import com.example.demo.models.enums.Role;
 import com.example.demo.private_lib.AwsS3Client;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
@@ -138,8 +139,8 @@ public class CourierServiceImpl extends User implements CourierService {
         if (!username.isEmpty()) {
             List<PackageProblem> getPackages = packageProblemRepository.findProblemCourierPackagesByUsername(username);
             if(!getPackages.isEmpty()){
-                List<Object> objectList = new ArrayList<Object>(getPackages);
-                return PackageHandler.getCourierProblemPackages(objectList);
+
+                return PackageHandler.getCourierProblemPackages(getPackages);
             }else {
                 throw new Exception("error");
             }
@@ -153,23 +154,48 @@ public class CourierServiceImpl extends User implements CourierService {
     @Override
     public List<Packages> getDeliveredPackages(String username) throws Exception {
         if (!username.isEmpty()) {
-            //List<Packages> getPackages = packageRepository.findDeliveredCourierPackagesByUsername(username);
-            List<Packages> getPackages2 = this.buildWhereClause(username,1);
-            return PackageHandler.getPackageList(getPackages2);
+            List<Packages> getPackages = packageRepository.findDeliveredCourierPackagesByUsername(username);
+            //List<Packages> getPackages2 = this.buildWhereClause(username,1);
+            return PackageHandler.getPackageList(getPackages);
         } else {
             throw new Exception("error");
         }
     }
 
     @Override
+    public List<Courier> getAllCouriersByCityName(String cityName) {
+        return courierRepository.findPackagesByCityName(cityName);
+    }
+
+    @Override
+    public int deleteCourierByPhoneAndUsername(String phone, String username) {
+        return courierRepository.deleteByPhoneAndAccount_Username(phone,username);
+    }
+
+    @Override
+    public Optional<Courier> getCourierByUsername(String username) {
+        return courierRepository.findByAccount_Username(username);
+    }
+
+    @Override
     public boolean isOwner(String username, Long courierId) {
-        return false;
-        // TODO : Add checking implementation
+
+        Optional<Courier> givenCourier = courierRepository.findById(courierId);
+
+        Optional<Courier> currentCourier = courierRepository.findByAccount_Username(username);
+
+        if(givenCourier.isEmpty() || currentCourier.isEmpty()){
+            return false;
+        }
+
+        return isCourier(currentCourier.get().getAccount()) && givenCourier.get().getAccount().getUsername().equalsIgnoreCase(username);
     }
 
     private boolean isCourier(User_account user_account){
-        return false;
-        // TODO : Check if the user has role "courier"
+       return user_account.getUserRoles()
+               .stream()
+               .map(Roles::getRole_description)
+               .anyMatch(role -> role == Role.courier);
     }
 
     @Transactional

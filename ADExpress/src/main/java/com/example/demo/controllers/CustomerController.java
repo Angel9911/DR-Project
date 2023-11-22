@@ -31,6 +31,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -120,8 +121,8 @@ public class CustomerController {
     @GetMapping(produces = "application/json") // http://localhost:8082/customer?email=email2@example.com
     public ResponseEntity<Boolean> findEmail(@RequestParam(value = "email") String email) {
         if (email != null) {
-            Customer result = customerService.IsEmailExist(email);
-            if (result != null) {
+            Optional<Customer> result = customerService.IsEmailExist(email);
+            if (result.isPresent()) {
                 return new ResponseEntity<>(true, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(false, HttpStatus.OK);
@@ -166,9 +167,5 @@ public class CustomerController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
-
-    private boolean isOwner(String username){
-        return false;
     }
 }

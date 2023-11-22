@@ -62,11 +62,33 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findByAccount_Username(username);
     }
 
+    @Override
+    public long getCustomerIdByUsersInfo(String name, String lastName, String phone) {
+        return customerRepository.findUserIdByUserInfo(name,lastName,phone);
+
+    }
+
+    @Override
+    public Optional<Customer> findCustomerById(int customerId) {
+        return customerRepository.findById((long) customerId);
+    }
+
     @CachePut
     @Transactional
     @Override
-    public Customer Update(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer Update(Customer customer)throws EntityNotFoundException {
+
+        Optional<Customer> isExistsCustomer = customerRepository.findById(customer.getUserId());
+
+        if(isExistsCustomer.isEmpty()){
+            throw new EntityNotFoundException("Customer not found");
+        }
+        return customerRepository.saveAndFlush(customer);
+    }
+
+    @Override
+    public int deleteCustomerByCustomerId(int customerId) {
+        return customerRepository.deleteByUserId(customerId);
     }
 
     @Override
@@ -92,9 +114,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional
     @Override
-    public Customer IsEmailExist(String email) {
-        Customer customer = new Customer();
-        customer.setEmail(email);
+    public Optional<Customer> IsEmailExist(String email) {
         return customerRepository.findByEmail(email);
     }
 
@@ -119,14 +139,16 @@ public class CustomerServiceImpl implements CustomerService {
         if (!username.isEmpty()) {
 
             List<Packages> getPackages = packageRepository.findPackagesByUser_accountUsername(username);
-            System.out.println(getPackages);
+            System.out.println("esy");
+            System.out.println(getPackages.get(0));
             if(!getPackages.isEmpty()){
                 return PackageHandler.getPackageList(getPackages);
             }else {
-                throw new Exception("error");
+
+                throw new Exception("not found packages");
             }
         } else {
-            throw new Exception("error");
+            throw new Exception("not found username");
         }
     }
 

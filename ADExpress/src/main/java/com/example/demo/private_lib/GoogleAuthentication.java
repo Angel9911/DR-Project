@@ -8,7 +8,6 @@ import com.example.demo.models.jwt.JwtResponse;
 import com.example.demo.payload.oauth.GoogleAuthRequest;
 import com.example.demo.payload.oauth.GoogleAuthResponse;
 import com.example.demo.repositories.CustomerRepository;
-import com.example.demo.services.Impl.GoogleOAuthUserServiceImpl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.HttpTransport;
@@ -22,6 +21,7 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class GoogleAuthentication {
     Logger logger = LoggerFactory.getLogger(GoogleAuthentication.class);
@@ -54,10 +54,10 @@ public class GoogleAuthentication {
 
         GoogleIdToken googleIdToken = this.getGoogleIdToken(token.getGoogleAuthToken());
 
-        Customer customer = this.getCustomerByGoogleIdToken(googleIdToken);
+        Optional<Customer> customer = this.getCustomerByGoogleIdToken(googleIdToken);
 
-        if(customer!=null){
-            User_account userAccount = this.getUserAccountByCustomer(customer);
+        if(customer.isPresent()){
+            User_account userAccount = this.getUserAccountByCustomer(customer.get());
             if(userAccount!=null){
                 return this.createGoogleAuthResponse(userAccount);
             }
@@ -80,14 +80,12 @@ public class GoogleAuthentication {
         return idToken;
     }
 
-    private Customer getCustomerByGoogleIdToken(GoogleIdToken idToken){
+    private Optional<Customer> getCustomerByGoogleIdToken(GoogleIdToken idToken){
         GoogleIdToken.Payload payload = idToken.getPayload();
 
         String getEmail = payload.getEmail();
 
-        Customer customer = customerRepository.findByEmail(getEmail);
-
-        return customer;
+        return customerRepository.findByEmail(getEmail);
     }
 
     private User_account getUserAccountByCustomer(Customer customer){

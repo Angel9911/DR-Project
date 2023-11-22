@@ -24,18 +24,24 @@ public class DialogFlowController {
 
     @PostMapping(value = "/send/message/{sessionId}")
     public ResponseEntity<Map<String, String>> sendMessage(@PathVariable String sessionId, @RequestBody Map<String,Object> message) throws Exception {
+
         String getMessage = (String) message.get("message");
         System.out.println("test "+getMessage);
-        String getText = this.dialogFlowService.detectIntent("courier-project-380615",getMessage,sessionId);
+
+        String getText = this.dialogFlowService.detectIntent(sessionId,getMessage);
+
         Map<String, String> response = new HashMap<>();
         response.put("message", getText);
+
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/sessionId", method = RequestMethod.GET, produces = "application/text")
     public ResponseEntity<String> generateSessionId(){
+
         String sessionId = dialogFlowService.generateSessionId();
+
         return new ResponseEntity<>(sessionId, HttpStatus.OK);
     }
 }

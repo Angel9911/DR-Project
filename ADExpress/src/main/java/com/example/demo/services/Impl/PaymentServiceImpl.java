@@ -19,7 +19,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentProcessor<RedirectUrls,Transaction,Payer> paymentProcessor;
 
     public PaymentServiceImpl(PayPalPaymentModel payPalPaymentModel) {
-        //AbstractPaymentModel<RedirectUrls, Transaction, Payer> payPalModel = new PayPalPaymentModel();
+
         paymentProcessor = new PaymentProcessor<>(payPalPaymentModel);
     }
 
