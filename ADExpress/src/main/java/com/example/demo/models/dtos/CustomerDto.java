@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 public class CustomerDto extends UserBaseDto{
 
+    private Long userId;
     @Email
     private String email;
     @NotBlank(message = "Address must not be empty")
@@ -17,6 +18,13 @@ public class CustomerDto extends UserBaseDto{
     public CustomerDto() {
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getEmail() {
         return email;

@@ -46,10 +46,10 @@ public class PackageHandler {
         Packages shipmentData = new Packages();
 
         shipmentData.setPackageId(shipment.getPackageId());
-        shipmentData.setName_package(shipment.getName_package());
-        System.out.println(shipment.getSize_height());
-        if(shipment.getSize_height() != null){
-            shipmentData.setSize_height(shipment.getSize_height().intValue());
+        shipmentData.setPackageName(shipment.getPackageName());
+        System.out.println(shipment.getSizeHeight());
+        if(shipment.getSizeHeight() != null){
+            shipmentData.setSizeHeight(shipment.getSizeHeight().intValue());
         }
         if(shipment.getSize_width() != null){
             shipmentData.setSize_width(shipment.getSize_width().intValue());

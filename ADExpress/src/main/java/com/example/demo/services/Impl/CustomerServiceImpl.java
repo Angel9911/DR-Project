@@ -3,15 +3,14 @@ package com.example.demo.services.Impl;
 import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
-import com.example.demo.models.entity.User_account;
 import com.example.demo.models.views.CustomerView;
 import com.example.demo.private_lib.PackageHandler;
-import com.example.demo.private_lib.User;
+import com.example.demo.private_lib.async_tasks.verification_address.SmartyStreetVerification;
 import com.example.demo.repositories.CityRepository;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.PackageRepository;
 import com.example.demo.services.CustomerService;
-import com.example.demo.services.UserAccountService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.benmanes.caffeine.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
@@ -22,12 +21,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import javax.persistence.criteria.*;
 import javax.xml.bind.ValidationException;
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 @CacheConfig(cacheNames = {"customer"})
@@ -44,10 +44,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CacheManager cacheManager;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, CityRepository cityRepository, PackageRepository packageRepository){
+    private final SmartyStreetVerification verificationAddress;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, CityRepository cityRepository, PackageRepository packageRepository, SmartyStreetVerification verificationAddress){
         this.customerRepository = customerRepository;
         this.cityRepository = cityRepository;
         this.packageRepository = packageRepository;
+        this.verificationAddress = verificationAddress;
     }
 
     @Transactional
@@ -108,6 +111,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void Insert(Object object) {
         if(object instanceof Customer){
+            try {
+                System.out.println(this.extracted().get()); // TODO: Here we should check if the address is valid, when the user create its account.
+            } catch (InterruptedException | ExecutionException | UnsupportedEncodingException | JsonProcessingException e) {
+                e.printStackTrace();
+            }
             customerRepository.save((Customer) object);
         }
     }
@@ -134,14 +142,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public List<Packages> getAllPackages(String username) throws Exception {
+
         System.out.println("Getting All the users from DB! | Not Cached");
 
         if (!username.isEmpty()) {
 
             List<Packages> getPackages = packageRepository.findPackagesByUser_accountUsername(username);
-            System.out.println("esy");
-            System.out.println(getPackages.get(0));
+
             if(!getPackages.isEmpty()){
+
                 return PackageHandler.getPackageList(getPackages);
             }else {
 
@@ -151,6 +160,26 @@ public class CustomerServiceImpl implements CustomerService {
             throw new Exception("not found username");
         }
     }
+
+    public CompletableFuture<Boolean> extracted() throws UnsupportedEncodingException, JsonProcessingException {
+        CompletableFuture<Boolean> isAddressValid = new CompletableFuture<>();
+
+        verificationAddress.validateAddress("Varna", "Mir 3")
+                .whenCompleteAsync((result, throwable) -> {
+                    if (throwable != null) {
+                        // Handle the exception
+                        System.err.println("Error in address validation: " + throwable.getMessage());
+                        isAddressValid.completeExceptionally(throwable); // Complete exceptionally without blocking the main thread
+                    } else {
+                        // Handle the result
+                        System.out.println("Is address valid? " + result);
+                        isAddressValid.complete(result);
+                    }
+                });
+
+        return isAddressValid;
+    }
+
 
     @Transactional
     @Override

@@ -16,26 +16,26 @@ public class Packages {
     @Column(name = "package_id")
     private Long packageId;
     @Column(name="name_package",nullable = false)
-    private String name_package;
-    @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> package_status (many to one)
-    @JoinColumn(name="status_id",referencedColumnName="status_id", insertable=true, updatable=true)
+    private String packageName;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // for relationship package -> package_status (many to one)
+    @JoinColumn(name="status_id",referencedColumnName="statusId", insertable=true, updatable=true)
     private StatusPackage statusPackage;
-    @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> type_package (many to one)
-    @JoinColumn(name="type_package_id",referencedColumnName="type_id", insertable=true, updatable=true)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // for relationship package -> type_package (many to one)
+    @JoinColumn(name="type_package_id",referencedColumnName="typeId", insertable=true, updatable=true)
     private TypePackage typePackage;
-    @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> offices (many to one)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}) // for relationship package -> offices (many to one)
     @JoinColumn(name="office_id",referencedColumnName="office_id", insertable=true, updatable=true)
     private Office office;
-    @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> courier (many to one)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.DETACH}) // for relationship package -> courier (many to one)
     @JoinColumn(name="courier_id",referencedColumnName="courier_id", insertable=true, updatable=true)
     private Courier courier;
-    @ManyToOne(fetch = FetchType.LAZY) // for relationship package -> courier (many to one)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,CascadeType.DETACH}) // for relationship package -> courier (many to one)
     @JoinColumn(name="user_id",referencedColumnName="user_id", insertable=true, updatable=true)
     private Customer customer;
     @Column(name="weight_package",nullable = true)
-    private BigDecimal weight_package;
+    private BigDecimal weightPackage;
     @Column(name="size_height",nullable = true)
-    private Integer size_height;
+    private Integer sizeHeight;
     @Column(name="size_width",nullable = true)
     private Integer size_width;
     @Column(name = "package_price",nullable = true)
@@ -60,7 +60,7 @@ public class Packages {
 
     public Packages(Long package_id, String name_package, StatusPackage statusPackage, TypePackage typePackage, Office office, Courier courier) {
         this.packageId = package_id;
-        this.name_package = name_package;
+        this.packageName = name_package;
         this.statusPackage = statusPackage;
         this.typePackage = typePackage;
         this.office = office;
@@ -69,7 +69,7 @@ public class Packages {
 
     public Packages(Long package_id, String name_package, StatusPackage statusPackage, TypePackage typePackage, Office office) {
         this.packageId = package_id;
-        this.name_package = name_package;
+        this.packageName = name_package;
         this.statusPackage = statusPackage;
         this.typePackage = typePackage;
         this.office = office;
@@ -83,12 +83,12 @@ public class Packages {
         this.packageId = package_id;
     }
 
-    public String getName_package() {
-        return name_package;
+    public String getPackageName() {
+        return packageName;
     }
 
-    public void setName_package(String name_package) {
-        this.name_package = name_package;
+    public void setPackageName(String name_package) {
+        this.packageName = name_package;
     }
 
     public StatusPackage getStatusPackage() {
@@ -124,23 +124,23 @@ public class Packages {
         this.customer = customer;
     }
 
-    public BigDecimal getWeight_package() {
-        return weight_package;
+    public BigDecimal getWeightPackage() {
+        return weightPackage;
     }
 
-    public void setWeight_package(BigDecimal weight_package) {
-        this.weight_package = weight_package;
+    public void setWeightPackage(BigDecimal weightPackage) {
+        this.weightPackage = weightPackage;
     }
 
-    public int getSize_height() {
-        return size_height;
+    public Integer getSizeHeight() {
+        return sizeHeight;
     }
 
-    public void setSize_height(int size_height) {
-        this.size_height = size_height;
+    public void setSizeHeight(int sizeHeight) {
+        this.sizeHeight = sizeHeight;
     }
 
-    public int getSize_width() {
+    public Integer getSize_width() {
         return size_width;
     }
 

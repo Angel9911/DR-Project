@@ -5,12 +5,12 @@ import com.example.demo.models.enums.Role;
 import com.example.demo.private_lib.CourierHandler;
 import com.example.demo.private_lib.PackageHandler;
 import com.example.demo.private_lib.User;
+import com.example.demo.private_lib.async_tasks.verification_address.SmartyStreetVerification;
 import com.example.demo.repositories.*;
 import com.example.demo.services.AdministratorService;
-import com.example.demo.services.CourierService;
 import com.example.demo.services.CustomerService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,8 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import javax.xml.bind.ValidationException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
 @CacheConfig(cacheNames = {"administrator"})
@@ -44,11 +47,13 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     @Autowired
     UserAccountRepository userRepository;
     Long statusPackageId = 4L; // 4 - izpratena pratka
+    private final SmartyStreetVerification verificationAddress;
 
-    public AdministratorServiceImpl(CustomerService customerService, CourierServiceImpl courierService) {
+    public AdministratorServiceImpl(CustomerService customerService, CourierServiceImpl courierService,SmartyStreetVerification verificationAddress) {
 
         this.customerService = customerService;
         this.courierService = courierService;
+        this.verificationAddress = verificationAddress;
     }
 
     @CachePut(key="#courier")
@@ -148,8 +153,8 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
                 System.out.println("there are duplicated records");
                 getCourier = CourierHandler.getRandomCourier(couriers);
             }
-            System.out.println(customerPackage.getName_package());
-            registerPackage.setName_package(customerPackage.getName_package());
+            System.out.println(customerPackage.getPackageName());
+            registerPackage.setPackageName(customerPackage.getPackageName());
             StatusPackage statusPackage = new StatusPackage();
             statusPackage.setStatusId(statusPackageId);
             registerPackage.setStatusPackage(statusPackage);
@@ -222,6 +227,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
     public void Insert(Object object) {
         if(object instanceof Customer){
             Customer customer = (Customer)object;
+
             customerService.Insert(customer);
         }
         if(object instanceof Courier){
@@ -240,6 +246,30 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
 
             courierService.Insert(courier);
         }
+        try {
+            System.out.println(this.extracted().get()); // TODO: Here we should check if the address is valid, when the administrator create courier or user account.
+        } catch (InterruptedException | ExecutionException | UnsupportedEncodingException | JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public CompletableFuture<Boolean> extracted() throws UnsupportedEncodingException, JsonProcessingException {
+        CompletableFuture<Boolean> isAddressValid = new CompletableFuture<>();
+
+        verificationAddress.validateAddress("Varna", "Mir 3")
+                .whenCompleteAsync((result, throwable) -> {
+                    if (throwable != null) {
+                        // Handle the exception
+                        System.err.println("Error in address validation: " + throwable.getMessage());
+                        isAddressValid.completeExceptionally(throwable); // Complete exceptionally without blocking the main thread
+                    } else {
+                        // Handle the result
+                        System.out.println("Is address valid? " + result);
+                        isAddressValid.complete(result);
+                    }
+                });
+
+        return isAddressValid;
     }
 
 

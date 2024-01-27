@@ -20,7 +20,8 @@ public class Courier {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COURIER_SEQ")
     @SequenceGenerator(sequenceName = "couriers_info", allocationSize = 1, name = "COURIER_SEQ")
-    private Long courier_id;
+    @Column(name = "courier_id")
+    private Long courierId;
 
     @Firstname
     @Column(name = "courier_first_name", nullable = false)
@@ -46,7 +47,7 @@ public class Courier {
     }
 
     public Courier(Long courier_id, @NotBlank(message = "Name must not be empty") @Size(min = 2, max = 15) String courier_first_name, @NotBlank(message = "Last name must not be empty") @Size(min = 2, max = 15) String courier_last_name, String courier_city_name, @NotBlank(message = "Phone must not be empty") @Size(min = 10, max = 10) @Pattern(regexp = "08[789]\\d{7}", message = "Phone does not match the template.") String phone, List<Packages> packagesList, User_account account) {
-        this.courier_id = courier_id;
+        this.courierId = courier_id;
         this.courier_first_name = courier_first_name;
         this.courier_last_name = courier_last_name;
         this.courier_city_name = courier_city_name;
@@ -56,12 +57,12 @@ public class Courier {
     }
 
 
-    public Long getCourier_id() {
-        return courier_id;
+    public Long getCourierId() {
+        return courierId;
     }
 
-    public void setCourier_id(Long courier_id) {
-        this.courier_id = courier_id;
+    public void setCourierId(Long courier_id) {
+        this.courierId = courier_id;
     }
 
 

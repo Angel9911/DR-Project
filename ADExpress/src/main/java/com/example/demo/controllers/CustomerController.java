@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.exceptions.global.ObjectNotValidException;
 import com.example.demo.models.dtos.CustomerDto;
+import com.example.demo.models.dtos.PackageDto;
 import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
@@ -152,7 +153,7 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/packages", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<List<Packages>> getCustomerPackages(@RequestParam(value = "username") String username) throws Exception {
+    public ResponseEntity<List<PackageDto>> getCustomerPackages(@RequestParam(value = "username") String username) throws Exception {
         try {
             System.out.println("Request received to the controller");
             CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("customer");
@@ -163,8 +164,18 @@ public class CustomerController {
                 System.out.println("Value = " + entry.getValue());
             }
             List<Packages> packagesList = customerService.getAllPackages(username);
-            return new ResponseEntity<>(packagesList, HttpStatus.OK);
+            System.out.println(packagesList.size());
+            TypeMap<Packages, PackageDto> typeMap = ObjectMapper.getTypeMapInstance(Packages.class,PackageDto.class);
+
+            typeMap.addMapping(Packages::getPackage_price, PackageDto::setPackagePrice);
+            typeMap.addMapping(Packages::getCustomer, PackageDto::setFromCustomer);
+            typeMap.addMapping(Packages::getReceiver, PackageDto::setToCustomer);
+            typeMap.addMapping(Packages::isReview_package, PackageDto::setPackageReview);
+
+            List<PackageDto> shipmentsDto = ObjectMapper.map(packagesList, typeMap);
+            return new ResponseEntity<>(shipmentsDto, HttpStatus.OK);
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

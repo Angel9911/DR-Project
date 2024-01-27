@@ -1,12 +1,9 @@
 package com.example.demo;
 
-import com.example.demo.private_lib.jobs.EmailCronJob;
-import com.example.demo.services.Impl.EmailServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -17,8 +14,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableJpaRepositories(basePackages = "com.example.demo.repositories",entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager")
 @EntityScan(basePackages = { "com.example.demo.models" })
-@ComponentScan(basePackages = {"com.example.demo.config", "com.example.demo.services.Impl", "com.example.demo.controllers", "com.example.demo.private_lib.jobs"})
-@ComponentScan(basePackages = {"com.example.demo.services", "com.example.demo.config.jobs"})
+@ComponentScan(basePackages = {"com.example.demo.config", "com.example.demo.services.Impl", "com.example.demo.controllers", "com.example.demo.private_lib.jobs", "com.example.demo.private_lib.payment.providers","com.example.demo.private_lib.chatbot.google", "com.example.demo.private_lib.async_tasks.address_verification"})
+@ComponentScan(basePackages = {"com.example.demo.services", "com.example.demo.config.jobs","com.example.demo.config.async"})
 //@ComponentScan(basePackages = "com.example.demo.repository")
 public class AdExpressApplication {
 

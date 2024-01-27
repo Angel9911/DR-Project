@@ -35,8 +35,8 @@ public class Customer {
 
     @Email
     @Column(name = "email")
-
     private String email;
+
     @Column(name = "address", nullable = false)
     @NotBlank(message = "Address must not be empty")
     @Size(min = 10, max = 50)

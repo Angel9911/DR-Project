@@ -4,11 +4,14 @@ import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
 import com.example.demo.models.views.CustomerView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.ValidationException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public interface CustomerService {

@@ -10,12 +10,12 @@ import java.util.List;
 public class StatusPackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long status_id;
+    private Long statusId;
     @Column(name="status_type",nullable = false)
     private String status_type;
 
-    public StatusPackage(Long status_id, String status_type) {
-        this.status_id = status_id;
+    public StatusPackage(Long statusId, String status_type) {
+        this.statusId = statusId;
         this.status_type = status_type;
 
     }
@@ -24,12 +24,12 @@ public class StatusPackage {
 
     }
 
-    public Long getStatus_id() {
-        return status_id;
+    public Long getStatusId() {
+        return statusId;
     }
 
-    public void setStatus_id(Long status_id) {
-        this.status_id = status_id;
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
     }
 
     public String getStatus_type() {

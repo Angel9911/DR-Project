@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.exceptions.global.ObjectNotFoundException;
 import com.example.demo.models.dtos.CourierDto;
 import com.example.demo.models.dtos.CustomerDto;
+import com.example.demo.models.dtos.PackageDto;
 import com.example.demo.models.entity.*;
 import com.example.demo.services.CourierService;
 import com.example.demo.services.CustomerService;
@@ -202,6 +203,10 @@ public class AdministratorController {
         } else {
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         }
+    }
+
+    private List<PackageDto> entitiesToDto(){
+        return null;
     }
 
 }

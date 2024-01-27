@@ -64,7 +64,7 @@ public class CustomerInvoiceGenerator extends InvoiceFormat {
     @Override
     protected void addTableData(PdfPTable pdfPTable, Packages packages) {
 
-        pdfPTable.addCell(packages.getName_package());
+        pdfPTable.addCell(packages.getPackageName());
         pdfPTable.addCell(String.valueOf(1));
         pdfPTable.addCell(String.valueOf(packages.getPackage_price()));
         pdfPTable.addCell(String.valueOf(packages.getTotal_cost()));

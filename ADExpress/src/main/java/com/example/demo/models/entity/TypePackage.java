@@ -8,13 +8,13 @@ import java.util.List;
 public class TypePackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long type_id;
+    private Long typeId;
     @Column(name="type_name",nullable = false)
     private String type_name;
 
 
     public TypePackage(Long type_id, String type_name) {
-        this.type_id = type_id;
+        this.typeId = type_id;
         this.type_name = type_name;
     }
 
@@ -22,12 +22,12 @@ public class TypePackage {
 
     }
 
-    public Long getType_id() {
-        return type_id;
+    public Long getTypeId() {
+        return typeId;
     }
 
-    public void setType_id(Long type_id) {
-        this.type_id = type_id;
+    public void setTypeId(Long type_id) {
+        this.typeId = type_id;
     }
 
     public String getType_name() {

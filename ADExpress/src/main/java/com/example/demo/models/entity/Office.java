@@ -11,15 +11,9 @@ public class Office {
     private Long office_id;
     @Column(name="office_location",nullable = false)
     private String office_location;
-    @ManyToOne(fetch = FetchType.LAZY)// for relationship cities -> offices (many to one)
-    @JoinColumn(name="city_id",referencedColumnName="city_id",insertable=false, updatable=false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})// for relationship cities -> offices (many to one)
+    @JoinColumn(name="city_id",referencedColumnName="city_id",insertable=true, updatable=true)
     private City city;
-    @OneToMany(mappedBy = "office", fetch = FetchType.LAZY,cascade = CascadeType.ALL) //for relationship office -> packages (one to many)
-   // @JoinColumn(name="office_id",referencedColumnName="office_id",insertable=false, updatable=false)
-    private List<Packages> packagesList;
-    @OneToMany(mappedBy = "office_administrator", fetch = FetchType.LAZY,cascade = CascadeType.ALL) //for relationship office -> packages (one to many)
-    // @JoinColumn(name="office_id",referencedColumnName="office_id",insertable=false, updatable=false)
-    private List<Administrator> administrators;
 
     public Office(Long office_id, String office_location, City city) {
         this.office_id = office_id;

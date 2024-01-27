@@ -15,7 +15,7 @@ public final class ObjectMapper {
     private static ModelMapper mapper;
     private static TypeMap typeMap;
 
-    private ObjectMapper(){
+    public ObjectMapper(){
 
     }
 
@@ -30,7 +30,16 @@ public final class ObjectMapper {
 
     public static<S,D> TypeMap<S,D> getTypeMapInstance(Class<S> source, Class<D> destination){
         if(mapper!=null){
-            typeMap = mapper.createTypeMap(source,destination);
+
+            TypeMap<S, D> checkIsExists = mapper.getTypeMap(source, destination);
+
+            if(checkIsExists != null){
+
+                typeMap = checkIsExists;
+            }else{
+
+                typeMap = mapper.createTypeMap(source,destination);
+            }
         }
         return typeMap;
     }
