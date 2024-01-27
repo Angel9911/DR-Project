@@ -227,13 +227,4 @@ public class CustomerServiceImpl implements CustomerService {
         return typedQuery.getSingleResult();
     } */
 
-    public void checkCacheIsWorking(){
-        CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("customer");
-        Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
-
-        for (Map.Entry<Object, Object> entry : nativeCache.asMap().entrySet()) {
-            System.out.println("Key = " + entry.getKey());
-            System.out.println("Value = " + entry.getValue());
-        }
-    }
 }

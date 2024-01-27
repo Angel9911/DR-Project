@@ -124,7 +124,6 @@ public class CourierServiceImpl extends User implements CourierService {
     @Override
     public List<Packages> getCourierPackages(String username) throws Exception {
         if (!username.isEmpty()) {
-           // List<Packages> getPackages = packageRepository.findCourierPackagesByUsername(username);
             List<Packages> getPackages2 = this.buildWhereClause(username,4);
             return PackageHandler.getPackageList(getPackages2);
         } else {

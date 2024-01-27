@@ -1,8 +1,10 @@
 package com.example.demo.controllers;
 
+import com.example.demo.constants.CacheConstraints;
 import com.example.demo.models.entity.Courier;
 import com.example.demo.models.entity.PackageProblem;
 import com.example.demo.models.entity.Packages;
+import com.example.demo.private_lib.cache_checking.CacheChecker;
 import com.example.demo.services.Impl.CourierServiceImpl;
 import com.example.demo.utils.ObjectMapper;
 import org.modelmapper.ModelMapper;
@@ -25,11 +27,13 @@ public class CourierController {
 
     private final CourierServiceImpl courierServiceImpl;
     private final ModelMapper mapper;
+    private final CacheChecker cacheChecker;
 
     @Autowired
-    public CourierController(CourierServiceImpl courierServiceImpl) {
+    public CourierController(CourierServiceImpl courierServiceImpl, CacheChecker cacheChecker) {
         this.courierServiceImpl = courierServiceImpl;
         this.mapper = ObjectMapper.getMapperInstance();
+        this.cacheChecker = cacheChecker;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -82,6 +86,7 @@ public class CourierController {
                 , Authentication authentication) throws Exception {
         try {
             List<Packages> packagesList = courierServiceImpl.getCourierPackages("username");// TODO : replace this with courier id
+            System.out.println(this.cacheChecker.getFromCache(CacheConstraints.COURIER_CACHE_NAME));
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -92,6 +97,7 @@ public class CourierController {
     public ResponseEntity<List<PackageProblem>> getCourierProblemPackages(@RequestParam(value = "username") String username) throws Exception {
         try {
             List<PackageProblem> packagesList = courierServiceImpl.getCourierProblemPackages(username);
+            System.out.println(this.cacheChecker.getFromCache(CacheConstraints.COURIER_CACHE_NAME));
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -102,6 +108,7 @@ public class CourierController {
     public ResponseEntity<List<Packages>> getDeliveredPackages(@RequestParam(value = "username") String username) {
         try {
             List<Packages> packagesList = courierServiceImpl.getDeliveredPackages(username);
+            System.out.println(this.cacheChecker.getFromCache(CacheConstraints.COURIER_CACHE_NAME));
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

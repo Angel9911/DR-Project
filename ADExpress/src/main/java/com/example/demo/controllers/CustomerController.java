@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.constants.CacheConstraints;
 import com.example.demo.exceptions.global.ObjectNotValidException;
 import com.example.demo.models.dtos.CustomerDto;
 import com.example.demo.models.dtos.PackageDto;
@@ -7,16 +8,13 @@ import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
 import com.example.demo.models.views.CustomerView;
+import com.example.demo.private_lib.cache_checking.CacheChecker;
 import com.example.demo.services.CustomerService;
-import com.example.demo.services.UserAccountService;
 import com.example.demo.utils.ObjectMapper;
-import com.github.benmanes.caffeine.cache.Cache;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +26,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,18 +38,16 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    //private final UserAccountService userAccountService;
-
     private final ModelMapper modelMapper;
 
-    @Autowired
-    private CacheManager cacheManager;
+    private final CacheChecker cacheChecker;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, CacheChecker cacheChecker) {
         this.customerService = customerService;
         this.modelMapper = ObjectMapper.getMapperInstance();
         this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        this.cacheChecker = cacheChecker;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
@@ -156,15 +150,11 @@ public class CustomerController {
     public ResponseEntity<List<PackageDto>> getCustomerPackages(@RequestParam(value = "username") String username) throws Exception {
         try {
             System.out.println("Request received to the controller");
-            CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("customer");
-            Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
 
-            for (Map.Entry<Object, Object> entry : nativeCache.asMap().entrySet()) {
-                System.out.println("Key = " + entry.getKey());
-                System.out.println("Value = " + entry.getValue());
-            }
+            System.out.println(this.cacheChecker.getFromCache(CacheConstraints.CUSTOMER_CACHE_NAME));
+
             List<Packages> packagesList = customerService.getAllPackages(username);
-            System.out.println(packagesList.size());
+
             TypeMap<Packages, PackageDto> typeMap = ObjectMapper.getTypeMapInstance(Packages.class,PackageDto.class);
 
             typeMap.addMapping(Packages::getPackage_price, PackageDto::setPackagePrice);

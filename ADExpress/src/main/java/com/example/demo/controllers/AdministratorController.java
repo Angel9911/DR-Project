@@ -1,10 +1,11 @@
 package com.example.demo.controllers;
 
+import com.example.demo.constants.CacheConstraints;
 import com.example.demo.exceptions.global.ObjectNotFoundException;
 import com.example.demo.models.dtos.CourierDto;
 import com.example.demo.models.dtos.CustomerDto;
-import com.example.demo.models.dtos.PackageDto;
 import com.example.demo.models.entity.*;
+import com.example.demo.private_lib.cache_checking.CacheChecker;
 import com.example.demo.services.CourierService;
 import com.example.demo.services.CustomerService;
 import com.example.demo.services.Impl.AdministratorServiceImpl;
@@ -17,12 +18,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +44,13 @@ public class AdministratorController {
 
     private Administrator result;
 
-    public AdministratorController(CustomerService customerService, CourierService courierServiceImpl) {
+    private final CacheChecker cacheChecker;
+
+    public AdministratorController(CustomerService customerService, CourierService courierServiceImpl, CacheChecker cacheChecker) {
         this.customerService = customerService;
         this.courierService = courierServiceImpl;
         this.mapper = ObjectMapper.getMapperInstance();
+        this.cacheChecker = cacheChecker;
     }
 
     // @PreAuthorize("hasRole('administrator')")
@@ -159,6 +161,7 @@ public class AdministratorController {
     @GetMapping(value = "/types")
     public ResponseEntity<?> getAllTypes() {
         List<TypePackage> typePackageList = administratorService.getAllPackagesTypes();
+        System.out.println(this.cacheChecker.getFromCache(CacheConstraints.ADMINISTRATOR_CACHE_NAME));
         if (typePackageList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -190,14 +193,8 @@ public class AdministratorController {
 
     @GetMapping(value = "/packages")
     public ResponseEntity<List<Packages>> getAllPackages() throws Exception {
-       /* CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache("administrator");
-        Cache<Object, Object> nativeCache = caffeineCache.getNativeCache();
-
-        for (Map.Entry<Object, Object> entry : nativeCache.asMap().entrySet()) {
-            System.out.println("Key = " + entry.getKey());
-            System.out.println("Value = " + entry.getValue());
-        } */
         List<Packages> packagesList = administratorService.getAllPackages();
+        System.out.println(this.cacheChecker.getFromCache(CacheConstraints.ADMINISTRATOR_CACHE_NAME));
         if (packagesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
@@ -205,8 +202,5 @@ public class AdministratorController {
         }
     }
 
-    private List<PackageDto> entitiesToDto(){
-        return null;
-    }
 
 }
