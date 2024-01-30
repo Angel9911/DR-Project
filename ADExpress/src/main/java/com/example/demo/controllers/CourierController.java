@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.constants.CacheConstraints;
+import com.example.demo.models.comparators.PackageDateComparator;
 import com.example.demo.models.entity.Courier;
 import com.example.demo.models.entity.PackageProblem;
 import com.example.demo.models.entity.Packages;
@@ -86,6 +87,11 @@ public class CourierController {
                 , Authentication authentication) throws Exception {
         try {
             List<Packages> packagesList = courierServiceImpl.getCourierPackages("username");// TODO : replace this with courier id
+
+            PackageDateComparator dateComparator = new PackageDateComparator();
+
+            packagesList.sort(dateComparator);
+
             System.out.println(this.cacheChecker.getFromCache(CacheConstraints.COURIER_CACHE_NAME));
             return new ResponseEntity<>(packagesList, HttpStatus.OK);
         } catch (Exception e) {

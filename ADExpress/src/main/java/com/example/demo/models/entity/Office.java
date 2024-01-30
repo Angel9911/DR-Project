@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "offices")
-public class Office {
+public class Office implements Comparable<Office>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long office_id;
@@ -53,4 +53,10 @@ public class Office {
     }
 
 
+    @Override
+    public int compareTo(Office o) {
+        int compareIds = this.getOffice_id().compareTo(o.getOffice_id());
+
+        return compareIds;
+    }
 }

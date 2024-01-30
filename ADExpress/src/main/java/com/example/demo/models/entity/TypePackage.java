@@ -5,7 +5,7 @@ import java.util.List;
 
 @Entity
 @Table(name="type_package")
-public class TypePackage {
+public class TypePackage implements Comparable<TypePackage>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long typeId;
@@ -36,5 +36,12 @@ public class TypePackage {
 
     public void setType_name(String type_name) {
         this.type_name = type_name;
+    }
+
+    @Override
+    public int compareTo(TypePackage o) {
+        int compareIds = this.getTypeId().compareTo(o.getTypeId());
+
+        return compareIds;
     }
 }

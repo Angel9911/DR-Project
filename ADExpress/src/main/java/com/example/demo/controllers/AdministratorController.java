@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.constants.CacheConstraints;
 import com.example.demo.exceptions.global.ObjectNotFoundException;
+import com.example.demo.models.comparators.PackageIDNumberComparator;
 import com.example.demo.models.dtos.CourierDto;
 import com.example.demo.models.dtos.CustomerDto;
 import com.example.demo.models.entity.*;
@@ -24,6 +25,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,8 +72,9 @@ public class AdministratorController {
         try {
             List<Customer> customerList = new ArrayList<>(customerService.getAllCustomers());
 
+            Collections.sort(customerList);
+
             List<CustomerDto> customers = ObjectMapper.map(customerList,CustomerDto.class);
-            // to do filter by phone
 
             return new ResponseEntity<>(customers, HttpStatus.OK);
         } catch (Exception e) {
@@ -85,6 +88,8 @@ public class AdministratorController {
         try {
 
             List<Courier> courierList = new ArrayList<>(courierService.getAllCouriers());
+
+            Collections.sort(courierList);
 
             TypeMap<Courier,CourierDto> typeMap = ObjectMapper.getTypeMapInstance(Courier.class,CourierDto.class);
 
@@ -194,6 +199,10 @@ public class AdministratorController {
     @GetMapping(value = "/packages")
     public ResponseEntity<List<Packages>> getAllPackages() throws Exception {
         List<Packages> packagesList = administratorService.getAllPackages();
+
+        PackageIDNumberComparator idNumberComparator = new PackageIDNumberComparator();
+        packagesList.sort(idNumberComparator);
+
         System.out.println(this.cacheChecker.getFromCache(CacheConstraints.ADMINISTRATOR_CACHE_NAME));
         if (packagesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

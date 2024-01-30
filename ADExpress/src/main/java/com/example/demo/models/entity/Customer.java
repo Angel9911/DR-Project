@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users_info")
-public class Customer {
+public class Customer implements Comparable<Customer>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CUST_SEQ")
     @SequenceGenerator(sequenceName = "users_info_id", allocationSize = 1, name = "CUST_SEQ")
@@ -146,5 +146,22 @@ public class Customer {
 
     public void setPackagesList(List<Packages> packagesList) {
         this.packagesList = packagesList;
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        int compareIds = this.getUserId().compareTo(o.getUserId());
+
+        if(compareIds == 0){
+            int compareNames = this.getName().compareTo(o.getName());
+
+            if(compareNames == 0){
+
+                return this.getLastName().compareTo(o.getLastName());
+            }
+            return compareNames;
+        }
+
+        return compareIds;
     }
 }

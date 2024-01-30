@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 @Entity
 @Table(name = "couriers")
-public class Courier {
+public class Courier implements Comparable<Courier>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COURIER_SEQ")
     @SequenceGenerator(sequenceName = "couriers_info", allocationSize = 1, name = "COURIER_SEQ")
@@ -114,4 +114,20 @@ public class Courier {
         this.courier_city_name = courier_city_name;
     }
 
+    @Override
+    public int compareTo(Courier o) {
+        int compareIds = this.getCourierId().compareTo(o.getCourierId());
+
+        if(compareIds == 0){
+            int compareNames = this.getCourier_first_name().compareTo(o.getCourier_first_name());
+
+            if(compareNames == 0){
+
+                return this.getCourier_last_name().compareTo(o.getCourier_last_name());
+            }
+            return compareNames;
+        }
+
+        return compareIds;
+    }
 }

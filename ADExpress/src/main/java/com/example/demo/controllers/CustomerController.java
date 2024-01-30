@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.constants.CacheConstraints;
 import com.example.demo.exceptions.global.ObjectNotValidException;
+import com.example.demo.models.comparators.PackagePriceComparator;
 import com.example.demo.models.dtos.CustomerDto;
 import com.example.demo.models.dtos.PackageDto;
 import com.example.demo.models.entity.City;
@@ -154,6 +155,10 @@ public class CustomerController {
             System.out.println(this.cacheChecker.getFromCache(CacheConstraints.CUSTOMER_CACHE_NAME));
 
             List<Packages> packagesList = customerService.getAllPackages(username);
+
+            PackagePriceComparator priceComparator = new PackagePriceComparator();
+
+            packagesList.sort(priceComparator);
 
             TypeMap<Packages, PackageDto> typeMap = ObjectMapper.getTypeMapInstance(Packages.class,PackageDto.class);
 
