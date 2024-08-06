@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         transactionManagerRef = "transactionManager")
 @EntityScan(basePackages = { "com.example.demo.models" })
 @ComponentScan(basePackages = {"com.example.demo.config", "com.example.demo.services.Impl", "com.example.demo.controllers", "com.example.demo.private_lib.jobs", "com.example.demo.private_lib.payment.providers","com.example.demo.private_lib.chatbot.google", "com.example.demo.private_lib.cache_checking","com.example.demo.private_lib.async_tasks.verification_address"})
-@ComponentScan(basePackages = {"com.example.demo.services", "com.example.demo.config.jobs","com.example.demo.config.async"})
+@ComponentScan(basePackages = {"com.example.demo.services", "com.example.demo.config.jobs","com.example.demo.config.async","com.example.demo.config.cache_config"})
 //@ComponentScan(basePackages = "com.example.demo.repository")
 public class AdExpressApplication {
 

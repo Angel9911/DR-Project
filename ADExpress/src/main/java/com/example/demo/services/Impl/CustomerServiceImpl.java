@@ -39,11 +39,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final  PackageRepository packageRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    private CacheManager cacheManager;
-
     private final SmartyStreetVerification verificationAddress;
 
     public CustomerServiceImpl(CustomerRepository customerRepository, CityRepository cityRepository, PackageRepository packageRepository, SmartyStreetVerification verificationAddress){
@@ -138,13 +133,11 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Cacheable(key="#username")
+    @Cacheable
     @Transactional
     @Override
     public List<Packages> getAllPackages(String username) throws Exception {
-
-        System.out.println("Getting All the users from DB! | Not Cached");
-
+        System.out.println("not cache|extract record from db");
         if (!username.isEmpty()) {
 
             List<Packages> getPackages = packageRepository.findPackagesByUser_accountUsername(username);

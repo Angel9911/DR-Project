@@ -21,20 +21,19 @@ import java.util.List;
 @Component
 public class PayPalPaymentModel extends AbstractPaymentModel<RedirectUrls, Transaction, Payer> {
 
-    public final String success_url = "/customers/home";
-    public final String cancel_url = "";
     private static final String paymentMethod = "paypal";
     private static final String currencyType = "USD";
     private static final String intent = "sale";
     private final APIContext apiContext;
+    private final RedirectUrls redirectUrls;
     @Autowired
     private CustomerServiceImpl customerService;
 
-    public PayPalPaymentModel(@Value("${adexpress.paypal.clientId}") String clientId, @Value("${adexpress.paypal.clientSecret}") String secretId, @Value("${adexpress.paypal.mode}") String environmentMode) {
+    @Autowired
+    public PayPalPaymentModel(APIContext apiContext, RedirectUrls redirectUrls) {
 
-        // works like conduit between paypal and our application and used for authentication.
-
-        this.apiContext = new APIContext(clientId,secretId,environmentMode);
+        this.apiContext = apiContext;
+        this.redirectUrls = redirectUrls;
     }
 
     @Override
@@ -73,13 +72,7 @@ public class PayPalPaymentModel extends AbstractPaymentModel<RedirectUrls, Trans
      */
     @Override
     protected RedirectUrls getRedirectsUrl() {
-        String baseUrl = "http://localhost:4200";
-
-        RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl(baseUrl+cancel_url);
-        redirectUrls.setReturnUrl(baseUrl+success_url);
-
-        return redirectUrls;
+        return this.redirectUrls;
     }
 
     /**

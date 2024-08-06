@@ -8,6 +8,7 @@ import com.example.demo.private_lib.GoogleAuthentication;
 import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.services.GoogleOAuthUserService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,10 @@ public class GoogleOAuthUserServiceImpl implements GoogleOAuthUserService {
 
     private final GoogleAuthentication googleAuthentication;
 
-    public GoogleOAuthUserServiceImpl(CustomerRepository customerRepository, JwtTokenUtil jwtTokenUtil){
+    @Autowired
+    public GoogleOAuthUserServiceImpl(GoogleAuthentication googleAuthentication){
 
-        this.googleAuthentication = new GoogleAuthentication(clientId,customerRepository,jwtTokenUtil);
+        this.googleAuthentication = googleAuthentication;
     }
     @Override
     public GoogleAuthResponse verifyToken(GoogleAuthRequest token) throws GeneralSecurityException, IOException {

@@ -28,6 +28,7 @@ public class CacheCheckerImpl implements CacheChecker{
         CaffeineCache caffeineCache = (CaffeineCache)cacheManager .getCache(cacheName);
 
         Cache<Object,Object> nativeCache;
+        System.out.println(caffeineCache);
 
         if(caffeineCache != null){
 

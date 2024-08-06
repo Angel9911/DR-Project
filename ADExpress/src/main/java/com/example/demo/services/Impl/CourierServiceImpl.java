@@ -123,6 +123,7 @@ public class CourierServiceImpl extends User implements CourierService {
     @Transactional
     @Override
     public List<Packages> getCourierPackages(String username) throws Exception {
+        System.out.println("not cache|extract record from db");
         if (!username.isEmpty()) {
             List<Packages> getPackages2 = this.buildWhereClause(username,4);
             return PackageHandler.getPackageList(getPackages2);

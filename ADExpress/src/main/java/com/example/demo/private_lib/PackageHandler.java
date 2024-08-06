@@ -1,6 +1,7 @@
 package com.example.demo.private_lib;
 
 import com.example.demo.models.entity.*;
+import org.checkerframework.checker.units.qual.C;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,12 +17,15 @@ public class PackageHandler {
     private PackageHandler() {
         resultPackages = new ArrayList<>();
     }
+
+    public static List<Packages> getSortedShipments(Comparator<Packages> comparator, List<Packages> shipments){
+        shipments.sort(comparator);
+
+        return shipments;
+    }
+
     public static List<PackageProblem> getCourierProblemPackages(List<PackageProblem> getPackages)throws Exception {
-       /* if (getPackages instanceof PackageProblem) {
-            List<PackageProblem> listPackageProblem = getPackages.stream()
-                    .filter(element -> element instanceof PackageProblem)
-                    .map(element -> (PackageProblem) element)
-                    .collect(Collectors.toList());*/
+
         packageProblemList = new ArrayList<>();
         for (PackageProblem packageProblem : getPackages) {
             PackageProblem getPackageProblem = new PackageProblem();
@@ -38,8 +42,22 @@ public class PackageHandler {
 
             packageProblemList.add(getPackageProblem);
         }
-    //}
+
         return packageProblemList;
+    }
+
+    public static List<Packages> getPackageList(List<Packages> getPackages){
+        resultPackages = new ArrayList<>();
+        for (Packages packages : getPackages) {
+
+            Packages getPackage = getShipmentInformation(packages);
+
+            Customer customer = getCustomer(packages);
+            getPackage.setCustomer(customer); //  moje bi trqbva da se promeni na receiver
+
+            resultPackages.add(getPackage);
+        }
+        return resultPackages;
     }
 
     private static Packages getShipmentInformation(Packages shipment) {
@@ -84,20 +102,6 @@ public class PackageHandler {
         shipment.setTypePackage(typePackage);
 
         return shipmentData;
-    }
-
-    public static List<Packages> getPackageList(List<Packages> getPackages){
-        resultPackages = new ArrayList<>();
-        for (Packages packages : getPackages) {
-
-            Packages getPackage = getShipmentInformation(packages);
-
-            Customer customer = getCustomer(packages);
-            getPackage.setCustomer(customer); //  moje bi trqbva da se promeni na receiver
-
-            resultPackages.add(getPackage);
-        }
-        return resultPackages;
     }
 
     private static StatusPackage getStatusPackage(Packages shipment) {

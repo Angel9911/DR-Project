@@ -213,9 +213,7 @@ public class AdministratorServiceImpl extends User implements AdministratorServi
 
     @Override
     public Object Update(Object object) {
-       /* if(object instanceof Customer){
 
-        } */
         if(object instanceof Courier){
             return courierService.Update(object);
         }

@@ -17,10 +17,10 @@ public class Packages {
     private Long packageId;
     @Column(name="name_package",nullable = false)
     private String packageName;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // for relationship package -> package_status (many to one)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}) // for relationship package -> package_status (many to one)
     @JoinColumn(name="status_id",referencedColumnName="statusId", insertable=true, updatable=true)
     private StatusPackage statusPackage;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL) // for relationship package -> type_package (many to one)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}) // for relationship package -> type_package (many to one)
     @JoinColumn(name="type_package_id",referencedColumnName="typeId", insertable=true, updatable=true)
     private TypePackage typePackage;
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}) // for relationship package -> offices (many to one)

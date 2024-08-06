@@ -5,6 +5,7 @@ import com.example.demo.private_lib.EmailMessage;
 import com.example.demo.services.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -26,31 +27,13 @@ import java.util.Properties;
 public class EmailServiceImpl implements EmailService {
     private static final Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
     private final ApplicationEventPublisher eventPublisher;
-    protected Session session;
-   // @Value("${spring.mail.username}")
-   // private String sender;
+    private final Session session;
 
-    //@Autowired
-    //private final JavaMailSender emailSender;
-
-    public EmailServiceImpl(ApplicationEventPublisher eventPublisher) {
+    @Autowired
+    public EmailServiceImpl(ApplicationEventPublisher eventPublisher, Session session) {
         this.eventPublisher = eventPublisher;
-        final String username = "angelkrasimirov99@gmail.com";
-        final String password = "vcpjqktuwpzmbipe";
 
-        Properties prop = new Properties();
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
-        prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true"); //TLS
-
-        session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
-                    }
-                });
+        this.session = session;
     }
 
     @Override

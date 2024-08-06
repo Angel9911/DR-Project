@@ -5,7 +5,9 @@ import com.example.demo.exceptions.global.ObjectNotFoundException;
 import com.example.demo.models.comparators.PackageIDNumberComparator;
 import com.example.demo.models.dtos.CourierDto;
 import com.example.demo.models.dtos.CustomerDto;
+import com.example.demo.models.dtos.PackageDto;
 import com.example.demo.models.entity.*;
+import com.example.demo.private_lib.ErrorHandler;
 import com.example.demo.private_lib.cache_checking.CacheChecker;
 import com.example.demo.services.CourierService;
 import com.example.demo.services.CustomerService;
@@ -19,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -35,8 +38,6 @@ import java.util.Optional;
 public class AdministratorController {
     @Autowired
     private AdministratorServiceImpl administratorService;
-    @Autowired
-    private CacheManager cacheManager;
 
     private final CustomerService customerService;
 
@@ -66,7 +67,7 @@ public class AdministratorController {
         }
     }
 
-    @GetMapping(value = "/customers/{id}", produces = "application/json") //check
+    @GetMapping(value = "/customers/{id}", produces = "application/json")
     @PreAuthorize("@administratorServiceImpl.isOwner(authentication.principal.username, #adminId)")
     public ResponseEntity<List<CustomerDto>> getCustomers(@PathVariable("id") Long adminId, Authentication authentication) throws Exception {
         try {
@@ -82,7 +83,7 @@ public class AdministratorController {
         }
     }
 
-    @GetMapping(value = "/couriers/{id}", produces = "application/json")//check
+    @GetMapping(value = "/couriers/{id}", produces = "application/json")
     @PreAuthorize("@administratorServiceImpl.isOwner(authentication.principal.username, #adminId)")
     public ResponseEntity<List<CourierDto>> getCouriers(@PathVariable("id") Long adminId, Authentication authentication) {
         try {
@@ -105,10 +106,13 @@ public class AdministratorController {
         }
     }
 
-    // DO TUK E KACHENO V DOKUMENTACIQTA
     @RequestMapping(value = "/courier/create", method = RequestMethod.POST, produces = "application/json")
-    // bi trqbvalo da bachka
-    public ResponseEntity<CourierDto> insertCourier(@RequestBody @Valid CourierDto courierDto) throws ValidationException {
+    public ResponseEntity<?> insertCourier(@RequestBody @Valid CourierDto courierDto, BindingResult bindingResult) throws ValidationException {
+
+        if(bindingResult.hasErrors()){
+
+            return new ResponseEntity<>(ErrorHandler.getErrorMessages(bindingResult), HttpStatus.BAD_REQUEST);
+        }
 
         Courier courier = ObjectMapper.map(courierDto,Courier.class);
 
@@ -117,8 +121,12 @@ public class AdministratorController {
     }
 
     @RequestMapping(value = "/customer/create", method = RequestMethod.POST, produces = "application/json")
-    // bi trqbvalo da bachka
-    public ResponseEntity<CustomerDto> insertCustomer(@RequestBody CustomerDto customerDto) throws ValidationException {
+    public ResponseEntity<?> insertCustomer(@RequestBody @Valid CustomerDto customerDto, BindingResult bindingResult) throws ValidationException {
+
+        if(bindingResult.hasErrors()){
+
+            return new ResponseEntity<>(ErrorHandler.getErrorMessages(bindingResult), HttpStatus.BAD_REQUEST);
+        }
 
         Customer customer = ObjectMapper.map(customerDto,Customer.class);
 
@@ -127,18 +135,18 @@ public class AdministratorController {
     }
 
     @RequestMapping(value = "/courier/update", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<Courier> updateCustomer(@RequestBody Courier courier) {
-        if (courier.getCourierId() != null) {
-            try {
-                Courier result = administratorService.updateCourier(courier);
-                return new ResponseEntity<>(result, HttpStatus.OK);
-            } catch (EntityNotFoundException e) {
-                return new ResponseEntity<Courier>(HttpStatus.NOT_FOUND);
-            }
-        } else {
-            throw new ObjectNotFoundException("courier "+courier);
-           // return new ResponseEntity<Courier>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<?> updateCourier(@RequestBody @Valid CourierDto courierDto, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()){
+
+            return new ResponseEntity<>(ErrorHandler.getErrorMessages(bindingResult), HttpStatus.BAD_REQUEST);
         }
+        Courier courier = ObjectMapper.map(courierDto,Courier.class);
+
+        Courier updatedCourier = administratorService.updateCourier(courier);
+
+        return new ResponseEntity<>(updatedCourier,HttpStatus.OK);
+
     }
 
     @DeleteMapping(value = "/customers/delete/{user_id}")
@@ -191,23 +199,42 @@ public class AdministratorController {
     }
 
     @PostMapping(value = "/package/create", produces = "application/json")
-    public ResponseEntity<Packages> registerPackage(@RequestBody Packages packages) {
+    public ResponseEntity<PackageDto> registerPackage(@RequestBody Packages packages) {
+
         Packages result = administratorService.registerPackage(packages);
-        return new ResponseEntity<>(result, HttpStatus.OK);
+
+        TypeMap<Packages,PackageDto> typeMap = ObjectMapper.getTypeMapInstance(Packages.class,PackageDto.class);
+
+        typeMap.addMapping(Packages::getPackage_price, PackageDto::setPackagePrice);
+        typeMap.addMapping(Packages::getCustomer, PackageDto::setFromCustomer);
+        typeMap.addMapping(Packages::getReceiver, PackageDto::setToCustomer);
+        typeMap.addMapping(Packages::isReview_package, PackageDto::setPackageReview);
+
+        PackageDto insertedPackage = typeMap.map(result);
+
+        return new ResponseEntity<>(insertedPackage, HttpStatus.OK);
     }
 
     @GetMapping(value = "/packages")
-    public ResponseEntity<List<Packages>> getAllPackages() throws Exception {
+    public ResponseEntity<List<PackageDto>> getAllPackages() throws Exception {
         List<Packages> packagesList = administratorService.getAllPackages();
 
         PackageIDNumberComparator idNumberComparator = new PackageIDNumberComparator();
         packagesList.sort(idNumberComparator);
 
-        System.out.println(this.cacheChecker.getFromCache(CacheConstraints.ADMINISTRATOR_CACHE_NAME));
+        TypeMap<Packages, PackageDto> typeMap = ObjectMapper.getTypeMapInstance(Packages.class,PackageDto.class);
+
+        typeMap.addMapping(Packages::getPackage_price, PackageDto::setPackagePrice);
+        typeMap.addMapping(Packages::getCustomer, PackageDto::setFromCustomer);
+        typeMap.addMapping(Packages::getReceiver, PackageDto::setToCustomer);
+        typeMap.addMapping(Packages::isReview_package, PackageDto::setPackageReview);
+
+        List<PackageDto> shipmentsDto = ObjectMapper.map(packagesList, typeMap);
+
         if (packagesList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(packagesList, HttpStatus.OK);
+            return new ResponseEntity<>(shipmentsDto, HttpStatus.OK);
         }
     }
 

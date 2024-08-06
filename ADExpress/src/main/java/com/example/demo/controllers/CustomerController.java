@@ -9,6 +9,7 @@ import com.example.demo.models.entity.City;
 import com.example.demo.models.entity.Customer;
 import com.example.demo.models.entity.Packages;
 import com.example.demo.models.views.CustomerView;
+import com.example.demo.private_lib.ErrorHandler;
 import com.example.demo.private_lib.cache_checking.CacheChecker;
 import com.example.demo.services.CustomerService;
 import com.example.demo.utils.ObjectMapper;
@@ -16,7 +17,6 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,7 +30,6 @@ import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -85,13 +84,8 @@ public class CustomerController {
     public ResponseEntity<?> updateCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult) {
         // to do - implement validation using bindingresult
         if(bindingResult.hasErrors()){
-            List<String> getAllErrorMessages = bindingResult.getAllErrors()
-                    .stream()
-                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                    .collect(Collectors.toList());
 
-            return new ResponseEntity<>(getAllErrorMessages,HttpStatus.BAD_REQUEST);
-            // to do
+            return new ResponseEntity<>(ErrorHandler.getErrorMessages(bindingResult),HttpStatus.BAD_REQUEST);
         }
         TypeMap<CustomerDto,Customer> typeMap = ObjectMapper.getTypeMapInstance(CustomerDto.class,Customer.class);
 
@@ -136,7 +130,7 @@ public class CustomerController {
         for (City city : listCities) {
             cityNames.add(city.getCity_name());
         }
-        //exampleRepository.findAll();
+
         return new ResponseEntity<>(cityNames, HttpStatus.OK);
     }
 
@@ -150,9 +144,6 @@ public class CustomerController {
     @RequestMapping(value = "/packages", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<List<PackageDto>> getCustomerPackages(@RequestParam(value = "username") String username) throws Exception {
         try {
-            System.out.println("Request received to the controller");
-
-            System.out.println(this.cacheChecker.getFromCache(CacheConstraints.CUSTOMER_CACHE_NAME));
 
             List<Packages> packagesList = customerService.getAllPackages(username);
 

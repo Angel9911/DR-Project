@@ -86,7 +86,7 @@ public class CourierController {
     public ResponseEntity<List<Packages>> getCourierPackages(@RequestParam(value = "id") Long id
                 , Authentication authentication) throws Exception {
         try {
-            List<Packages> packagesList = courierServiceImpl.getCourierPackages("username");// TODO : replace this with courier id
+            List<Packages> packagesList = courierServiceImpl.getCourierPackages("test-courier2");// TODO : replace this with courier id
 
             PackageDateComparator dateComparator = new PackageDateComparator();
 
